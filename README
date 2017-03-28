@@ -1,0 +1,11 @@
+This is a project for Web programming class for team one.
+
+After you imported this file in eclipse change this project to java facets project 
+
+Steps:
+
+1. Right click on the project, then click Properties from pop-up menu 
+2. Click on Project Facets then click on the link which says 'Convert to faceted from..'
+3. Select on Java, Dynamic Web Module (choose version 3 if it's not ) and from runtimes tab on the right choose Apache Tomcat V7.0 or whatever version set on your eclipse
+    or choose WildFly 10.x runtime.
+4. click apply and then ok. Then your project is ready for coding/deployment to the chose of your server in your machine
