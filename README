@@ -9,3 +9,5 @@ Steps:
 3. Select on Java, Dynamic Web Module (choose version 3 if it's not ) and from runtimes tab on the right choose Apache Tomcat V7.0 or whatever version set on your eclipse
     or choose WildFly 10.x runtime.
 4. click apply and then ok. Then your project is ready for coding/deployment to the chose of your server in your machine
+
+Please don't commit your .project file. We have to follow the above step when ever we check out the project for the first time. 
