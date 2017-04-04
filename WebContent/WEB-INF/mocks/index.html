@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Team One Food Ordering Receipt</title>
+</head>
+<body>
+<h1>Checkout Complete - Thank You</h1>
+<ul id="checkoutsteps">
+  <li>Shopping Cart</li>
+  <li>Shipping Address</li>
+  <li>Billing &amp; Payment</li>
+  <li>Confirmation</li>
+  <li class="last currentstep">Receipt</li>
+</ul>
+<p>Thank you for your order. You will receive an e-mail confirmation shortly and will be contacted again when your order has shipped. Please print this page for your records.</p>
+<h2>Products</h2>
+<table cellspacing="0" id="cartTbl">
+  <thead>
+    <tr class="headings">
+      <th class="product">Item</th>
+      <th class="price">Price</th>
+      <th class="quantity">Quantity</th>
+      <th class="price">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+<!--    {loop items="#receipt.cart.products" value="product"}-->
+      <tr>
+      <td class="product">
+<!--        <div class="product-img"><a href="{#product.url}">{#product.primaryImages.thumb.tag}</a></div>-->
+           <span class="product-img"><a href="/Users/kalkidan/git/team1foodorderapp/WebContent/images">soup</a></span>
+<!--
+        <div class="product-name"><a href="{#product.url}">{#product.productName}</a>
+        {loop items="#product.options" value="option"}
+          <br />{#option.label}: {#option.value}
+        {/loop}
+-->
+<!--          <span class="product-name"><a href="/Users/kalkidan/git/team1foodorderapp/WebContent/images">Soup</a></span>-->
+      </td>
+<!--      <td class="price">{#product.currentPrice.value}{if #product.pricePerUnit exists && #product.pricePerUnit != "None"} / {#product.pricePerUnit}{/if}</td>-->
+          <td class="price">$7.55</td>
+<!--      <td class="quantity">{#product.quantityTotal.withFraction}</td>-->
+          <td class="quantity">1</td>
+<!--      <td class="price">{#product.totalPrice.value}</td>-->
+          <td class="price">$7.55</td>
+    </tr>
+<!--    {/loop} -->
+  <tr class="totals">
+    <td>&nbsp;</td>
+    <td class="quantity-span" colspan="2">Subtotal</td>
+<!--    <td class="price">{#receipt.cart.subtotalBeforeDiscounts}</td>-->
+      <td class="price">$7.55</td>
+  </tr> 
+<!--
+  {if #receipt.cart.coupons}
+    {loop items="#receipt.cart.coupons" value="coupon"}
+      <tr class="totals">
+        <td>&nbsp;</td>
+        <td class="quantity-span" colspan="2">{#coupon.name}<br />({#coupon.code})</td>
+        <td class="price">-{#coupon.savingsValue}</td>
+      </tr>
+    {/loop}
+    <tr class="totals">
+      <td>&nbsp;</td>
+      <td class="quantity-span" colspan="2">Subtotal</td>
+      <td class="price">{#receipt.cart.subtotal}</td>
+    </tr> 
+  {/if} 
+-->
+  <tr class="totals">
+    <td>&nbsp;</td>
+    <td class="quantity-span" colspan="2">Delivery service</td>
+<!--    <td class="price">{#receipt.cart.shipping.total}</td>-->
+      <td class="price">$1.45</td>
+    </tr> 
+    <tr class="totals">
+      <td>&nbsp;</td>
+      <td class="quantity-span" colspan="2">Sales Tax</td>
+<!--      <td class="price">{#receipt.cart.taxes.total}</td>-->
+        <td class="price">$1.00</td>
+    </tr> 
+    <tr class="totals">
+      <td>&nbsp;</td>
+      <td class="quantity-span" colspan="2">Total</td>
+<!--      <td class="price">{#receipt.cart.total}</td>-->
+        <td class="price">$10</td>
+    </tr> 
+  </tbody>
+</table>
+<h2>Shipping Address</h2>
+<p>
+<!--
+  {#receipt.shipping.firstName} {#receipt.shipping.lastName}<br />
+  {#receipt.shipping.address}<br />
+  {#receipt.shipping.city}, {#receipt.shipping.state} {#receipt.shipping.zipCode}<br />
+  {#receipt.shipping.country}<br />
+  {#receipt.shipping.phone}<br />
+  {#receipt.shipping.email}
+-->
+    Teamone Smith<br />
+  1 Mock st.<br />
+  Athens, GA 30030<br />
+  USA<br />
+  678-633-4646<br />
+  teamone@teamone.com
+</p>
+<h2>Billing Address</h2>
+<p>
+<!--
+  {#receipt.billing.firstName} {#receipt.billing.lastName}<br />
+  {#receipt.billing.address}<br />
+  {#receipt.billing.city}, {#receipt.billing.state} {#receipt.billing.zipCode}<br />
+  {#receipt.billing.country}<br />
+  {#receipt.billing.phone}<br />
+  {#receipt.billing.email}
+-->
+       Teamone Smith<br />
+  1 Mock st.<br />
+  Athens, GA 30030<br />
+  USA<br />
+  678-633-4646<br />
+  teamone@teamone.com
+</p>
+<h2>Credit Card</h2>
+<p>
+<!--
+  {#receipt.creditCard.type}<br />
+  {#receipt.creditCard.number}<br />
+  {#receipt.creditCard.expirationMonth}/{#receipt.creditCard.expirationYear}
+-->
+     Visa<br />
+  3432-4323-3423-2434<br />
+  07/2099
+</p>
+</body>
+</html>
+
