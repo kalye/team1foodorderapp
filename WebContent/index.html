@@ -3,27 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <title>Welcome to Team1 Restaurant</title>
+<link rel="icon" href="/team1foodorderapp/favicon.ico" />
 <style>
 table {
-    border-collapse: collapse;
+	border-collapse: collapse;
 }
 
 table, th, td {
-    border: 1px solid black;
+	border: 1px solid black;
 }
+
 .button {
-  background-color: ForestGreen;  
-  border-radius: 5px;
-  color: white;
-  text-decoration: none;
+	background-color: ForestGreen;
+	border-radius: 5px;
+	color: white;
+	text-decoration: none;
 }
+
+.logo {
+	height: 100px;
+}
+.mySlides {display:none;}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-	<div class="label">
-		<h3>IMDB movies</h3>
-		welcome to team1 restaurant 
+	<div class="logo"
+		onclick="location.href=&quot;/team1foodorderapp/orders/catagorylists&quot;"
+		style="background-image: url(/team1foodorderapp/images/teamone-2017-04-02_13-32-51.png); background-size: cover; height: 572px;">
+		<img style="display: block; position: absolute; top: 0px; left: 0px; z-index: 3; opacity: 1; width: 900px; height: 432px;"
+				src="/team1foodorderapp/images/20131114020651.jpg"
+				alt="slideshow" width="900px" height="432px">
+		</span>
+		</a>
+		<div id="message" style="display: none;"></div>
 	</div>
+	</div>
+	<div class="w3-content w3-section" style="max-width:500px">
+	  <img class="mySlides" onclick="location.href=&quot;/team1foodorderapp/orders/catagorylists&quot;" src="/team1foodorderapp/images/teamonemain.png" style="width:100%">
+	  <img class="mySlides" onclick="location.href=&quot;/team1foodorderapp/orders/catagorylists&quot;" src="/team1foodorderapp/images/teamone46239.png" style="width:100%">
+	  <img class="mySlides" onclick="location.href=&quot;/team1foodorderapp/orders/catagorylists&quot;" src="/team1foodorderapp/images/imagecat1.jpeg" style="width:100%">
+	  <img class="mySlides" onclick="location.href=&quot;/team1foodorderapp/orders/catagorylists&quot;" src="/team1foodorderapp/images/imagecat2.jpg" style="width:100%">
+	  <img class="mySlides" onclick="location.href=&quot;/team1foodorderapp/orders/catagorylists&quot;" src="/team1foodorderapp/images/imagecat4.jpg" style="width:100%">
+	  <img class="mySlides" onclick="location.href=&quot;/team1foodorderapp/orders/catagorylists&quot;" src="/team1foodorderapp/images/imagecatveg.jpeg" style="width:100%">
+	  <img class="mySlides" onclick="location.href=&quot;/team1foodorderapp/orders/catagorylists&quot;" src="/team1foodorderapp/images/imagescatsoup.jpg" style="width:100%">
+	</div>
+
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+</script>
+
 
 </body>
 </html>
