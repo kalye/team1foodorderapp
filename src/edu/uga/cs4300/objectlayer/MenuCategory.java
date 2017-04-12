@@ -1,5 +1,8 @@
 package edu.uga.cs4300.objectlayer;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class MenuCategory {
 
 	private int id;
@@ -23,6 +26,12 @@ public class MenuCategory {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	public MenuCategory update(ResultSet resultSet) throws SQLException{
+		this.id = resultSet.getInt(1);
+		this.name = resultSet.getString(2);
+		this.imageUrl = resultSet.getString(3);
+		return this;
 	}
 	
 }
