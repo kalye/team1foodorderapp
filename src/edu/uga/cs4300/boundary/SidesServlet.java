@@ -6,16 +6,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class OrderServlet extends BaseFoodOrderServlet {
+public class SidesServlet extends BaseFoodOrderServlet {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4730262853655677803L;
-
-	public OrderServlet(){
+	private static final long serialVersionUID = -2884859222596350374L;
+	
+	public SidesServlet(){
 		super();
 	}
+	
 	public void init() {
 		super.init();
 	}
@@ -27,4 +28,5 @@ public class OrderServlet extends BaseFoodOrderServlet {
 			throws ServletException, IOException {
 		
 	}
+
 }
