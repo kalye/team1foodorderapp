@@ -49,6 +49,16 @@ public class OrderPersistImp {
 		dbAccessImpl.disconnect(connection);
 		return count;
 	}
+	public int createCategory(MenuCategory category){
+		if(category == null || category.getId() == 0){
+			return 0;
+		}
+		Connection connection = dbAccessImpl.connect();
+		String query = "insert into Category (name, imageUrl) values('" + category.getName() + "','" + category.getImageUrl() + "'";
+		int count = dbAccessImpl.create(connection, query);
+		dbAccessImpl.disconnect(connection);
+		return count;
+	}
 	private <T> T getEntity(ResultSet resultSet, Class<T> clazz) throws SQLException {
 		if(clazz == null){
 			return null;
