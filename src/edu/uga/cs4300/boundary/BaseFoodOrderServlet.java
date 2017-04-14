@@ -114,10 +114,10 @@ public class BaseFoodOrderServlet extends HttpServlet  {
 		}
 		return exists;
 	}
-	public String getFileName(final Part part) {
+	public String getFileName(final Part part, String payload) {
 	    final String partHeader = part.getHeader("content-disposition");
 	    for (String content : partHeader.split(";")) {
-	        if (content.trim().startsWith("filename")) {
+	        if (content.trim().startsWith(payload)) {
 	            return content.substring(
 	                    content.indexOf('=') + 1).trim().replace("\"", "");
 	        }

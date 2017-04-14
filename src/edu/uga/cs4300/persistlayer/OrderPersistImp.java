@@ -5,7 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.uga.cs4300.objectlayer.CustomizableItem;
 import edu.uga.cs4300.objectlayer.MenuCategory;
+import edu.uga.cs4300.objectlayer.MenuItem;
 
 public class OrderPersistImp {
 
@@ -25,17 +28,83 @@ public class OrderPersistImp {
 		Connection connection = dbAccessImpl.connect();
 		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 		//convert resultSet to list of movies
+		if (resultSet != null) {
+			try {
+				// loop through resultSet and get movie entity and add it to the
+				// list
+				while (resultSet.next()) {
+					catagories.add(getEntity(resultSet, MenuCategory.class));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return catagories;
+	}
+
+	public List<MenuItem> getMenuItemsForCatagory(int catagoryId){
+		Connection connection = dbAccessImpl.connect();
+		String query = "select * from menu_item where category_id = " + catagoryId + "" ;
+		List<MenuItem> catagories = new ArrayList<>();
+		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
+		if (resultSet != null) {
+			try {
+				// loop through resultSet and get movie entity and add it to the
+				// list
+				while (resultSet.next()) {
+					MenuItem menuItem = getEntity(resultSet, MenuItem.class);
+					if(menuItem.isCustomizable()){
+						menuItem.setCustomizableItem(getCustomizableItemForMenuItem(menuItem));
+					}
+					catagories.add(menuItem);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return catagories;
+		
+	}
+	public List<CustomizableItem> getCustomizableItems(){
+		List<CustomizableItem> customizableItems = new ArrayList<>();
+		Connection connection = dbAccessImpl.connect();
+		String query = "select * from customizable_item";
+		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
+		if (resultSet != null) {
+			try {
+				// loop through resultSet and get movie entity and add it to the
+				// list
+				while (resultSet.next()) {
+					CustomizableItem customizableItem = getEntity(resultSet, CustomizableItem.class);
+					customizableItems.add(customizableItem);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return customizableItems;
+	}
+	public List<CustomizableItem> getCustomizableItemForMenuItem(MenuItem menuItem) {
+		List<CustomizableItem> customizableItems = new ArrayList<>();
+		if(menuItem != null && menuItem.getId() != 0){
+			Connection connection = dbAccessImpl.connect();
+			String query = "select * from customizable_item ci inner join menu_customizable_item mci on ci.id = mci.c_item_id " +
+			"inner join menu_item mi mi.id = mci.menu_id and mi.id = " + menuItem.getId() + "";
+			ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 			if (resultSet != null) {
 				try {
-					//loop through resultSet and get movie entity and add it to the list
+					// loop through resultSet and get movie entity and add it to the
+					// list
 					while (resultSet.next()) {
-						catagories.add(getEntity(resultSet, null));
+						CustomizableItem customizableItem = getEntity(resultSet, CustomizableItem.class);
+						customizableItems.add(customizableItem);
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			return catagories;
+		}
+		return customizableItems;
 	}
 
 	public int updateCategory(MenuCategory category){
@@ -50,14 +119,15 @@ public class OrderPersistImp {
 		return count;
 	}
 	public int createCategory(MenuCategory category){
-		if(category == null || category.getId() == 0){
+		if(category == null){
 			return 0;
 		}
 		Connection connection = dbAccessImpl.connect();
 		String query = "insert into Category (name, imageUrl) values('" + category.getName() + "','" + category.getImageUrl() + "'";
-		int count = dbAccessImpl.create(connection, query);
+		int id = dbAccessImpl.create(connection, query, true);
+		category.setId(id);
 		dbAccessImpl.disconnect(connection);
-		return count;
+		return id;
 	}
 	private <T> T getEntity(ResultSet resultSet, Class<T> clazz) throws SQLException {
 		if(clazz == null){
@@ -65,6 +135,8 @@ public class OrderPersistImp {
 		}
 		if(clazz.equals(MenuCategory.class)){
 			return (T) new MenuCategory().update(resultSet);
+		} else if(clazz.equals(MenuItem.class)){
+			return (T) new MenuItem().update(resultSet);
 		}
 		return null;
 	}

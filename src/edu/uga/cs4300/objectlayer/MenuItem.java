@@ -1,6 +1,8 @@
 package edu.uga.cs4300.objectlayer;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class MenuItem implements AbstractMenuItem {
@@ -91,6 +93,18 @@ public class MenuItem implements AbstractMenuItem {
 	@Override
 	public BigDecimal getPrice() {
 		return price;
+	}
+	public MenuItem update(ResultSet resultSet) throws SQLException {
+		this.id = resultSet.getInt(1);
+		this.categoryId = resultSet.getInt(2);
+		this.name = resultSet.getString(3);
+		this.description = resultSet.getString(4);
+		this.hasToppings = resultSet.getBoolean(5);
+		this.hasSide = resultSet.getBoolean(6);
+		this.customizable = resultSet.getBoolean(7);
+		this.price = resultSet.getBigDecimal(8);
+		this.imageUrl = resultSet.getString(9);
+		return this;
 	}
 
 }

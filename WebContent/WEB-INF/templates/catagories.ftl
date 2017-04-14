@@ -13,10 +13,10 @@
 
 <#if createOrUpdate??>
  <h1>Create Catagory</h1><br>
-  <form method="post" action="/team1foodorderapp/catagories?add" enctype="multipart/form-data">
-  	Name: <input type="text" value="" name="name" /><br>
-  	File: <input type="file" name="file" id="file" /> <br/>
-  	Image Url/Save as: <br><input type="text" value="" name="url" /><br>
+  <form method="post" action="/team1foodorderapp/catagories?add=true" enctype="multipart/form-data">
+  	Catagory Name:         <input type="text" value="" name="catagoryName" id="catagoryName" /><br>
+  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
+  	Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
   	<button type="submit" class="button">Add Catagory</button>
   </form>
 <#if hasCatagory??>

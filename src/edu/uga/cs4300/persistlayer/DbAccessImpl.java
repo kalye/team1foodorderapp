@@ -58,6 +58,30 @@ public class DbAccessImpl implements DbAccessInterface {
 		}
 		return 0;
 	}
+	@Override
+	public int create(Connection con, String query, boolean returnGeneratedId) {
+		try {
+			Statement stmt = con.createStatement();
+			int affectedRows = stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+			if(!returnGeneratedId){
+				return affectedRows;
+			}
+			if (affectedRows == 0) {
+	            throw new SQLException("Creating user failed, no rows affected.");
+	        }
+	        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                return generatedKeys.getInt(1);
+	            }
+	            else {
+	                throw new SQLException("Creating user failed, no ID obtained.");
+	            }
+	        } 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	//update table
 	@Override

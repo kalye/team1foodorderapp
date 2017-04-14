@@ -16,4 +16,6 @@ public interface DbAccessInterface {
 	public int delete (Connection con, String query);
 
 	public void disconnect(Connection con);
+
+	int create(Connection con, String query, boolean returnGeneratedId);
 }

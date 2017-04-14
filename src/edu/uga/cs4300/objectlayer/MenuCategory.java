@@ -9,6 +9,16 @@ public class MenuCategory {
 	private String name;
 	private String imageUrl;
 	
+	public MenuCategory(){
+		
+	}
+	
+	public MenuCategory(int id, String name, String imageUrl) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.imageUrl = imageUrl;
+	}
 	public int getId() {
 		return id;
 	}
