@@ -59,7 +59,7 @@
 					<li><a href="/team1foodorderapp/sides?create=true">Create
 							Sides</a></li>
 					<li><a href="/team1foodorderapp/toppings?create=true">Create
-							Toppings</a></li>
+							Toppingss</a></li>
 				</ul>
 		</#if>
 
