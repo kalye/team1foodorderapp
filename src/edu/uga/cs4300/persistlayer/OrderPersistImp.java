@@ -71,7 +71,7 @@ public class OrderPersistImp {
 				}
 			}
 			if(menuItem.isCustomizable()){
-				for(CustomizableItem customizableItem: menuItem.getCustomizableItem()){
+				for(CustomizableItem customizableItem: menuItem.getCustomizableItems()){
 					query = "insert into menu_customizable_item (menu_id, c_item_id) values(" + menuItem.getId() + ", "
 							+ customizableItem.getId() + ");";
 					dbAccessImpl.create(connection, query, true);
@@ -152,7 +152,7 @@ public class OrderPersistImp {
 				while (resultSet.next()) {
 					MenuItem menuItem = getEntity(resultSet, MenuItem.class);
 					if(menuItem.isCustomizable()){
-						menuItem.setCustomizableItem(getCustomizableItemForMenuItem(menuItem));
+						menuItem.setCustomizableItems(getCustomizableItemForMenuItem(menuItem));
 					}
 					if(menuItem.isHasSide()){
 						addSidesToMenuItem(menuItem);
@@ -180,7 +180,7 @@ public class OrderPersistImp {
 			//we used try catch for deleting relationship just in case it's already deleted from table definition cascading
 			try{
 				if (menuItem.isCustomizable()) {
-					for(CustomizableItem customizableItem: menuItem.getCustomizableItem()){
+					for(CustomizableItem customizableItem: menuItem.getCustomizableItems()){
 						query = "delete from menu_customizable_item where menu_id = " + menuItem.getId() + " and c_item_id = "  
 								+ customizableItem.getId() + ";";
 						dbAccessImpl.create(connection, query, true);

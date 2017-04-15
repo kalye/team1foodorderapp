@@ -19,13 +19,21 @@
 		  	Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
 		  	<button type="submit" class="button">Add Catagory</button>
 		  </form>
+		  <#if update??>
+		  	<form method="post" action="/team1foodorderapp/catagories?update=true&&id=${category.id}" enctype="multipart/form-data">
+			  	Catagory Name:         <input type="text" value="${category.name}" name="catagoryName" id="catagoryName" /><br>
+			  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
+			  	Image Url/Save as: <br><input type="text" value="${category.imageUrl}" name="url" id="url" /><br>
+			  	<button type="submit" class="button">Update Catagory</button>
+		   </form>
+		  </#if>
 		<#if hasCatagory??>
 		<table>
-		 <tr><td>Name<td><td>Year</td> <td></td></tr>
+		 <tr><td>Name<td><td></td> <td></td></tr>
 		 <form method="">
 		 <#list catagories as cat>
 		    <tr>
-		    <td><input type="text" name="name" value="${cat.name}"/> <td>
+		    <td><span>${cat.name}"</span><td>
 		    <td>
 		    <a id="${cat.id?string.computer}" class="button" href="/team1foodorderapp/catagories?updateId=${cat.id?string.computer}" >Update</a>
 			</td>
@@ -63,7 +71,7 @@
 			<h2>Create SubItem</h2>
 		
 				<ul style="list-style-type: none">
-					<li><a href="/team1foodorderapp/menus?create=true">Create
+					<li><a href="/team1foodorderapp/menuitem?create=true">Create
 							Menu Item</a></li>
 					<li><a href="/team1foodorderapp/toppings?create=true">Create
 							Toppings</a></li>

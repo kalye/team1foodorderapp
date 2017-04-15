@@ -18,7 +18,7 @@ public class MenuItem implements AbstractMenuItem {
 	private BigDecimal price;
 	private List<Topping> toppings;
 	private List<Side> sides;
-	private List<CustomizableItem> customizableItem;
+	private List<CustomizableItem> customizableItems;
 	
 	public int getId() {
 		return id;
@@ -81,11 +81,11 @@ public class MenuItem implements AbstractMenuItem {
 	public void setSides(List<Side> sides) {
 		this.sides = sides;
 	}
-	public List<CustomizableItem> getCustomizableItem() {
-		return customizableItem;
+	public List<CustomizableItem> getCustomizableItems() {
+		return customizableItems;
 	}
-	public void setCustomizableItem(List<CustomizableItem> customizableItem) {
-		this.customizableItem = customizableItem;
+	public void setCustomizableItems(List<CustomizableItem> customizableItem) {
+		this.customizableItems = customizableItem;
 	}
 	public void setPrice(BigDecimal price) {
 		this.price = price;

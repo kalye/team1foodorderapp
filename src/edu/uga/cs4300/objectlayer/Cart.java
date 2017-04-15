@@ -2,6 +2,8 @@ package edu.uga.cs4300.objectlayer;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.collections.CollectionUtils;
+
 public class Cart {
 
 	private Order order;
@@ -27,6 +29,9 @@ public class Cart {
 	}
 	public BigDecimal getTotalPrice() {
 		return order.getTotalPrice();
+	}
+	public boolean isEmpty(){
+		return order != null && CollectionUtils.isNotEmpty(order.getOrderItems());
 	}
 	
 }
