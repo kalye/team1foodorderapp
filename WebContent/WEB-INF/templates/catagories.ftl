@@ -71,13 +71,13 @@
 			<h2>Create SubItem</h2>
 		
 				<ul style="list-style-type: none">
-					<li><a href="/team1foodorderapp/menuitem?create=true">Create
+					<li><a href="/team1foodorderapp/menuitems?create=true">Create
 							Menu Item</a></li>
 					<li><a href="/team1foodorderapp/toppings?create=true">Create
 							Toppings</a></li>
 					<li><a href="/team1foodorderapp/sides?create=true">Create
 							Sides</a></li>
-					<li><a href="/team1foodorderapp/customizableitem?create=true">Create
+					<li><a href="/team1foodorderapp/customizableitems?create=true">Create
 							Customizable Item</a></li>
 				</ul>
 		</#if>

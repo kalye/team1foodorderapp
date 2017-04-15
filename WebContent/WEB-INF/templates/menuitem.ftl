@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Menu Catagories</title>
+<title>Menu Items</title>
 <script>
 function hideOrShowById(id, show){
 	var element = document.getElementById(id);
@@ -165,7 +165,7 @@ function hideOrShowById(id, show){
 										Toppings</a></li>
 								<li><a href="/team1foodorderapp/sides?create=true">Create
 										Sides</a></li>
-								<li><a href="/team1foodorderapp/customizableitem?create=true">Create
+								<li><a href="/team1foodorderapp/customizableitems?create=true">Create
 										Customizable Item</a></li>
 							</ul>
 					</#if>

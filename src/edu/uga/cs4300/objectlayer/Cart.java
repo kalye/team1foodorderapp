@@ -30,6 +30,12 @@ public class Cart {
 	public BigDecimal getTotalPrice() {
 		return order.getTotalPrice();
 	}
+	public BigDecimal getTax(){
+		return order.getTax();
+	}
+	public BigDecimal getSubTotalPrice() {
+		return order.getSubTotalPrice();
+	}
 	public boolean isEmpty(){
 		return order != null && CollectionUtils.isNotEmpty(order.getOrderItems());
 	}

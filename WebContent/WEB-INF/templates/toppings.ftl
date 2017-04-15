@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Menu Catagories</title>
+<title>Menu Toppings</title>
 </head>
 <body>
 <!--Display error message if error exists -->
@@ -54,11 +54,11 @@
 			<h2>Create Menu Related Items</h2>
 		
 				<ul style="list-style-type: none">
-					<li><a href="/team1foodorderapp/menuitem?create=true">Create
+					<li><a href="/team1foodorderapp/menuitems?create=true">Create
 							Menu Item</a></li>
 					<li><a href="/team1foodorderapp/sides?create=true">Create
 							Sides</a></li>
-					<li><a href="/team1foodorderapp/customizableitem?create=true">Create
+					<li><a href="/team1foodorderapp/customizableitems?create=true">Create
 							Customizable Item</a></li>
 				</ul>
 		</#if>

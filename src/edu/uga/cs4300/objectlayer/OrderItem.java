@@ -8,6 +8,7 @@ import org.apache.commons.collections.CollectionUtils;
 public class OrderItem {
 	
 	private int itemNumber;
+	private int size;
 	private MenuItem menuItem;
 	private boolean itemCustomized;
 	private boolean hasExtraCustomizedItem;
@@ -16,6 +17,12 @@ public class OrderItem {
 	private List<CustomizableItem> selectedCustomizableItem;
 	private List<CustomizableItem> selectedExtraCustomizableItem;
 	
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
 	public int getItemNumber() {
 		return itemNumber;
 	}
@@ -68,21 +75,21 @@ public class OrderItem {
 	public BigDecimal getPrice() {
 		BigDecimal price = new BigDecimal(0);
 		if(menuItem != null){
-			price.add(menuItem.getPrice());
+			price =  price.add(menuItem.getPrice());
 		}
 		if(CollectionUtils.isNotEmpty(selectedToppings)){
 			for(Topping toping: selectedToppings){
-				price.add(toping.getPrice());
+				price = price.add(toping.getPrice());
 			}
 		}
 		if(CollectionUtils.isNotEmpty(selectedSides)){
 			for(Side side: selectedSides){
-				price.add(side.getPrice());
+				price = price.add(side.getPrice());
 			}
 		}
 		if(CollectionUtils.isNotEmpty(selectedExtraCustomizableItem)){
 			for(CustomizableItem customizableItem: selectedExtraCustomizableItem){
-				price.add(customizableItem.getPrice());
+				price = price.add(customizableItem.getPrice());
 			}
 		}
 		return price;

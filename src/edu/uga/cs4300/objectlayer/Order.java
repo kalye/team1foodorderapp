@@ -29,14 +29,26 @@ public class Order {
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
-	public BigDecimal getTotalPrice() {
+	public BigDecimal getSubTotalPrice() {
 		BigDecimal price = new BigDecimal(0);
 		if(CollectionUtils.isNotEmpty(orderItems)){
 			for(OrderItem orderItem: orderItems){
-				price.add(orderItem.getPrice());
+				price = price.add(orderItem.getPrice());
 			}
 		}
 		return  price;
+	}
+	public BigDecimal getTotalPrice(){
+		BigDecimal price = new BigDecimal(0);
+		price = price.add(getSubTotalPrice());
+		price = price.add(price.multiply(new BigDecimal(0.07)));
+		return price;
+	}
+	public BigDecimal getTax() {
+		BigDecimal price = new BigDecimal(0);
+		price = price.add(getSubTotalPrice());
+		price = price.multiply(new BigDecimal(0.07));
+		return price;
 	}
 	public String getItemDescription(){
 		StringBuilder builder = new StringBuilder();
@@ -52,4 +64,5 @@ public class Order {
 		}
 		return builder.toString();
 	}
+	
 }
