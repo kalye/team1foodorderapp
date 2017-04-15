@@ -3,6 +3,7 @@ package edu.uga.cs4300.boundary;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -42,10 +43,15 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 			root.put("createOrUpdate", true);
 			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
 			if(catagories != null && !catagories.isEmpty()){
-				root.put("hasCatagory", true);
+				root.put("hasCategory", true);
 			}
 			root.put("catagories", catagories);
 			renderTemplate(request, response, "catagories.ftl", root);
+			return;
+		}
+		query = (String) request.getParameter("catagorylists");
+		if(query != null){
+			
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -55,13 +61,14 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 		boolean isAdd = query != null && query.equalsIgnoreCase("true") ? true : false;
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
+		RequestDispatcher rd;
 		if(isAdd){
 			boolean isValidCatagory = validateRequest(request, response, root);
 			if(!isValidCatagory){
 				root.put("createOrUpdate", true);
 				List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
 				if(catagories != null && !catagories.isEmpty()){
-					root.put("hasCatagory", true);
+					root.put("hasCategory", true);
 				}
 				root.put("catagories", catagories);
 				renderTemplate(request, response, "catagories.ftl", root);
@@ -70,24 +77,29 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 				final Part filePart = request.getPart("file");
 				String fileName = getFileName(filePart, "filename");
 				String catagoryName = request.getParameter("catagoryName");
-				String urlAsName = request.getParameter("name");
+				String urlAsName = request.getParameter("url");
 				if(urlAsName == null || "".equals(urlAsName)){
 					urlAsName = fileName;
 				}
 				MenuCategory menuCategory = new MenuCategory(0, catagoryName, urlAsName);
-				saveImage(request, response, root);
+				saveImage(request, response, root, urlAsName);
 				int id = createMenuItemController.createCategory(menuCategory);
 				if(id == 0){
 					root.put("createOrUpdate", true);
 					List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
 					if(catagories != null && !catagories.isEmpty()){
-						root.put("hasCatagory", true);
+						root.put("hasCategory", true);
 					}
 					root.put("catagories", catagories);
 					renderTemplate(request, response, "catagories.ftl", root);
 					return;
 				} else {
-					
+					root.put("createsubmenu", true);
+					renderTemplate(request, response, "catagories.ftl", root);
+					return;
+//					rd = request.getRequestDispatcher("createmenuitems.html");
+//					rd.forward(request, response);
+//					return;
 				}
 				
 			}

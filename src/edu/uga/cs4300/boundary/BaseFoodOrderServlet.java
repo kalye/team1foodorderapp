@@ -6,8 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -56,6 +59,7 @@ public class BaseFoodOrderServlet extends HttpServlet  {
 			response.setContentType("text/html");
 			Writer out = response.getWriter();
 			template.process(root, out);
+			template.setShowErrorTips(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (TemplateException e) {
@@ -64,22 +68,22 @@ public class BaseFoodOrderServlet extends HttpServlet  {
 
 	}
 	public boolean saveImage(HttpServletRequest request, HttpServletResponse response,
-			SimpleHash root) throws IllegalStateException, IOException, ServletException {
+			SimpleHash root, String urlAsName) throws IllegalStateException, IOException, ServletException {
 		boolean saved = false;
-		 response.setContentType("text/html;charset=UTF-8");
-
 		    // Create path components to save the file
-		    final String path = System.getProperty("user.dir");
+		    final String path = System.getProperty("user.home") + File.separator + "team1foodorderapp";
+		    Path dirPath = Paths.get(path);
+		    if(dirPath == null || !Files.exists(dirPath, LinkOption.values())){
+		    	Files.createDirectory(dirPath);
+		    }
 		    final Part filePart = request.getPart("file");
-		    final String fileName = request.getParameter("destination");
 
 		    OutputStream out = null;
 		    InputStream filecontent = null;
-		    final PrintWriter writer = response.getWriter();
 
 		    try {
 		        out = new FileOutputStream(new File(path + File.separator
-		                + fileName));
+		                + urlAsName));
 		        filecontent = filePart.getInputStream();
 
 		        int read = 0;
@@ -99,9 +103,6 @@ public class BaseFoodOrderServlet extends HttpServlet  {
 		        }
 		        if (filecontent != null) {
 		            filecontent.close();
-		        }
-		        if (writer != null) {
-		            writer.close();
 		        }
 		    }
 		return saved;

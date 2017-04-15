@@ -10,6 +10,7 @@ public class Side implements AbstractMenuItem {
 	private String name;
 	private String imageUrl;
 	private BigDecimal price;
+	private boolean selected;
 	
 	public int getId() {
 		return id;
@@ -33,6 +34,18 @@ public class Side implements AbstractMenuItem {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	@Override

@@ -8,7 +8,7 @@ public class CustomizableItem implements AbstractMenuItem {
 	private String name;
 	private String imageUrl;
 	private BigDecimal price;
-	
+	private boolean selected;
 	
 	public int getId() {
 		return id;
@@ -42,6 +42,15 @@ public class CustomizableItem implements AbstractMenuItem {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 
