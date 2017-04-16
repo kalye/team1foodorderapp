@@ -78,5 +78,8 @@ public class CreateMenuItemController {
 	public int createSide(Side side) {
 		return orderPersistImp.createSide(side);
 	}
+	public int updateSide(Side side) {
+		return orderPersistImp.updateSide(side);
+	}
 
 }

@@ -15,7 +15,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import edu.uga.cs4300.logiclayer.CreateMenuItemController;
-import edu.uga.cs4300.objectlayer.MenuCategory;
 import edu.uga.cs4300.objectlayer.Side;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
@@ -105,43 +104,61 @@ public class SidesServlet extends BaseFoodOrderServlet {
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
 		if(isAdd){
-			boolean isValidCatagory = validateRequest(request, response, root);
-			if(!isValidCatagory){
+			createOrUpdate(request, response, root, true, 0);
+			return;
+		}
+		String update = (String) request.getParameter("update");
+		boolean isUpdate = "true".equals(update);
+		String id = request.getParameter("id");
+		if(isUpdate && StringUtils.isNumeric(id)){
+			createOrUpdate(request, response, root, true, Integer.parseInt(id));
+			return;
+		}
+	}
+
+	private void createOrUpdate(HttpServletRequest request, HttpServletResponse response, SimpleHash root, boolean isCreate, int id)
+			throws IOException, ServletException {
+		boolean isValidCatagory = validateRequest(request, response, root);
+		if(!isValidCatagory){
+			root.put("createOrUpdate", true);
+			List<Side> sides = createMenuItemController.getAllSides();
+			if(sides != null && !sides.isEmpty()){
+				root.put("hasSides", true);
+			}
+			root.put("sides", sides);
+			renderTemplate(request, response, "sides.ftl", root);
+			return;
+		} else {
+			final Part filePart = request.getPart("file");
+			String fileName = getFileName(filePart, "filename");
+			String sideName = request.getParameter("sideName");
+			String urlAsName = request.getParameter("url");
+			String price = request.getParameter("price");
+			if(urlAsName == null || "".equals(urlAsName)){
+				urlAsName = fileName;
+			}
+			Side side = new Side(id, sideName, urlAsName, new BigDecimal(price));
+			saveImage(request, response, root, urlAsName);
+			if(isCreate){
+				id = createMenuItemController.createSide(side);
+			} else {
+				id = createMenuItemController.updateSide(side);
+			}
+			
+			if(id == 0){
 				root.put("createOrUpdate", true);
 				List<Side> sides = createMenuItemController.getAllSides();
 				if(sides != null && !sides.isEmpty()){
 					root.put("hasSides", true);
 				}
 				root.put("sides", sides);
+				root.put("createsubmenu", true);
 				renderTemplate(request, response, "sides.ftl", root);
 				return;
 			} else {
-				final Part filePart = request.getPart("file");
-				String fileName = getFileName(filePart, "filename");
-				String sideName = request.getParameter("sideName");
-				String urlAsName = request.getParameter("url");
-				String price = request.getParameter("price");
-				if(urlAsName == null || "".equals(urlAsName)){
-					urlAsName = fileName;
-				}
-				Side side = new Side(0, sideName, urlAsName, new BigDecimal(price));
-				saveImage(request, response, root, urlAsName);
-				int id = createMenuItemController.createSide(side);
-				if(id == 0){
-					root.put("createOrUpdate", true);
-					List<Side> sides = createMenuItemController.getAllSides();
-					if(sides != null && !sides.isEmpty()){
-						root.put("hasSides", true);
-					}
-					root.put("sides", sides);
-					renderTemplate(request, response, "sides.ftl", root);
-					return;
-				} else {
-					root.put("createsubmenu", true);
-					renderTemplate(request, response, "sides.ftl", root);
-					return;
-				}
-				
+				root.put("createsubmenu", true);
+				renderTemplate(request, response, "sides.ftl", root);
+				return;
 			}
 			
 		}
