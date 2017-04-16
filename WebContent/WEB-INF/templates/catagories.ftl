@@ -27,7 +27,7 @@
 			  	<button type="submit" class="button">Update Catagory</button>
 		   </form>
 		  </#if>
-		<#if hasCatagory??>
+		<#if hasCategory??>
 		<table>
 		 <tr><td>Name<td><td></td> <td></td></tr>
 		 <form method="">

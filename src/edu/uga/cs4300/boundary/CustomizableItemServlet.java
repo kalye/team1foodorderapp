@@ -47,6 +47,7 @@ public class CustomizableItemServlet extends BaseFoodOrderServlet {
 			root.put("customizableitems", customizableItems);
 			root.put("hasCustomizableitems", CollectionUtils.isNotEmpty(customizableItems));
 			root.put("createsubmenu", true);
+			renderTemplate(request, response, "customizableitems.ftl", root);
 			return;
 		}
 		String updateId = (String) request.getParameter("updateId");

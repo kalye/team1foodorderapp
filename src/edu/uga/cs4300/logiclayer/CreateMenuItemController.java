@@ -81,5 +81,11 @@ public class CreateMenuItemController {
 	public int updateSide(Side side) {
 		return orderPersistImp.updateSide(side);
 	}
+	public MenuCategory getCategoryById(int id) {
+		return orderPersistImp.getCategoryById(id);
+	}
+	public int deleteCategory(MenuCategory menuCategory) {
+		return orderPersistImp.deleteCatagory(menuCategory);
+	}
 
 }

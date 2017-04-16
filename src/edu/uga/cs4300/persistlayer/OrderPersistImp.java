@@ -634,4 +634,19 @@ public class OrderPersistImp {
 		}
 		return menuitems;
 	}
+
+	public MenuCategory getCategoryById(int id) {
+		String query = CATAGORIES_ALL + " where id = " + id + ";";
+		MenuCategory menuCategory = null;
+		Connection connection = dbAccessImpl.connect();
+		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
+		if (resultSet != null) {
+			try {
+				menuCategory = getEntity(resultSet, MenuCategory.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return menuCategory;
+	}
 }

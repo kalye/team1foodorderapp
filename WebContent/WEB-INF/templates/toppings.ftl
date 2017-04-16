@@ -29,7 +29,7 @@
 			  	<button type="submit" class="button">Update Catagory</button>
 		   </form>
 		  </#if>
-		<#if hasToppings??>
+		<#if hasToppings>
 		<table>
 		 <tr><td>Name<td><td></td> <td></td><td></td</tr>
 		 <form method="">

@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import edu.uga.cs4300.logiclayer.CreateMenuItemController;
 import edu.uga.cs4300.objectlayer.MenuCategory;
+import edu.uga.cs4300.objectlayer.Topping;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
@@ -48,9 +52,48 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 			renderTemplate(request, response, "catagories.ftl", root);
 			return;
 		}
-		query = (String) request.getParameter("catagorylists");
-		if(query != null){
-			
+		String updateId = (String) request.getParameter("updateId");
+		if(StringUtils.isNumeric(updateId)){
+			int id = Integer.parseInt(updateId);
+			MenuCategory menuCategory = createMenuItemController.getCategoryById(id);
+			root.put("createOrUpdate", true);
+			if(menuCategory == null){
+				root.put("error", true);
+				root.put("message", "Error while searching for menuCategory with id " + id + ". Try again.");
+				root.put("update", false);
+			} else {
+				root.put("update", true);
+				root.put("menuCategory", menuCategory);
+			}
+			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
+			root.put("catagories", catagories);
+			root.put("hasCategory", CollectionUtils.isNotEmpty(catagories));
+			root.put("createsubmenu", true);
+			renderTemplate(request, response, "catagories.ftl", root);
+			return;
+		}
+		
+		String deleteId = (String) request.getParameter("deleteId");
+		if(StringUtils.isNumeric(deleteId)){
+			int id = Integer.parseInt(deleteId);
+			MenuCategory menuCategory = createMenuItemController.getCategoryById(id);
+			root.put("createOrUpdate", true);
+			if(menuCategory == null){
+				root.put("error", true);
+				root.put("message", "Error while searching for menu category with id " + id + ". Try again.");
+			} else {
+				int row = createMenuItemController.deleteCategory(menuCategory);
+				if(row == 0){
+					root.put("error", true);
+					root.put("message", "Error while deleting menu category with id " + id + ". Try again.");
+				}
+			}
+			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
+			root.put("catagories", catagories);
+			root.put("hasCategory", CollectionUtils.isNotEmpty(catagories));
+			root.put("createsubmenu", true);
+			renderTemplate(request, response, "catagories.ftl", root);
+			return;
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -61,8 +104,46 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
 		if(isAdd){
-			boolean isValidCatagory = validateRequest(request, response, root);
-			if(!isValidCatagory){
+			createOrUpdate(request, response, root, true, 0);
+			return;
+		}
+		String update = (String) request.getParameter("update");
+		boolean isUpdate = "true".equals(update);
+		String id = request.getParameter("id");
+		if(isUpdate && StringUtils.isNumeric(id)){
+			createOrUpdate(request, response, root, true, Integer.parseInt(id));
+			return;
+		}
+		
+	}
+	private void createOrUpdate(HttpServletRequest request, HttpServletResponse response, SimpleHash root, boolean isCreate, int id)
+			throws IOException, ServletException {
+		boolean isValidCatagory = validateRequest(request, response, root);
+		if(!isValidCatagory){
+			root.put("createOrUpdate", true);
+			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
+			if(catagories != null && !catagories.isEmpty()){
+				root.put("hasCategory", true);
+			}
+			root.put("catagories", catagories);
+			renderTemplate(request, response, "catagories.ftl", root);
+			return;
+		} else {
+			final Part filePart = request.getPart("file");
+			String fileName = getFileName(filePart, "filename");
+			String catagoryName = request.getParameter("catagoryName");
+			String urlAsName = request.getParameter("url");
+			if(urlAsName == null || "".equals(urlAsName)){
+				urlAsName = fileName;
+			}
+			MenuCategory menuCategory = new MenuCategory(id, catagoryName, urlAsName);
+			saveImage(request, response, root, urlAsName);
+			if(isCreate){
+				id = createMenuItemController.createCategory(menuCategory);
+			} else {
+				id = createMenuItemController.updateCategory(menuCategory);
+			}
+			if(id == 0){
 				root.put("createOrUpdate", true);
 				List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
 				if(catagories != null && !catagories.isEmpty()){
@@ -72,35 +153,12 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 				renderTemplate(request, response, "catagories.ftl", root);
 				return;
 			} else {
-				final Part filePart = request.getPart("file");
-				String fileName = getFileName(filePart, "filename");
-				String catagoryName = request.getParameter("catagoryName");
-				String urlAsName = request.getParameter("url");
-				if(urlAsName == null || "".equals(urlAsName)){
-					urlAsName = fileName;
-				}
-				MenuCategory menuCategory = new MenuCategory(0, catagoryName, urlAsName);
-				saveImage(request, response, root, urlAsName);
-				int id = createMenuItemController.createCategory(menuCategory);
-				if(id == 0){
-					root.put("createOrUpdate", true);
-					List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
-					if(catagories != null && !catagories.isEmpty()){
-						root.put("hasCategory", true);
-					}
-					root.put("catagories", catagories);
-					renderTemplate(request, response, "catagories.ftl", root);
-					return;
-				} else {
-					root.put("createsubmenu", true);
-					renderTemplate(request, response, "catagories.ftl", root);
-					return;
-				}
-				
+				root.put("createsubmenu", true);
+				renderTemplate(request, response, "catagories.ftl", root);
+				return;
 			}
 			
 		}
-		
 	}
 	private boolean validateRequest(HttpServletRequest request, HttpServletResponse response, SimpleHash root) throws IllegalStateException, IOException, ServletException {
 		
