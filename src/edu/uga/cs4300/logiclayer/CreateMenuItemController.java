@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.uga.cs4300.objectlayer.CustomizableItem;
 import edu.uga.cs4300.objectlayer.MenuCategory;
+import edu.uga.cs4300.objectlayer.MenuItem;
 import edu.uga.cs4300.objectlayer.Side;
 import edu.uga.cs4300.objectlayer.Topping;
 import edu.uga.cs4300.persistlayer.OrderPersistImp;
@@ -64,6 +65,18 @@ public class CreateMenuItemController {
 	}
 	public int deleteSide(Side side) {
 		return orderPersistImp.deleteSide(side);
+	}
+	public MenuItem getMenuItemById(int id) {
+		return orderPersistImp.getMenuItemById(id);
+	}
+	public List<MenuItem> getAllMenuItems() {
+		return orderPersistImp.getAllMenuItems();
+	}
+	public int deleteMenuItem(MenuItem menuitem) {
+		return orderPersistImp.deleteMenuItem(menuitem);
+	}
+	public int createSide(Side side) {
+		return orderPersistImp.createSide(side);
 	}
 
 }

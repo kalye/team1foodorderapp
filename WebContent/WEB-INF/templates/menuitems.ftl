@@ -67,6 +67,24 @@ function hideOrShowById(id, show){
   					  Price:         <input type="text" value="${menuitem.price}" name="price" /><br>
   					  <button type="submit" class="button">Update Menu Item</button>
 			     	 </form>
+			     	 <#if hasOneMoreMenuItem??>
+				     	 <table>
+						 <tr><td>Name<td><td></td> <td></td></tr>
+						 <form method="">
+				     	 	<#list menuitems as menuitem>
+				     	 		   <tr>
+								    <td><span>${menuitem.name}"</span><td>
+								    <td>
+								    <a id="${menuitem.id?string.computer}" class="button" href="/team1foodorderapp/menuitems?updateId=${cat.id?string.computer}" >Update</a>
+									</td>
+								    <td>
+								    <a id="${menuitem.id?string.computer}" class="button" href="/team1foodorderapp/menuitems?deleteId=${cat.id?string.computer}" >Delete</a>
+									</td>
+								    </tr>
+				     	 	</#list>
+			     	 	 </table>
+		 				 </form>
+			     	 </#if>
 <#elseif addmenuitemtocart??>
 	<#list menuitems as menuitem>
 		<form method="post" id=${menuitem.id} action="/team1foodorderapp/orders?addtocart=true&&menuid=${menuitem.id}" enctype="multipart/form-data">
@@ -158,6 +176,24 @@ function hideOrShowById(id, show){
   					  Price:         <input type="text" value="" name="price" /><br>
   					  <button type="submit" class="button">Add Menu Item</button>
 			     	 </form>
+			     	 <#if hasOneMoreMenuItem??>
+				     	 <table>
+						 <tr><td>Name<td><td></td> <td></td></tr>
+						 <form method="">
+				     	 	<#list menuitems as menuitem>
+				     	 		   <tr>
+								    <td><span>${menuitem.name}"</span><td>
+								    <td>
+								    <a id="${menuitem.id?string.computer}" class="button" href="/team1foodorderapp/menuitems?updateId=${cat.id?string.computer}" >Update</a>
+									</td>
+								    <td>
+								    <a id="${menuitem.id?string.computer}" class="button" href="/team1foodorderapp/menuitems?deleteId=${cat.id?string.computer}" >Delete</a>
+									</td>
+								    </tr>
+				     	 	</#list>
+			     	 	 </table>
+		 				 </form>
+			     	 </#if>
 			     	 <#if createsubmenu??>
 						<h2>Create Menu Related Items</h2>
 							<ul style="list-style-type: none">

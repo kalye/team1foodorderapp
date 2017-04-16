@@ -143,7 +143,7 @@ public class OrderPersistImp {
 	public List<MenuItem> getMenuItemsForCatagory(int catagoryId){
 		Connection connection = dbAccessImpl.connect();
 		String query = "select * from menu_item where category_id = " + catagoryId + "" ;
-		List<MenuItem> catagories = new ArrayList<>();
+		List<MenuItem> menuitems = new ArrayList<>();
 		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 		if (resultSet != null) {
 			try {
@@ -160,13 +160,13 @@ public class OrderPersistImp {
 					if(menuItem.isHasToppings()){
 						addToppingsToMenuItem(menuItem);
 					}
-					catagories.add(menuItem);
+					menuitems.add(menuItem);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		return catagories;
+		return menuitems;
 		
 	}
 	public int deleteMenuItem(MenuItem menuItem){
@@ -505,6 +505,7 @@ public class OrderPersistImp {
 		dbAccessImpl.disconnect(connection);
 		return id;
 	}
+	@SuppressWarnings("unchecked")
 	private <T> T getEntity(ResultSet resultSet, Class<T> clazz) throws SQLException {
 		if(clazz == null){
 			return null;
@@ -579,5 +580,58 @@ public class OrderPersistImp {
 			}
 		}
 		return customizableItem;
+	}
+
+	public MenuItem getMenuItemById(int id) {
+		Connection connection = dbAccessImpl.connect();
+		String query = "select * from menu_item where id = " + id + "" ;
+		MenuItem menuitem = null;
+		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
+		if (resultSet != null) {
+			try {
+				MenuItem menuItem = getEntity(resultSet, MenuItem.class);
+				if (menuItem.isCustomizable()) {
+					menuItem.setCustomizableItems(getCustomizableItemForMenuItem(menuItem));
+				}
+				if (menuItem.isHasSide()) {
+					addSidesToMenuItem(menuItem);
+				}
+				if (menuItem.isHasToppings()) {
+					addToppingsToMenuItem(menuItem);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return menuitem;
+	}
+
+	public List<MenuItem> getAllMenuItems() {
+		Connection connection = dbAccessImpl.connect();
+		String query = "select * from menu_item;" ;
+		List<MenuItem> menuitems = new ArrayList<>();
+		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
+		if (resultSet != null) {
+			try {
+				// loop through resultSet and get movie entity and add it to the
+				// list
+				while (resultSet.next()) {
+					MenuItem menuItem = getEntity(resultSet, MenuItem.class);
+					if(menuItem.isCustomizable()){
+						menuItem.setCustomizableItems(getCustomizableItemForMenuItem(menuItem));
+					}
+					if(menuItem.isHasSide()){
+						addSidesToMenuItem(menuItem);
+					}
+					if(menuItem.isHasToppings()){
+						addToppingsToMenuItem(menuItem);
+					}
+					menuitems.add(menuItem);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return menuitems;
 	}
 }

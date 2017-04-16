@@ -3,7 +3,6 @@ package edu.uga.cs4300.boundary;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -61,7 +60,6 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 		boolean isAdd = query != null && query.equalsIgnoreCase("true") ? true : false;
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
-		RequestDispatcher rd;
 		if(isAdd){
 			boolean isValidCatagory = validateRequest(request, response, root);
 			if(!isValidCatagory){
@@ -97,9 +95,6 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 					root.put("createsubmenu", true);
 					renderTemplate(request, response, "catagories.ftl", root);
 					return;
-//					rd = request.getRequestDispatcher("createmenuitems.html");
-//					rd.forward(request, response);
-//					return;
 				}
 				
 			}

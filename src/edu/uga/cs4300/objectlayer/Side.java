@@ -12,6 +12,16 @@ public class Side implements AbstractMenuItem {
 	private BigDecimal price;
 	private boolean selected;
 	
+	public Side(){
+		
+	}
+	public Side(int id, String sideName, String urlAsName, BigDecimal price) {
+		this.id = id;
+		this.name = sideName;
+		this.imageUrl = urlAsName;
+		this.price = price;
+	}
+
 	public int getId() {
 		return id;
 	}

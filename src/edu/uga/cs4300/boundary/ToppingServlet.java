@@ -48,6 +48,7 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 			root.put("toppings", toppings);
 			root.put("hasToppings", CollectionUtils.isNotEmpty(toppings));
 			root.put("createsubmenu", true);
+			renderTemplate(request, response, "toppings.ftl", root);
 			return;
 		}
 		String updateId = (String) request.getParameter("updateId");

@@ -17,6 +17,7 @@
 		  	Topping Name:         <input type="text" value="" name="sideName" id="sideName" /><br>
 		  	Topping Image:        <input type="file" name="file" id="file" /> <br/>
 		  	Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
+		  	Price:        <input type="text" name="price" value="" id="price" /> <br/>
 		  	<button type="submit" class="button">Add Side</button>
 		  </form>
 		  <#if update??>
@@ -24,6 +25,7 @@
 			  	Catagory Name:         <input type="text" value="${side.name}" name="catagoryName" id="catagoryName" /><br>
 			  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
 			  	Image Url/Save as: <br><input type="text" value="${side.imageUrl}" name="url" id="url" /><br>
+			  	Price:        <input type="text" name="price" value="${side.price}" id="price" /> <br/>
 			  	<button type="submit" class="button">Update Side</button>
 		   </form>
 		  </#if>
