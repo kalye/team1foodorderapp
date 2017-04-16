@@ -48,6 +48,18 @@
 		  </table>
 		  </form>
 		</#if>
+		<#if createsubmenu??>
+			<h2>Create Menu Related Items</h2>
+		
+				<ul style="list-style-type: none">
+					<li><a href="/team1foodorderapp/menuitems?create=true">Create
+							Menu Item</a></li>
+					<li><a href="/team1foodorderapp/sides?create=true">Create
+							Sides</a></li>
+					<li><a href="/team1foodorderapp/toppings?create=true">Create
+							Toppingss</a></li>
+				</ul>
+		</#if>
 
 <#else>
 		<#if createsubmenu??>

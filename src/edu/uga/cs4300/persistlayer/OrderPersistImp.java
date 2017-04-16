@@ -517,6 +517,8 @@ public class OrderPersistImp {
 			return (T) new Side().update(resultSet);
 		} else if(clazz.equals(Topping.class)){
 			return (T) new Topping().update(resultSet);
+		} else if(clazz.equals(CustomizableItem.class)){
+			return (T) new CustomizableItem().update(resultSet);
 		}
 		return null;
 	}
@@ -534,5 +536,48 @@ public class OrderPersistImp {
 			}
 		}
 		return orderPersistImp;
+	}
+
+	public Topping getToppingById(int id) {
+		Connection connection = dbAccessImpl.connect();
+		String query = "select * from toppings where id = " +  id + "";
+		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
+		Topping topping = null;
+		if (resultSet != null) {
+			try {
+				topping = getEntity(resultSet, Topping.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return topping;
+	}
+	public Side getSideById(int id) {
+		Connection connection = dbAccessImpl.connect();
+		String query = "select * from sides where id = " +  id + "";
+		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
+		Side side = null;
+		if (resultSet != null) {
+			try {
+				side = getEntity(resultSet, Side.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return side;
+	}
+	public CustomizableItem getCustomizableItemById(int id) {
+		Connection connection = dbAccessImpl.connect();
+		String query = "select * from customizable_item where id = " +  id + "";
+		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
+		CustomizableItem customizableItem = null;
+		if (resultSet != null) {
+			try {
+				customizableItem = getEntity(resultSet, CustomizableItem.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return customizableItem;
 	}
 }
