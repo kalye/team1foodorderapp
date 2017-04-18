@@ -44,6 +44,9 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 		boolean isCreate = "true".equals(create);
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
+		//this variable will be used to avoid refresh;
+		long timestamp = System.currentTimeMillis();
+		root.put("nocache", timestamp);
 		if(isCreate){
 			root.put("createOrUpdate", true);
 			List<Topping> toppings = createMenuItemController.getAllToppings();
@@ -103,6 +106,9 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 		boolean isAdd = "true".equals(add);
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
+		//this variable will be used to avoid refresh;
+		long timestamp = System.currentTimeMillis();
+		root.put("nocache", timestamp);
 		if(isAdd){
 			createOrUpdate(request, response, root, true, 0);
 			return;
@@ -111,7 +117,7 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 		boolean isUpdate = "true".equals(update);
 		String id = request.getParameter("id");
 		if(isUpdate && StringUtils.isNumeric(id)){
-			createOrUpdate(request, response, root, true, Integer.parseInt(id));
+			createOrUpdate(request, response, root, false, Integer.parseInt(id));
 			return;
 		}
 	}
@@ -130,13 +136,13 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 		} else {
 			final Part filePart = request.getPart("file");
 			String fileName = getFileName(filePart, "filename");
-			String sideName = request.getParameter("toppingName");
+			String toppingName = request.getParameter("toppingName");
 			String urlAsName = request.getParameter("url");
 			String price = request.getParameter("price");
 			if(urlAsName == null || "".equals(urlAsName)){
 				urlAsName = fileName;
 			}
-			Topping topping = new Topping(id, sideName, urlAsName, new BigDecimal(price));
+			Topping topping = new Topping(id, toppingName, urlAsName, new BigDecimal(price));
 			saveImage(request, response, root, urlAsName);
 			if(isCreate){
 				id = createMenuItemController.createTopping(topping);
@@ -145,21 +151,18 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 			}
 			
 			if(id == 0){
-				root.put("createOrUpdate", true);
-				List<Topping> toppings = createMenuItemController.getAllToppings();
-				if(toppings != null && !toppings.isEmpty()){
-					root.put("hasToppings", true);
-				}
-				root.put("toppings", toppings);
-				root.put("createsubmenu", true);
-				renderTemplate(request, response, "toppings.ftl", root);
-				return;
-			} else {
-				root.put("createsubmenu", true);
-				renderTemplate(request, response, "toppings.ftl", root);
-				return;
+				root.put("message", "Error creating topping " + topping.getName() + ".");
+				root.put("error", true);
+			} 
+			root.put("createOrUpdate", true);
+			List<Topping> toppings = createMenuItemController.getAllToppings();
+			if (toppings != null && !toppings.isEmpty()) {
+				root.put("hasToppings", true);
 			}
-			
+			root.put("toppings", toppings);
+			root.put("createsubmenu", true);
+			renderTemplate(request, response, "toppings.ftl", root);
+			return;
 		}
 	}
 
@@ -173,8 +176,8 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 			root.put("error", true);
 			return false;
 		}
-		String sideName = request.getParameter("toppingName");
-		if(sideName == null || sideName.equals("")){
+		String toppingName = request.getParameter("toppingName");
+		if(toppingName == null || toppingName.equals("")){
 			root.put("message", "Topping Name is required");
 			root.put("error", true);
 			return false;

@@ -42,6 +42,8 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 		String query = (String) request.getParameter("createOrUpdate");
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
+		long timestamp = System.currentTimeMillis();
+		root.put("nocache", timestamp);
 		if(query != null){
 			root.put("createOrUpdate", true);
 			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
@@ -103,6 +105,8 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 		boolean isAdd = query != null && query.equalsIgnoreCase("true") ? true : false;
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
+		long timestamp = System.currentTimeMillis();
+		root.put("nocache", timestamp);
 		if(isAdd){
 			createOrUpdate(request, response, root, true, 0);
 			return;
@@ -111,7 +115,7 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 		boolean isUpdate = "true".equals(update);
 		String id = request.getParameter("id");
 		if(isUpdate && StringUtils.isNumeric(id)){
-			createOrUpdate(request, response, root, true, Integer.parseInt(id));
+			createOrUpdate(request, response, root, false, Integer.parseInt(id));
 			return;
 		}
 		
@@ -144,19 +148,18 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 				id = createMenuItemController.updateCategory(menuCategory);
 			}
 			if(id == 0){
-				root.put("createOrUpdate", true);
-				List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
-				if(catagories != null && !catagories.isEmpty()){
-					root.put("hasCategory", true);
-				}
-				root.put("catagories", catagories);
-				renderTemplate(request, response, "catagories.ftl", root);
-				return;
-			} else {
-				root.put("createsubmenu", true);
-				renderTemplate(request, response, "catagories.ftl", root);
-				return;
+				root.put("message", "Error Creating catagory " + menuCategory.getName() + ".");
+				root.put("error", true);
+			} 
+			root.put("createOrUpdate", true);
+			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
+			if (catagories != null && !catagories.isEmpty()) {
+				root.put("hasCategory", true);
 			}
+			root.put("catagories", catagories);
+			root.put("createsubmenu", true);
+			renderTemplate(request, response, "catagories.ftl", root);
+			return;
 			
 		}
 	}

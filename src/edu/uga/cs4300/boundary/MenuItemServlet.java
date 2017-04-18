@@ -45,6 +45,8 @@ public class MenuItemServlet extends BaseFoodOrderServlet {
 		boolean isCreate = "true".equals(create);
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
+		long timestamp = System.currentTimeMillis();
+		root.put("nocache", timestamp);
 		if(isCreate){
 			root.put("addmenuitem", true);
 			root.put("catagories", createMenuItemController.getAllCatagories());
@@ -164,6 +166,9 @@ public class MenuItemServlet extends BaseFoodOrderServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(df.build());
+		long timestamp = System.currentTimeMillis();
+		root.put("nocache", timestamp);
 	}
 }

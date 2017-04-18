@@ -13,14 +13,14 @@
 
 <#if createOrUpdate??>
 		 <h1>Create Catagory</h1><br>
-		  <form method="post" action="/team1foodorderapp/catagories?add=true" enctype="multipart/form-data">
+		  <form method="post" action="/team1foodorderapp/catagories?add=true&&nocache=${nocache?string.computer}" enctype="multipart/form-data">
 		  	Catagory Name:         <input type="text" value="" name="catagoryName" id="catagoryName" /><br>
 		  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
 		  	Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
 		  	<button type="submit" class="button">Add Catagory</button>
 		  </form>
 		  <#if update??>
-		  	<form method="post" action="/team1foodorderapp/catagories?update=true&&id=${category.id}" enctype="multipart/form-data">
+		  	<form method="post" action="/team1foodorderapp/catagories?update=true&&id=${category.id}&&nocache=${nocache?string.computer}" enctype="multipart/form-data">
 			  	Catagory Name:         <input type="text" value="${category.name}" name="catagoryName" id="catagoryName" /><br>
 			  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
 			  	Image Url/Save as: <br><input type="text" value="${category.imageUrl}" name="url" id="url" /><br>
@@ -35,10 +35,10 @@
 		    <tr>
 		    <td><span>${cat.name}"</span><td>
 		    <td>
-		    <a id="${cat.id?string.computer}" class="button" href="/team1foodorderapp/catagories?updateId=${cat.id?string.computer}" >Update</a>
+		    <a id="${cat.id?string.computer}" class="button" href="/team1foodorderapp/catagories?updateId=${cat.id?string.computer}&&nocache=${nocache}" >Update</a>
 			</td>
 		    <td>
-		    <a id="${cat.id?string.computer}" class="button" href="/team1foodorderapp/catagories?deleteId=${cat.id?string.computer}" >Delete</a>
+		    <a id="${cat.id?string.computer}" class="button" href="/team1foodorderapp/catagories?deleteId=${cat.id?string.computer}&&nocache=${nocache}" >Delete</a>
 			</td>
 		    </tr>
 		  </#list>

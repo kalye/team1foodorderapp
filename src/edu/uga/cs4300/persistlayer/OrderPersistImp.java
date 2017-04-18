@@ -91,7 +91,7 @@ public class OrderPersistImp {
 		String query = "update menu_item set category_id = "  + menuItem.getCategoryId() + ", name = '" + menuItem.getName() + "', description = '"
 				+ menuItem.getDescription() + "',  hasToppings = " + menuItem.isHasToppings() + ", hasSide = "+ menuItem.isHasSide() + ", customizable = " + menuItem.isCustomizable() + ""
 						+ ", price = '" + menuItem.getPrice().toPlainString() +  "', imageUrl = '"+ menuItem.getImageUrl() + "' ";
-		int row = dbAccessImpl.create(connection, query);
+		int row = dbAccessImpl.update(connection, query);
 		
 		if(row != 0 ){
 			if(toppingsToBeAddToMenu != null){
@@ -133,7 +133,7 @@ public class OrderPersistImp {
 				for(CustomizableItem customizableItem: customizableItemToBeRemovedFromMenu){
 					query = "delete from menu_customizable_item where menu_id = " + menuItem.getId() + " and c_item_id = "  
 							+ customizableItem.getId() + ";";
-					dbAccessImpl.create(connection, query, true);
+					dbAccessImpl.delete(connection, query);
 				}
 			}
 		}
@@ -432,7 +432,7 @@ public class OrderPersistImp {
 		String query = "update customizable_item set name = '"  + customizableItem.getName() + "',"
 				+ " imageUrl = '" + customizableItem.getImageUrl() + "'," 
 				+ " price = '" + customizableItem.getPrice().toPlainString() + "' where id = " + customizableItem.getId() + ";";
-		int rows = dbAccessImpl.create(connection, query);
+		int rows = dbAccessImpl.update(connection, query);
 		dbAccessImpl.disconnect(connection);
 		return rows;
 	}
@@ -455,7 +455,7 @@ public class OrderPersistImp {
 		Connection connection = dbAccessImpl.connect();
 		String query = "update toppings set name = '" + topping.getName() + "', imageUrl = '"+ topping.getImageUrl()
 					+ "', price = '"+ topping.getPrice().toPlainString() + "' where id = "  + topping.getId() + "";
-		int row = dbAccessImpl.create(connection, query, true);
+		int row = dbAccessImpl.update(connection, query);
 		dbAccessImpl.disconnect(connection);
 		return row;
 	}
@@ -478,8 +478,7 @@ public class OrderPersistImp {
 		Connection connection = dbAccessImpl.connect();
 		String query = "update sides set name = '" + side.getName() + "', imageUrl = '" + side.getImageUrl() + "', price = '"
 				+ side.getPrice().toPlainString() + "' where id = " + side.getId() + ";";
-		int id = dbAccessImpl.create(connection, query, true);
-		side.setId(id);
+		int id = dbAccessImpl.update(connection, query);
 		dbAccessImpl.disconnect(connection);
 		return id;
 	}

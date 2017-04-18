@@ -93,5 +93,11 @@ public class CreateMenuItemController {
 	public int updateTopping(Topping topping) {
 		return orderPersistImp.updateTopping(topping);
 	}
+	public int createCustomizableItem(CustomizableItem customizableItem) {
+		return orderPersistImp.createCustomizableItem(customizableItem);
+	}
+	public int updateCustomizableItem(CustomizableItem customizableItem) {
+		return orderPersistImp.updateCustomizableItem(customizableItem);
+	}
 
 }

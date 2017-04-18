@@ -12,6 +12,17 @@ public class CustomizableItem implements AbstractMenuItem {
 	private BigDecimal price;
 	private boolean selected;
 	
+	public CustomizableItem(){
+		
+	}
+	public CustomizableItem(int id, String name, String urlAsName, BigDecimal price) {
+		this.id = id;
+		this.name = name;
+		this.imageUrl = urlAsName;
+		this.price = price;
+	}
+
+
 	public int getId() {
 		return id;
 	}
@@ -66,6 +77,7 @@ public class CustomizableItem implements AbstractMenuItem {
 		this.id = resultSet.getInt(1);
 		this.name = resultSet.getString(2);
 		this.imageUrl = resultSet.getString(3);
+		this.price = resultSet.getBigDecimal(4);
 		return this;
 	}
 

@@ -135,7 +135,7 @@ function hideOrShowById(id, show){
 	    </#list>
 <#elseif addmenuitem??>
 	<form method="post" action="/team1foodorderapp/menuitem?add=true" enctype="multipart/form-data">
-					 Menu Name:    <input type="text" value="" name="catagoryName" id="catagoryName" /><br>
+					 Name:         <input type="text" value="" name="name" /><br>
 			     	 Image:        <input type="file" name="file" id="file" /> <br/>
 			     	 Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
 			     	 <select name="cats">
@@ -144,7 +144,6 @@ function hideOrShowById(id, show){
 			     	 </#list>
 			     	 </select>
 			     	 <br><br>
-			     	 Name:         <input type="text" value="" name="name" /><br>
 			     	 Description: <input type="text" value="" name="description" /><br>
 			     	 <input type="radio" name="hasside" onclick="javascript:hideOrShowById('divSide', true);" value="yes" >Has Sides <br>
 	  			     <input type="radio" onclick="javascript:hideOrShowById('divSide', false);" name="hasside" value="no" checked> No Side<br>

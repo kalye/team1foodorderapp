@@ -44,6 +44,8 @@ public class SidesServlet extends BaseFoodOrderServlet {
 		boolean isCreate = "true".equals(create);
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
+		long timestamp = System.currentTimeMillis();
+		root.put("nocache", timestamp);
 		if(isCreate){
 			root.put("createOrUpdate", true);
 			List<Side> sides = createMenuItemController.getAllSides();
@@ -103,6 +105,8 @@ public class SidesServlet extends BaseFoodOrderServlet {
 		boolean isAdd = "true".equals(add);
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
+		long timestamp = System.currentTimeMillis();
+		root.put("nocache", timestamp);
 		if(isAdd){
 			createOrUpdate(request, response, root, true, 0);
 			return;
@@ -111,7 +115,7 @@ public class SidesServlet extends BaseFoodOrderServlet {
 		boolean isUpdate = "true".equals(update);
 		String id = request.getParameter("id");
 		if(isUpdate && StringUtils.isNumeric(id)){
-			createOrUpdate(request, response, root, true, Integer.parseInt(id));
+			createOrUpdate(request, response, root, false, Integer.parseInt(id));
 			return;
 		}
 	}
@@ -119,6 +123,9 @@ public class SidesServlet extends BaseFoodOrderServlet {
 	private void createOrUpdate(HttpServletRequest request, HttpServletResponse response, SimpleHash root, boolean isCreate, int id)
 			throws IOException, ServletException {
 		boolean isValidCatagory = validateRequest(request, response, root);
+		//this variable will be used to avoid refresh;
+		long timestamp = System.currentTimeMillis();
+		root.put("nocache", timestamp);
 		if(!isValidCatagory){
 			root.put("createOrUpdate", true);
 			List<Side> sides = createMenuItemController.getAllSides();
@@ -146,20 +153,18 @@ public class SidesServlet extends BaseFoodOrderServlet {
 			}
 			
 			if(id == 0){
-				root.put("createOrUpdate", true);
-				List<Side> sides = createMenuItemController.getAllSides();
-				if(sides != null && !sides.isEmpty()){
-					root.put("hasSides", true);
-				}
-				root.put("sides", sides);
-				root.put("createsubmenu", true);
-				renderTemplate(request, response, "sides.ftl", root);
-				return;
-			} else {
-				root.put("createsubmenu", true);
-				renderTemplate(request, response, "sides.ftl", root);
-				return;
+				root.put("message", "Error Creating side " + side.getName() + ".");
+				root.put("error", true);
+			} 
+			root.put("createOrUpdate", true);
+			List<Side> sides = createMenuItemController.getAllSides();
+			if (sides != null && !sides.isEmpty()) {
+				root.put("hasSides", true);
 			}
+			root.put("sides", sides);
+			root.put("createsubmenu", true);
+			renderTemplate(request, response, "sides.ftl", root);
+			return;
 			
 		}
 	}
@@ -168,7 +173,6 @@ public class SidesServlet extends BaseFoodOrderServlet {
 
 		final Part filePart = request.getPart("file");
 		String fileName = getFileName(filePart, "filename");
-		
 		if(fileName == null || fileName.equals("")){
 			root.put("message", "Choose image file.");
 			root.put("error", true);

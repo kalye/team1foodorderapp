@@ -13,7 +13,7 @@
 
 <#if createOrUpdate??>
 		 <h1>Create Sides</h1><br>
-		  <form method="post" action="/team1foodorderapp/sides?add=true" enctype="multipart/form-data">
+		  <form method="post" action="/team1foodorderapp/sides?add=true&&nocache=${nocache?string.computer}" enctype="multipart/form-data">
 		  	Topping Name:         <input type="text" value="" name="sideName" id="sideName" /><br>
 		  	Topping Image:        <input type="file" name="file" id="file" /> <br/>
 		  	Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
@@ -21,8 +21,8 @@
 		  	<button type="submit" class="button">Add Side</button>
 		  </form>
 		  <#if update??>
-		  	<form method="post" action="/team1foodorderapp/sides?update=true&&id=${side.id}" enctype="multipart/form-data">
-			  	Catagory Name:         <input type="text" value="${side.name}" name="catagoryName" id="catagoryName" /><br>
+		  	<form method="post" action="/team1foodorderapp/sides?update=true&&id=${side.id}&&nocache=${nocache?string.computer}" enctype="multipart/form-data">
+			  	Catagory Name:         <input type="text" value="${side.name}" name="sideName" id="sideName" /><br>
 			  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
 			  	Image Url/Save as: <br><input type="text" value="${side.imageUrl}" name="url" id="url" /><br>
 			  	Price:        <input type="text" name="price" value="${side.price}" id="price" /> <br/>
@@ -31,16 +31,16 @@
 		  </#if>
 		<#if hasSides??>
 		<table>
-		 <tr><td>Name<td><td></td> <td></td></tr>
+		 <tr><td>Name<td><td>Price</td> <td></td><td></td></tr>
 		 <form method="">
 		 <#list sides as side>
 		    <tr>
 		    <td><span>"${side.name}"</span><td>
 		    <td>
-		    <a id="${side.id?string.computer}" class="button" href="/team1foodorderapp/toppings?updateId=${side.id?string.computer}" >Update</a>
+		    <a id="${side.id?string.computer}" class="button" href="/team1foodorderapp/sides?updateId=${side.id?string.computer}" >Update</a>
 			</td>
 		    <td>
-		    <a id="${side.id?string.computer}" class="button" href="/team1foodorderapp/toppings?deleteId=${side.id?string.computer}" >Delete</a>
+		    <a id="${side.id?string.computer}" class="button" href="/team1foodorderapp/sides?deleteId=${side.id?string.computer}&&nocache=${nocache?string.computer}" >Delete</a>
 			</td>
 		    </tr>
 		  </#list>

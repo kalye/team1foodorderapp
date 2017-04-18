@@ -13,7 +13,7 @@
 
 <#if createOrUpdate??>
 		 <h1>Create Customizable Item</h1><br>
-		  <form method="post" action="/team1foodorderapp/customizableitems?add=true" enctype="multipart/form-data">
+		  <form method="post" action="/team1foodorderapp/customizableitems?add=true&&nocache=${nocache?string.computer}" enctype="multipart/form-data">
 		  	Topping Name:         <input type="text" value="" name="customizableitemName" id="customizableitemName" /><br>
 		  	Topping Image:        <input type="file" name="file" id="file" /> <br/>
 		  	Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
@@ -21,17 +21,17 @@
 		  	<button type="submit" class="button">Add Customizableitem</button>
 		  </form>
 		  <#if update??>
-		  	<form method="post" action="/team1foodorderapp/customizableitems?update=true&&id=${customizableitem.id}" enctype="multipart/form-data">
-			  	Catagory Name:         <input type="text" value="${customizableitem.name}" name="catagoryName" id="catagoryName" /><br>
+		  	<form method="post" action="/team1foodorderapp/customizableitems?update=true&&id=${customizableitem.id}&&nocache=${nocache?string.computer}" enctype="multipart/form-data">
+			  	Catagory Name:         <input type="text" value="${customizableitem.name}" name="customizableitemName" id="customizableitemName" /><br>
 			  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
 			  	Image Url/Save as: <br><input type="text" value="${customizableitem.imageUrl}" name="url" id="url" /><br>
 			  	Price:         <input type="text" value="${customizableitem.price}" name="price" /><br>
-			  	<button type="submit" class="button">Update Catagory</button>
+			  	<button type="submit" class="button">Update Customizable Item</button>
 		   </form>
 		  </#if>
 		<#if hasCustomizableitems??>
 		<table>
-		 <tr><td>Name<td><td></td> <td></td><td></td</tr>
+		 <tr><td>Name<td><td>Price</td> <td></td><td></td</tr>
 		 <form method="">
 		 <#list customizableitems as cus>
 		    <tr>
@@ -41,7 +41,7 @@
 		    <a id="${cus.id?string.computer}" class="button" href="/team1foodorderapp/toppings?updateId=${cus.id?string.computer}" >Update</a>
 			</td>
 		    <td>
-		    <a id="${cus.id?string.computer}" class="button" href="/team1foodorderapp/toppings?deleteId=${cus.id?string.computer}" >Delete</a>
+		    <a id="${cus.id?string.computer}" class="button" href="/team1foodorderapp/toppings?deleteId=${cus.id?string.computer}&&nocache=${nocache?string.computer}">Delete</a>
 			</td>
 		    </tr>
 		  </#list>
