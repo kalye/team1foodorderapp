@@ -11,7 +11,17 @@ public class Topping implements AbstractMenuItem {
 	private String imageUrl;
 	private BigDecimal price;
 	private boolean selected;
-	
+	public Topping(){
+		
+	}
+	public Topping(int id, String name, String urlAsName, BigDecimal price) {
+		this.id = id;
+		this.name = name;
+		this.imageUrl = urlAsName;
+		this.price = price;
+	}
+
+
 	public int getId() {
 		return id;
 	}

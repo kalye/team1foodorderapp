@@ -63,7 +63,7 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 				root.put("update", false);
 			} else {
 				root.put("update", true);
-				root.put("menuCategory", menuCategory);
+				root.put("category", menuCategory);
 			}
 			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
 			root.put("catagories", catagories);

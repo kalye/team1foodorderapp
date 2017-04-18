@@ -87,5 +87,11 @@ public class CreateMenuItemController {
 	public int deleteCategory(MenuCategory menuCategory) {
 		return orderPersistImp.deleteCatagory(menuCategory);
 	}
+	public int createTopping(Topping topping) {
+		return orderPersistImp.createTopping(topping);
+	}
+	public int updateTopping(Topping topping) {
+		return orderPersistImp.updateTopping(topping);
+	}
 
 }

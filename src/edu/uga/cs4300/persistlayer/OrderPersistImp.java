@@ -544,12 +544,12 @@ public class OrderPersistImp {
 		String query = "select * from toppings where id = " +  id + "";
 		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 		Topping topping = null;
-		if (resultSet != null) {
-			try {
+		try {
+			if (resultSet != null && resultSet.next()) {
 				topping = getEntity(resultSet, Topping.class);
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return topping;
 	}
@@ -558,12 +558,12 @@ public class OrderPersistImp {
 		String query = "select * from sides where id = " +  id + "";
 		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 		Side side = null;
-		if (resultSet != null) {
-			try {
+		try {
+			if (resultSet != null && resultSet.next()) {
 				side = getEntity(resultSet, Side.class);
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return side;
 	}
@@ -572,12 +572,12 @@ public class OrderPersistImp {
 		String query = "select * from customizable_item where id = " +  id + "";
 		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 		CustomizableItem customizableItem = null;
-		if (resultSet != null) {
-			try {
+		try {
+			if (resultSet != null && resultSet.next()) {
 				customizableItem = getEntity(resultSet, CustomizableItem.class);
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return customizableItem;
 	}
@@ -587,8 +587,8 @@ public class OrderPersistImp {
 		String query = "select * from menu_item where id = " + id + "" ;
 		MenuItem menuitem = null;
 		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
-		if (resultSet != null) {
-			try {
+		try {
+			if (resultSet != null && resultSet.next()) {
 				MenuItem menuItem = getEntity(resultSet, MenuItem.class);
 				if (menuItem.isCustomizable()) {
 					menuItem.setCustomizableItems(getCustomizableItemForMenuItem(menuItem));
@@ -599,9 +599,9 @@ public class OrderPersistImp {
 				if (menuItem.isHasToppings()) {
 					addToppingsToMenuItem(menuItem);
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return menuitem;
 	}
@@ -636,16 +636,16 @@ public class OrderPersistImp {
 	}
 
 	public MenuCategory getCategoryById(int id) {
-		String query = CATAGORIES_ALL + " where id = " + id + ";";
+		String query = "select * from Category"  + " where id = " + id + ";";
 		MenuCategory menuCategory = null;
 		Connection connection = dbAccessImpl.connect();
 		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
-		if (resultSet != null) {
-			try {
+		try {
+			if (resultSet != null && resultSet.next()) {
 				menuCategory = getEntity(resultSet, MenuCategory.class);
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return menuCategory;
 	}

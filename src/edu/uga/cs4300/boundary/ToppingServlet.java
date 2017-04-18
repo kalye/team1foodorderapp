@@ -1,6 +1,7 @@
 package edu.uga.cs4300.boundary;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -97,7 +99,95 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String add = (String) request.getParameter("add");
+		boolean isAdd = "true".equals(add);
+		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(df.build());
+		if(isAdd){
+			createOrUpdate(request, response, root, true, 0);
+			return;
+		}
+		String update = (String) request.getParameter("update");
+		boolean isUpdate = "true".equals(update);
+		String id = request.getParameter("id");
+		if(isUpdate && StringUtils.isNumeric(id)){
+			createOrUpdate(request, response, root, true, Integer.parseInt(id));
+			return;
+		}
+	}
+	private void createOrUpdate(HttpServletRequest request, HttpServletResponse response, SimpleHash root, boolean isCreate, int id)
+			throws IOException, ServletException {
+		boolean isValidCatagory = validateRequest(request, response, root);
+		if(!isValidCatagory){
+			root.put("createOrUpdate", true);
+			List<Topping> toppings = createMenuItemController.getAllToppings();
+			if(toppings != null && !toppings.isEmpty()){
+				root.put("hasToppings", true);
+			}
+			root.put("toppings", toppings);
+			renderTemplate(request, response, "toppings.ftl", root);
+			return;
+		} else {
+			final Part filePart = request.getPart("file");
+			String fileName = getFileName(filePart, "filename");
+			String sideName = request.getParameter("toppingName");
+			String urlAsName = request.getParameter("url");
+			String price = request.getParameter("price");
+			if(urlAsName == null || "".equals(urlAsName)){
+				urlAsName = fileName;
+			}
+			Topping topping = new Topping(id, sideName, urlAsName, new BigDecimal(price));
+			saveImage(request, response, root, urlAsName);
+			if(isCreate){
+				id = createMenuItemController.createTopping(topping);
+			} else {
+				id = createMenuItemController.updateTopping(topping);
+			}
+			
+			if(id == 0){
+				root.put("createOrUpdate", true);
+				List<Topping> toppings = createMenuItemController.getAllToppings();
+				if(toppings != null && !toppings.isEmpty()){
+					root.put("hasToppings", true);
+				}
+				root.put("toppings", toppings);
+				root.put("createsubmenu", true);
+				renderTemplate(request, response, "toppings.ftl", root);
+				return;
+			} else {
+				root.put("createsubmenu", true);
+				renderTemplate(request, response, "toppings.ftl", root);
+				return;
+			}
+			
+		}
+	}
+
+	private boolean validateRequest(HttpServletRequest request, HttpServletResponse response, SimpleHash root) throws IllegalStateException, IOException, ServletException {
+
+		final Part filePart = request.getPart("file");
+		String fileName = getFileName(filePart, "filename");
 		
+		if(fileName == null || fileName.equals("")){
+			root.put("message", "Choose image file.");
+			root.put("error", true);
+			return false;
+		}
+		String sideName = request.getParameter("toppingName");
+		if(sideName == null || sideName.equals("")){
+			root.put("message", "Topping Name is required");
+			root.put("error", true);
+			return false;
+		}
+		String price = request.getParameter("price");
+		try{
+			Double.valueOf(price);
+		} catch(Exception e){
+			root.put("message", "Topping price is not valid.");
+			root.put("error", true);
+			return false;
+		}
+		return true;
 	}
 
 }

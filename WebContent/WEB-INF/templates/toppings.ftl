@@ -22,7 +22,7 @@
 		  </form>
 		  <#if update??>
 		  	<form method="post" action="/team1foodorderapp/toppings?update=true&&id=${topping.id}" enctype="multipart/form-data">
-			  	Catagory Name:         <input type="text" value="${topping.name}" name="catagoryName" id="catagoryName" /><br>
+			  	Catagory Name:         <input type="text" value="${topping.name}" name="toppingName" id="toppingName" /><br>
 			  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
 			  	Image Url/Save as: <br><input type="text" value="${topping.imageUrl}" name="url" id="url" /><br>
 			  	Price:         <input type="text" value="${topping.price}" name="price" /><br>
@@ -33,7 +33,7 @@
 		<table>
 		 <tr><td>Name<td><td></td> <td></td><td></td</tr>
 		 <form method="">
-		 <#list topppings as top>
+		 <#list toppings as top>
 		    <tr>
 		    <td><span>"${top.name}"</span><td>
 		    <td><span>"${top.price}"</span><td>
