@@ -47,7 +47,7 @@ public class MenuItemServlet extends BaseFoodOrderServlet {
 		SimpleHash root = new SimpleHash(df.build());
 		long timestamp = System.currentTimeMillis();
 		root.put("nocache", timestamp);
-		if(isCreate){
+		if(isCreate || hasNoCache(request)){
 			root.put("addmenuitem", true);
 			root.put("catagories", createMenuItemController.getAllCatagories());
 			List<Side> sides = createMenuItemController.getAllSides();
@@ -166,9 +166,13 @@ public class MenuItemServlet extends BaseFoodOrderServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if(hasNoCache(request)){
+			doGet(request, response);
+			return;
+		}
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
 		long timestamp = System.currentTimeMillis();
-		root.put("nocache", timestamp);
+		root.put("nocache", 0);
 	}
 }

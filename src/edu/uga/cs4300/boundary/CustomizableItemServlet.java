@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import edu.uga.cs4300.logiclayer.CreateMenuItemController;
 import edu.uga.cs4300.objectlayer.CustomizableItem;
-import edu.uga.cs4300.objectlayer.Topping;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
@@ -45,8 +44,8 @@ public class CustomizableItemServlet extends BaseFoodOrderServlet {
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
 		long timestamp = System.currentTimeMillis();
-		root.put("nocache", timestamp);
-		if(isCreate){
+		root.put("nocache", 0);
+		if(isCreate || hasNoCache(request)){
 			root.put("createOrUpdate", true);
 			List<CustomizableItem> customizableItems = createMenuItemController.getAllCustomizableItems();
 			root.put("customizableitems", customizableItems);
@@ -89,6 +88,9 @@ public class CustomizableItemServlet extends BaseFoodOrderServlet {
 				if(row == 0){
 					root.put("error", true);
 					root.put("message", "Error while deleting customizableItem with id " + id + ". Try again.");
+				}else {
+					//help to eliminate recreate for every refresh
+					root.put("nocache", timestamp);
 				}
 			}
 			List<CustomizableItem> customizableItems = createMenuItemController.getAllCustomizableItems();
@@ -100,12 +102,15 @@ public class CustomizableItemServlet extends BaseFoodOrderServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if(hasNoCache(request)){
+			doGet(request, response);
+			return;
+		}
 		String add = (String) request.getParameter("add");
 		boolean isAdd = "true".equals(add);
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
-		long timestamp = System.currentTimeMillis();
-		root.put("nocache", timestamp);
+		root.put("nocache", 0);
 		if(isAdd){
 			createOrUpdate(request, response, root, true, 0);
 			return;
@@ -149,7 +154,10 @@ public class CustomizableItemServlet extends BaseFoodOrderServlet {
 			if(id == 0){
 				root.put("message", "Error Creating customizableItem " + customizableItem.getName() + ".");
 				root.put("error", true);
-			} 
+			} else {
+				//help to eliminate recreate for every refresh
+				root.put("nocache", System.currentTimeMillis());
+			}
 			root.put("createOrUpdate", true);
 			List<CustomizableItem> toppings = createMenuItemController.getAllCustomizableItems();
 			if (toppings != null && !toppings.isEmpty()) {

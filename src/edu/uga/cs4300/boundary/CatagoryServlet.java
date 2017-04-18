@@ -43,8 +43,8 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
 		long timestamp = System.currentTimeMillis();
-		root.put("nocache", timestamp);
-		if(query != null){
+		root.put("nocache", 0);
+		if(query != null || hasNoCache(request)){
 			root.put("createOrUpdate", true);
 			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
 			if(catagories != null && !catagories.isEmpty()){
@@ -88,6 +88,9 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 				if(row == 0){
 					root.put("error", true);
 					root.put("message", "Error while deleting menu category with id " + id + ". Try again.");
+				}else {
+					//help to eliminate recreate for every refresh
+					root.put("nocache", timestamp);
 				}
 			}
 			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
@@ -105,8 +108,7 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 		boolean isAdd = query != null && query.equalsIgnoreCase("true") ? true : false;
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
-		long timestamp = System.currentTimeMillis();
-		root.put("nocache", timestamp);
+		root.put("nocache", 0);
 		if(isAdd){
 			createOrUpdate(request, response, root, true, 0);
 			return;
@@ -150,6 +152,9 @@ public class CatagoryServlet extends BaseFoodOrderServlet {
 			if(id == 0){
 				root.put("message", "Error Creating catagory " + menuCategory.getName() + ".");
 				root.put("error", true);
+			}else {
+				//help to eliminate recreate for every refresh
+				root.put("nocache", System.currentTimeMillis());
 			} 
 			root.put("createOrUpdate", true);
 			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();

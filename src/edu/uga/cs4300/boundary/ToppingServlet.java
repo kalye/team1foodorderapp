@@ -46,8 +46,8 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 		SimpleHash root = new SimpleHash(df.build());
 		//this variable will be used to avoid refresh;
 		long timestamp = System.currentTimeMillis();
-		root.put("nocache", timestamp);
-		if(isCreate){
+		root.put("nocache", 0);
+		if(isCreate || hasNoCache(request)){
 			root.put("createOrUpdate", true);
 			List<Topping> toppings = createMenuItemController.getAllToppings();
 			root.put("toppings", toppings);
@@ -90,6 +90,8 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 				if(row == 0){
 					root.put("error", true);
 					root.put("message", "Error while deleting topping with id " + id + ". Try again.");
+				} else {
+					root.put("nocache", timestamp);
 				}
 			}
 			List<Topping> toppings = createMenuItemController.getAllToppings();
@@ -102,13 +104,16 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if(hasNoCache(request)){
+			doGet(request, response);
+			return;
+		}
 		String add = (String) request.getParameter("add");
 		boolean isAdd = "true".equals(add);
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
 		//this variable will be used to avoid refresh;
-		long timestamp = System.currentTimeMillis();
-		root.put("nocache", timestamp);
+		root.put("nocache", 0);
 		if(isAdd){
 			createOrUpdate(request, response, root, true, 0);
 			return;
@@ -153,7 +158,10 @@ public class ToppingServlet extends BaseFoodOrderServlet {
 			if(id == 0){
 				root.put("message", "Error creating topping " + topping.getName() + ".");
 				root.put("error", true);
-			} 
+			} else {
+				//help to eliminate recreate for every refresh
+				root.put("nocache", System.currentTimeMillis());
+			}
 			root.put("createOrUpdate", true);
 			List<Topping> toppings = createMenuItemController.getAllToppings();
 			if (toppings != null && !toppings.isEmpty()) {

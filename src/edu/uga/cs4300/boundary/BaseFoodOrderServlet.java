@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.apache.commons.lang3.StringUtils;
+
 import freemarker.template.Configuration;
 import freemarker.template.SimpleHash;
 import freemarker.template.Template;
@@ -124,5 +126,15 @@ public class BaseFoodOrderServlet extends HttpServlet  {
 	        }
 	    }
 	    return null;
+	}
+	public boolean hasNoCache(HttpServletRequest request){
+			String nocache = request.getParameter("nocache");
+			if(StringUtils.isNumeric(nocache)){
+				long nocacheLong = Long.parseLong(nocache);
+				if(nocacheLong > 0){
+					return true;
+				}
+			}
+			return false;
 	}
 }

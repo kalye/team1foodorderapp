@@ -13,7 +13,7 @@
 
 <#if createOrUpdate??>
 		 <h1>Create Toppings</h1><br>
-		  <form method="post" action="/team1foodorderapp/toppings?add=true&&nocache=${nocache?string.computer}" enctype="multipart/form-data">
+		  <form method="post" action="/team1foodorderapp/toppings?add=true" enctype="multipart/form-data">
 		  	Topping Name:         <input type="text" value="" name="toppingName" id="toppingName" /><br>
 		  	Topping Image:        <input type="file" name="file" id="file" /> <br/>
 		  	Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
@@ -21,7 +21,7 @@
 		  	<button type="submit" class="button">Add Topping</button>
 		  </form>
 		  <#if update??>
-		  	<form method="post" action="/team1foodorderapp/toppings?update=true&&id=${topping.id}&&nocache=${nocache?string.computer}" enctype="multipart/form-data">
+		  	<form method="post" action="/team1foodorderapp/toppings?update=true&&id=${topping.id}" enctype="multipart/form-data">
 			  	Catagory Name:         <input type="text" value="${topping.name}" name="toppingName" id="toppingName" /><br>
 			  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
 			  	Image Url/Save as: <br><input type="text" value="${topping.imageUrl}" name="url" id="url" /><br>
@@ -41,7 +41,7 @@
 		    <a id="${top.id?string.computer}" class="button" href="/team1foodorderapp/toppings?updateId=${top.id?string.computer}" >Update</a>
 			</td>
 		    <td>
-		    <a id="${top.id?string.computer}" class="button" href="/team1foodorderapp/toppings?deleteId=${top.id?string.computer}&&nocache=${nocache?string.computer}" >Delete</a>
+		    <a id="${top.id?string.computer}" class="button" href="/team1foodorderapp/toppings?deleteId=${top.id?string.computer}" >Delete</a>
 			</td>
 		    </tr>
 		  </#list>
