@@ -65,7 +65,7 @@ public class CustomizableItemServlet extends BaseFoodOrderServlet {
 				root.put("update", false);
 			} else {
 				root.put("update", true);
-				root.put("customizableItem", customizableItem);
+				root.put("customizableitem", customizableItem);
 			}
 			List<CustomizableItem> customizableItems = createMenuItemController.getAllCustomizableItems();
 			root.put("customizableitems", customizableItems);
