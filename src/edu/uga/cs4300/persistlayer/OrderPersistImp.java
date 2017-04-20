@@ -60,21 +60,21 @@ public class OrderPersistImp {
 				for(Topping topping: menuItem.getToppings()){
 					query = "insert into menu_toppings (menu_id, topping_id) values(" + menuItem.getId() + ", "
 							+ topping.getId() + ");";
-					dbAccessImpl.create(connection, query, true);
+					dbAccessImpl.create(connection, query);
 				}
 			}
 			if(menuItem.isHasSide()){
 				for(Side side: menuItem.getSides()){
 					query = "insert into sides_menu (menu_id, side_id) values(" + menuItem.getId() + ", "
 							+ side.getId() + ");";
-					dbAccessImpl.create(connection, query, true);
+					dbAccessImpl.create(connection, query);
 				}
 			}
 			if(menuItem.isCustomizable()){
 				for(CustomizableItem customizableItem: menuItem.getCustomizableItems()){
 					query = "insert into menu_customizable_item (menu_id, c_item_id) values(" + menuItem.getId() + ", "
 							+ customizableItem.getId() + ");";
-					dbAccessImpl.create(connection, query, true);
+					dbAccessImpl.create(connection, query);
 				}
 			}
 		}
@@ -284,7 +284,7 @@ public class OrderPersistImp {
 
 			Connection connection = dbAccessImpl.connect();
 			String query = "select * from toppings tp inner join menu_toppings mt on tp.id = mt.topping_id " +
-			"inner join menu_item mi mi.id = mt.menu_id and mi.id = " + menuItem.getId() + "";
+			"inner join menu_item mi on mi.id = mt.menu_id and mi.id = " + menuItem.getId() + "";
 			ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 			if (resultSet != null) {
 				try {
@@ -331,7 +331,7 @@ public class OrderPersistImp {
 
 			Connection connection = dbAccessImpl.connect();
 			String query = "select * from sides si inner join sides_menu sm on si.id = sm.side_id " +
-			"inner join menu_item mi mi.id = sm.menu_id and mi.id = " + menuItem.getId() + "";
+			"inner join menu_item mi on mi.id = sm.menu_id and mi.id = " + menuItem.getId() + "";
 			ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 			if (resultSet != null) {
 				try {
@@ -393,7 +393,7 @@ public class OrderPersistImp {
 		if(menuItem != null && menuItem.getId() != 0){
 			Connection connection = dbAccessImpl.connect();
 			String query = "select * from customizable_item ci inner join menu_customizable_item mci on ci.id = mci.c_item_id " +
-			"inner join menu_item mi mi.id = mci.menu_id and mi.id = " + menuItem.getId() + "";
+			"inner join menu_item mi on mi.id = mci.menu_id and mi.id = " + menuItem.getId() + "";
 			ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 			if (resultSet != null) {
 				try {
@@ -588,15 +588,15 @@ public class OrderPersistImp {
 		ResultSet resultSet = dbAccessImpl.retrieve(connection, query);
 		try {
 			if (resultSet != null && resultSet.next()) {
-				MenuItem menuItem = getEntity(resultSet, MenuItem.class);
-				if (menuItem.isCustomizable()) {
-					menuItem.setCustomizableItems(getCustomizableItemForMenuItem(menuItem));
+				menuitem = getEntity(resultSet, MenuItem.class);
+				if (menuitem.isCustomizable()) {
+					menuitem.setCustomizableItems(getCustomizableItemForMenuItem(menuitem));
 				}
-				if (menuItem.isHasSide()) {
-					addSidesToMenuItem(menuItem);
+				if (menuitem.isHasSide()) {
+					addSidesToMenuItem(menuitem);
 				}
-				if (menuItem.isHasToppings()) {
-					addToppingsToMenuItem(menuItem);
+				if (menuitem.isHasToppings()) {
+					addToppingsToMenuItem(menuitem);
 				}
 			}
 		} catch (SQLException e) {

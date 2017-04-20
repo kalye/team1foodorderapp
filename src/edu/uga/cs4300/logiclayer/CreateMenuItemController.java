@@ -99,5 +99,14 @@ public class CreateMenuItemController {
 	public int updateCustomizableItem(CustomizableItem customizableItem) {
 		return orderPersistImp.updateCustomizableItem(customizableItem);
 	}
+	public int createMenuItem(MenuItem newMenuItem) {
+		return orderPersistImp.createMenuItem(newMenuItem);
+	}
+	public int updateMenuItem(MenuItem menuItem, List<Topping> toppingsToBeAddToMenu,
+			List<Topping> toppingsTobeRemovedFromMenu, List<Side> sidesToBeAddedToMenu,
+			List<Side> sidesToBeRemovedFromMenu, List<CustomizableItem> customizableItemToBeAddedToMenu,
+			List<CustomizableItem> customizableItemToBeRemovedFromMenu) {
+		return orderPersistImp.updateMenuItem(menuItem, toppingsToBeAddToMenu, toppingsTobeRemovedFromMenu, sidesToBeAddedToMenu, sidesToBeRemovedFromMenu, customizableItemToBeAddedToMenu, customizableItemToBeRemovedFromMenu);
+	}
 
 }
