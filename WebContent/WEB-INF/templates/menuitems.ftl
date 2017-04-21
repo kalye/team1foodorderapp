@@ -100,8 +100,8 @@ function hideOrShowById(id, show){
 			     	 Name:         <input type="text" value=${menuitem.name} name="name" /><br>
 			     	 Description: <input type="text" value=${menuitem.description} name="description" /><br>
 			     	 <#if atleastoneside>
-			     	 <input type="radio" name="hasside" onclick="javascript:hideOrShowById('divSide', true);" value="yes" ${(menuitem.hasSide)?then('checked', '')}>Has Sides <br>
-	  			     <input type="radio" onclick="javascript:hideOrShowById('divSide', false);" name="hasside" value="no" checked ${(menuitem.hasSide)?then('', 'checked')}> No Side<br>
+			     	 <input type="radio" name="hasside" onclick="javascript:hideOrShowById('divSide', true);" value="yes" ${menuitem.hasSide?then('checked', '')}>Has Sides <br>
+	  			     <input type="radio" onclick="javascript:hideOrShowById('divSide', false);" name="hasside" value="no" ${menuitem.hasSide?then('', 'checked')}> No Side<br>
 			     	 	<div id="divSide">
 				     	  <#list sides as side>
 				     	  	<input type="checkbox" name="sidesformenu"  value="${side.id}" ${(side.selected)?then('checked', '')}>${side.name}<br>
@@ -110,7 +110,7 @@ function hideOrShowById(id, show){
   					 </#if>
   					 <#if atleastonetopping>
   					 <input type="radio" name="hastoppings" onclick="javascript:hideOrShowById('divTopping', true);" value="yes" ${(menuitem.hasToppings)?then('checked', '')}>Has Toppings <br>
-	  			     <input type="radio" onclick="javascript:hideOrShowById('divTopping', false);" name="hastoppings" value="no" checked ${(menuitem.hasToppings)?then('', 'checked')}> No Topping<br>
+	  			     <input type="radio" onclick="javascript:hideOrShowById('divTopping', false);" name="hastoppings" value="no"  ${(menuitem.hasToppings)?then('', 'checked')}> No Topping<br>
 			     	 	<div id="divTopping">
 				     	  <#list toppings as topping>
 				     	  	<input type="checkbox" name="toppingsformenu"  value="${topping.id}" ${(topping.selected)?then('checked', '')}>${topping.name}<br>
@@ -118,8 +118,8 @@ function hideOrShowById(id, show){
 				     	</div>
   					 </#if>
   					 <#if atleastonecustomizableitem>
-  					 <input type="radio" name="hascustomizableitem" onclick="javascript:hideOrShowById('divCustomizableItem', true);" value="yes" ${(menuitem.customizable)?then('checked', '')}>Customizable <br>
-	  			     <input type="radio" onclick="javascript:hideOrShowById('divCustomizableItem', false);" name="hascustomizableitems" value="no" checked ${(menuitem.customizable)?then('', 'checked')}> Not Customizable<br>
+  					 <input type="radio" name="hascustomizableitems" onclick="javascript:hideOrShowById('divCustomizableItem', true);" value="yes" ${(menuitem.customizable)?then('checked', '')}>Customizable <br>
+	  			     <input type="radio" onclick="javascript:hideOrShowById('divCustomizableItem', false);" name="hascustomizableitems" value="no" ${(menuitem.customizable)?then('', 'checked')}> Not Customizable<br>
 			     	 	<div id="divCustomizableItem">
 				     	  <#list customizableitems as customizableitem>
 				     	  	<input type="checkbox" name="customizableitemsformenu"  value="${customizableitem.id}" ${(customizableitem.selected)?then('checked', '')}>${customizableitem.name}<br>
@@ -180,8 +180,8 @@ function hideOrShowById(id, show){
 					     	</div>
 	  					 </#if>
 	  					 <#if menuitem.customizable>
-		  					 <input type="radio" name="hascustomizableitem" onclick="javascript:hideOrShowById('divCustomizableItem', true);" value="yes" ${(menuitem.customizable)?then('checked', '')}>Customizable <br>
-			  			     <input type="radio" onclick="javascript:hideOrShowById('divCustomizableItem', false);" name="hascustomizableitems" value="no" checked ${(menuitem.customizable)?then('', 'checked')}> Not Customizable<br>
+		  					 <input type="radio" name="hascustomizableitems" onclick="javascript:hideOrShowById('divCustomizableItem', true);" value="yes" ${(menuitem.customizable)?then('checked', '')}>Customizable <br>
+			  			     <input type="radio" onclick="javascript:hideOrShowById('divCustomizableItem', false);" name="hascustomizableitems" value="no" ${(menuitem.customizable)?then('', 'checked')}> Not Customizable<br>
 					     	 <#if menuitem.customizableItems??>
 					     	 	<div id="divCustomizableItem">
 					     	 	<h2>Customize item</h2>
