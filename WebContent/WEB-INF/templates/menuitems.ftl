@@ -85,7 +85,7 @@ function hideOrShowById(id, show){
 </#if>
 
 <#if updateMenuItem??>
-			<form method="post" action="/team1foodorderapp/menuitems?update=true" enctype="multipart/form-data">
+			<form method="post" action="/team1foodorderapp/menuitems?update=true&&id=${menuitem.id}" enctype="multipart/form-data">
  					<div class="w3-content w3-section" style="max-width:500px">
 			    		<img class="mySlides" src="/team1foodorderapp/files/${menuitem.imageUrl}" style="width:100%">
 			     	 </div>
@@ -93,7 +93,7 @@ function hideOrShowById(id, show){
 			     	 Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
 			     	 <select name="cats">
 			     	 <#list catagories as cat>
-			     		 <option value="${cat.id?string.computer}" ${(cat.id==menuitem.categoryId)?then('selected', '')}>Fiat</option>
+			     		 <option value="${cat.id?string.computer}" ${(cat.id==menuitem.categoryId)?then('selected', '')}>${cat.name}</option>
 			     	 </#list>
 			     	 </select>
 			     	 <br><br>
@@ -102,7 +102,7 @@ function hideOrShowById(id, show){
 			     	 <#if atleastoneside>
 			     	 <input type="radio" name="hasside" onclick="javascript:hideOrShowById('divSide', true);" value="yes" ${menuitem.hasSide?then('checked', '')}>Has Sides <br>
 	  			     <input type="radio" onclick="javascript:hideOrShowById('divSide', false);" name="hasside" value="no" ${menuitem.hasSide?then('', 'checked')}> No Side<br>
-			     	 	<div id="divSide">
+			     	 	<div id="divSide" style="${(menuitem.hasSide)?then('', 'display:none;')}">
 				     	  <#list sides as side>
 				     	  	<input type="checkbox" name="sidesformenu"  value="${side.id}" ${(side.selected)?then('checked', '')}>${side.name}<br>
 				     	  </#list>
@@ -111,7 +111,7 @@ function hideOrShowById(id, show){
   					 <#if atleastonetopping>
   					 <input type="radio" name="hastoppings" onclick="javascript:hideOrShowById('divTopping', true);" value="yes" ${(menuitem.hasToppings)?then('checked', '')}>Has Toppings <br>
 	  			     <input type="radio" onclick="javascript:hideOrShowById('divTopping', false);" name="hastoppings" value="no"  ${(menuitem.hasToppings)?then('', 'checked')}> No Topping<br>
-			     	 	<div id="divTopping">
+			     	 	<div id="divTopping" style="${(menuitem.hasToppings)?then('', 'display:none;')}">
 				     	  <#list toppings as topping>
 				     	  	<input type="checkbox" name="toppingsformenu"  value="${topping.id}" ${(topping.selected)?then('checked', '')}>${topping.name}<br>
 				     	  </#list>
@@ -120,7 +120,7 @@ function hideOrShowById(id, show){
   					 <#if atleastonecustomizableitem>
   					 <input type="radio" name="hascustomizableitems" onclick="javascript:hideOrShowById('divCustomizableItem', true);" value="yes" ${(menuitem.customizable)?then('checked', '')}>Customizable <br>
 	  			     <input type="radio" onclick="javascript:hideOrShowById('divCustomizableItem', false);" name="hascustomizableitems" value="no" ${(menuitem.customizable)?then('', 'checked')}> Not Customizable<br>
-			     	 	<div id="divCustomizableItem">
+			     	 	<div id="divCustomizableItem" style="${(menuitem.customizable)?then('', 'display:none;')}">
 				     	  <#list customizableitems as customizableitem>
 				     	  	<input type="checkbox" name="customizableitemsformenu"  value="${customizableitem.id}" ${(customizableitem.selected)?then('checked', '')}>${customizableitem.name}<br>
 				     	  </#list>
@@ -267,8 +267,7 @@ function hideOrShowById(id, show){
 							</ul>
 					</#if>
 
-<#else>
-	<div style="display:inline-block;">${message}</div><br>
+
 </#if>
 
 

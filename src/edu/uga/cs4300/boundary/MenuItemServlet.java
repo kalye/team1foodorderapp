@@ -311,7 +311,7 @@ public class MenuItemServlet extends BaseFoodOrderServlet {
 			}
 			
 			//toppings
-			if(!oldMenuItem.isHasSide() && newMenuItem.isHasSide()){
+			if(!oldMenuItem.isHasToppings() && newMenuItem.isHasToppings()){
 				toppingsToBeAddToMenu.addAll(newMenuItem.getToppings());
 			} else if(oldMenuItem.isHasSide() && !newMenuItem.isHasSide()){
 				toppingsTobeRemovedFromMenu.addAll(oldMenuItem.getToppings());
@@ -322,52 +322,62 @@ public class MenuItemServlet extends BaseFoodOrderServlet {
 
 	private void updateToppingsTobeAddedAndRemoved(MenuItem newMenuItem, MenuItem oldMenuItem,
 			List<Topping> toppingsToBeAddToMenu, List<Topping> toppingsTobeRemovedFromMenu) {
-		for(Topping toppingNew: newMenuItem.getToppings()){
-			boolean found = false;
-			for(Topping toppingOld: oldMenuItem.getToppings()){
-				if(toppingOld.getId() == toppingNew.getId()){
-					found = true;
-				}
-			}
-			if(!found){
-				toppingsToBeAddToMenu.add(toppingNew);
-			}
-		}
-		for(Topping toppingOld: oldMenuItem.getToppings()){
-			boolean found = false;
+		if(CollectionUtils.isNotEmpty(newMenuItem.getToppings())){
 			for(Topping toppingNew: newMenuItem.getToppings()){
-				if(toppingOld.getId() == toppingNew.getId()){
-					found = true;
+				boolean found = false;
+				for(Topping toppingOld: oldMenuItem.getToppings()){
+					if(toppingOld.getId() == toppingNew.getId()){
+						found = true;
+					}
+				}
+				if(!found){
+					toppingsToBeAddToMenu.add(toppingNew);
 				}
 			}
-			if(!found){
-				toppingsTobeRemovedFromMenu.add(toppingOld);
+		}
+		if(CollectionUtils.isNotEmpty(oldMenuItem.getToppings())){
+			for(Topping toppingOld: oldMenuItem.getToppings()){
+				boolean found = false;
+				for(Topping toppingNew: newMenuItem.getToppings()){
+					if(toppingOld.getId() == toppingNew.getId()){
+						found = true;
+					}
+				}
+				if(!found){
+					toppingsTobeRemovedFromMenu.add(toppingOld);
+				}
 			}
 		}
+		
 	}
 
 	private void updateSidesTobeAddedAndRemoved(MenuItem newMenuItem, MenuItem oldMenuItem,
 			List<Side> sidesToBeAddToMenu, List<Side> sidesTobeRemovedFromMenu) {
-		for(Side sideNew: newMenuItem.getSides()){
-			boolean found = false;
-			for(Side sideOld: oldMenuItem.getSides()){
-				if(sideOld.getId() == sideNew.getId()){
-					found = true;
+		
+		if(CollectionUtils.isNotEmpty(newMenuItem.getSides())){
+			for(Side sideNew: newMenuItem.getSides()){
+				boolean found = false;
+				for(Side sideOld: oldMenuItem.getSides()){
+					if(sideOld.getId() == sideNew.getId()){
+						found = true;
+					}
 				}
-			}
-			if(!found){
-				sidesToBeAddToMenu.add(sideNew);
+				if(!found){
+					sidesToBeAddToMenu.add(sideNew);
+				}
 			}
 		}
-		for(Side sideOld: oldMenuItem.getSides()){
-			boolean found = false;
-			for(Side sideNew: newMenuItem.getSides()){
-				if(sideOld.getId() == sideNew.getId()){
-					found = true;
+		if(CollectionUtils.isNotEmpty(oldMenuItem.getSides())){
+			for(Side sideOld: oldMenuItem.getSides()){
+				boolean found = false;
+				for(Side sideNew: newMenuItem.getSides()){
+					if(sideOld.getId() == sideNew.getId()){
+						found = true;
+					}
 				}
-			}
-			if(!found){
-				sidesTobeRemovedFromMenu.add(sideOld);
+				if(!found){
+					sidesTobeRemovedFromMenu.add(sideOld);
+				}
 			}
 		}
 		

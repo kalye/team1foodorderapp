@@ -98,7 +98,7 @@ public class OrderPersistImp {
 				for(Topping topping: toppingsToBeAddToMenu){
 					query = "insert into menu_toppings (menu_id, topping_id) values(" + menuItem.getId() + ", "
 							+ topping.getId() + ");";
-					dbAccessImpl.create(connection, query, true);
+					dbAccessImpl.create(connection, query);
 				}
 			}
 			if (toppingsTobeRemovedFromMenu != null) {
@@ -112,7 +112,7 @@ public class OrderPersistImp {
 				for(Side side: sidesToBeAddedToMenu){
 					query = "insert into sides_menu (menu_id, side_id) values(" + menuItem.getId() + ", "
 							+ side.getId() + ");";
-					dbAccessImpl.create(connection, query, true);
+					dbAccessImpl.create(connection, query);
 				}
 			}
 			if (sidesToBeRemovedFromMenu != null) {
@@ -126,7 +126,7 @@ public class OrderPersistImp {
 				for(CustomizableItem customizableItem: customizableItemToBeAddedToMenu){
 					query = "insert into menu_customizable_item (menu_id, c_item_id) values(" + menuItem.getId() + ", "
 							+ customizableItem.getId() + ");";
-					dbAccessImpl.create(connection, query, true);
+					dbAccessImpl.create(connection, query);
 				}
 			}
 			if (customizableItemToBeRemovedFromMenu != null) {
