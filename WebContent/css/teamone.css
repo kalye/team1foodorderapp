@@ -29,3 +29,6 @@ table, th, td {
 .reglink {
 	color:#337ab7;
 }
+span.right{
+	float: right;
+}

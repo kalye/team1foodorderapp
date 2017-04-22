@@ -36,7 +36,12 @@ table, th, td {
 .logo {
 	height: 100px;
 }
-.mySlides {display:none;}
+.mySlides {
+	display:none;
+}
+li {
+    display: inline;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -111,7 +116,10 @@ table, th, td {
 
 <#if !cart.empty>
 	<div style="height: 80px;">Total Price - ${cart.totalPrice?string.currency}</div>
-	<ul style="list-style: none;"><li><a href="/team1foodorderapp/orders?addmore=true" style="color:#337ab7;">Add More Item</a></li><li><a href="/team1foodorderapp/orders?checkout=true" style="color:#337ab7;">CheckOut</a></li></ul>
+	<ul style="list-style: none;">
+		<li><a href="/team1foodorderapp/orders?addmore=true" style="color:#337ab7;">Add More Item</a></li>&nbsp;&nbsp;
+		<li><a href="/team1foodorderapp/orders?checkout=true" style="color:#337ab7;">CheckOut</a></li>
+	</ul>
 	<hr>
 	<#list cart.order.orderItems as orderitem>
 			<div>${orderitem.itemDescription}</div><div>${orderitem.price?string.currency}</div>
@@ -120,13 +128,16 @@ table, th, td {
 		     		 <option value="${index}" ${(orderitem.size == index)?then("selected='selected'", '')}>${index}</option>
 		     	 </#list>
 		     </select>
-	     	<ul style="list-style: none;"><li><a href="/team1foodorderapp/orders?edit=${orderitem.itemNumber}" style="color:#337ab7;">Edit</a></li><li> <a href="/team1foodorderapp/orders?remove=${orderitem.itemNumber}" style="color:#337ab7;">Remove</a></li></ul>
+	     	<ul style="list-style: none;">
+		     	<li><a href="/team1foodorderapp/orders?edit=${orderitem.itemNumber}" style="color:#337ab7;">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		     	</li><li> <a href="/team1foodorderapp/orders?remove=${orderitem.itemNumber}" style="color:#337ab7;">Remove</a></li>
+	     	</ul>
 	     	<hr>
 	</#list>
 	<div style="float:right;">
-		<span>Subtotal:</span><span>${cart.subTotalPrice?string.currency}</span><br>
-		<span>Tax:</span><span>${cart.tax?string.currency}</span><br>
-		<span>Total:</span><span>${cart.totalPrice?string.currency}</span><br>
+		<span>Subtotal:</span><span class="right">${cart.subTotalPrice?string.currency}</span><br>
+		<span>Tax:</span><span class="right">${cart.tax?string.currency}</span><br>
+		<span>Total:</span><span class="right">${cart.totalPrice?string.currency}</span><br>
 	</div>
 <#else>
 	<div>No item in the cart</div>
