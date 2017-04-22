@@ -270,6 +270,7 @@ public class MenuItemServlet extends BaseFoodOrderServlet {
 				}
 			}
 		}
+		root.put("addmenuitem", true);
 		List<MenuItem> menuitems = createMenuItemController.getAllMenuItems();
 		root.put("menuitems", menuitems);
 		root.put("hasOneMoreMenuItem", CollectionUtils.isNotEmpty(menuitems));
