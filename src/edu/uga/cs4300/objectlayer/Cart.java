@@ -9,6 +9,15 @@ public class Cart {
 	private Order order;
 	private PaymentInfo paymentInfo;
 	
+	public Cart(){
+		this.order = new Order();
+		this.paymentInfo = new PaymentInfo();
+	}
+	public Cart(Order order, PaymentInfo paymentInfo) {
+		super();
+		this.order = order;
+		this.paymentInfo = paymentInfo;
+	}
 	public void addOrderItem(OrderItem orderItem){
 		order.addOrderItem(orderItem);
 	}
