@@ -31,8 +31,8 @@ public class CustomerHomePage extends BaseFoodOrderServlet {
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
 		if(cart == null){
 			cart = new Cart();
-			request.getSession().setAttribute("cart", cart);
 		}
+		request.getSession().setAttribute("cart", cart);
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
 		root.put("cart", cart);

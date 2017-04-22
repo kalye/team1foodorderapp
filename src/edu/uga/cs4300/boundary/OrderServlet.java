@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import edu.uga.cs4300.logiclayer.CreateMenuItemController;
 import edu.uga.cs4300.logiclayer.OrderController;
+import edu.uga.cs4300.objectlayer.Cart;
 import edu.uga.cs4300.objectlayer.MenuCategory;
 import edu.uga.cs4300.objectlayer.MenuItem;
 import freemarker.template.Configuration;
@@ -50,6 +51,12 @@ public class OrderServlet extends BaseFoodOrderServlet {
 				root.put("hasCategory", hasCategory);
 			}
 			root.put("catagories", catagories);
+			Cart cart = (Cart) request.getSession().getAttribute("cart");
+			if(cart == null){
+				cart = new Cart();
+			}
+			request.getSession().setAttribute("cart", cart);
+			root.put("cart", cart);
 			renderTemplate(request, response, "catagories.ftl", root);
 			return;
 		}

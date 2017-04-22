@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/team1foodorderapp/css/teamone.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -32,6 +33,11 @@
 			<li class="active"><a
 				href="customizableitems?create=true">Customize Item</a></li>
 		</ul>
+		<#if createOrUpdate??>
+		
+		<#else>
+			<div class="shopping-cart">${cart.totalPrice?string.currency}</div>
+		</#if>
 	</div>
 </nav>
 </head>

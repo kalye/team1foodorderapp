@@ -33,6 +33,9 @@
 			<li class="active"><a
 				href="customizableitems?create=true">Customize Item</a></li>
 		</ul>
+		<#if addmenuitemtocart??>
+			<div class="shopping-cart">${cart.totalPrice?string.currency}</div>
+		</#if>
 	</div>
 </nav>
 </head>
