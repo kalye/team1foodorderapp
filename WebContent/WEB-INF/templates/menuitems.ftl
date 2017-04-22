@@ -205,7 +205,7 @@ function hideOrShowById(id, show){
 						     	 </div>
 		  					 </#if>
 	  					 </#if>
-	  					  Price: <span>${menuitem.price}</span><br>
+	  					  Price: <span>${menuitem.price?string.currency}</span><br>
 	  					  <button type="submit" class="button">Add To Cart</button>
 				     	 </form>
 	     	 	</li>
