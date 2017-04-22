@@ -162,9 +162,10 @@ function hideOrShowById(id, show){
 			     	 </#if>
 <#elseif addmenuitemtocart??>
 	<#list menuitems as menuitem>
+	<ul>
+		<li>
 		<form method="post" id=${menuitem.id} action="/team1foodorderapp/orders?addtocart=true&&menuid=${menuitem.id}" enctype="multipart/form-data">
-	 					<div class="w3-content w3-section" style="max-width:200px">
-				    		<img class="mySlides" src="/team1foodorderapp/files/${menuitem.imageUrl}" style="width:100%">
+	 					<div style="width:200px; height: 90px; background-image: url(/team1foodorderapp/files/${menuitem.imageUrl}); background-repeat: no-repeat;">
 				     	 </div>
 				     	 <#list catagories as cat>
 				     	 	<#if cat.id==menuitem.categoryId >
@@ -172,8 +173,8 @@ function hideOrShowById(id, show){
 				     	 	</#if>
 				     	 </#list>
 				     	 <br><br>
-				     	 <div>${menuitem.name}</div><br>
-				     	 <div>${menuitem.description}</div><br>
+				     	 <div>Name: 	   ${menuitem.name}</div><br>
+				     	 <div>Description: ${menuitem.description}</div><br>
 				     	 <#if menuitem.hasSide>
 					     	 <#if menuitem.sides??>
 					     	 	<div id="divSide">
@@ -184,21 +185,21 @@ function hideOrShowById(id, show){
 						     	</div>
 		  					 </#if>
 	  					 </#if>
-				     	 <#if menuitem.toppings>
+				     	 <#if menuitem.hasToppings>
 				     	 	<div id="divTopping">
 				     	 	<h2>Choose Toppings</h2>
+				     	 	<#if menuitem.toppings??>
 					     	  <#list menuitem.toppings as topping>
 					     	  	<input type="checkbox" name="toppingsformenu"  value="${topping.id}">${topping.name}<br>
 					     	  </#list>
+					     	 </#if>
 					     	</div>
 	  					 </#if>
 	  					 <#if menuitem.customizable>
-		  					 <input type="radio" name="hascustomizableitems" onclick="javascript:hideOrShowById('divCustomizableItem', true);" value="yes" ${(menuitem.customizable)?then('checked', '')}>Customizable <br>
-			  			     <input type="radio" onclick="javascript:hideOrShowById('divCustomizableItem', false);" name="hascustomizableitems" value="no" ${(menuitem.customizable)?then('', 'checked')}> Not Customizable<br>
 					     	 <#if menuitem.customizableItems??>
 					     	 	<div id="divCustomizableItem">
 					     	 	<h2>Customize item</h2>
-						     	  <#list menuitem.customizableitems as customizableitem>
+						     	  <#list menuitem.customizableItems as customizableitem>
 						     	  	<input type="checkbox" name="customizableitemsformenu"  value="${customizableitem.id}">${customizableitem.name}<br>
 						     	  </#list>
 						     	 </div>
@@ -207,6 +208,8 @@ function hideOrShowById(id, show){
 	  					  Price: <span>${menuitem.price}</span><br>
 	  					  <button type="submit" class="button">Add To Cart</button>
 				     	 </form>
+	     	 	</li>
+	     	 </ul>
 	    </#list>
 <#elseif addmenuitem??>
 	<form method="post" action="/team1foodorderapp/menuitems?add=true" enctype="multipart/form-data">

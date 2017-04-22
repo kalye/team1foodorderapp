@@ -54,8 +54,8 @@ public class OrderServlet extends BaseFoodOrderServlet {
 			Cart cart = (Cart) request.getSession().getAttribute("cart");
 			if(cart == null){
 				cart = new Cart();
+				request.getSession().setAttribute("cart", cart);
 			}
-			request.getSession().setAttribute("cart", cart);
 			root.put("cart", cart);
 			renderTemplate(request, response, "catagories.ftl", root);
 			return;
@@ -64,6 +64,17 @@ public class OrderServlet extends BaseFoodOrderServlet {
 		if(StringUtils.isNumeric(query)){
 			int id = Integer.parseInt(query);
 			List<MenuItem> items = orderController.getMenuItemsForCatagory(id);
+			Cart cart = (Cart) request.getSession().getAttribute("cart");
+			if(cart == null){
+				cart = new Cart();
+				request.getSession().setAttribute("cart", cart);
+			}
+			root.put("menuitems", items);
+			root.put("catagories", createMenuItemController.getAllCatagories());
+			root.put("cart", cart);
+			root.put("addmenuitemtocart", true);
+			renderTemplate(request, response, "menuitems.ftl", root);
+			return;
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
