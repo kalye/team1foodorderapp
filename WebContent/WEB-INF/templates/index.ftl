@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/team1foodorderapp/css/teamone.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
@@ -40,36 +41,6 @@
 <meta charset="UTF-8">
 <title>Welcome to Team1 Restaurant</title>
 <link rel="icon" href="/team1foodorderapp/favicon.ico" />
-<style>
-table {
-	border-collapse: collapse;
-}
-
-table, th, td {
-	border: 1px solid black;
-}
-
-.button {
-	background-color: ForestGreen;
-	border-radius: 5px;
-	color: white;
-	text-decoration: none;
-}
-
-.logo {
-	height: 100px;
-}
-.mySlides {display:none;}
-.shopping-cart{
-	background-image: url(/team1foodorderapp/images/shopping-cart.jpg);
-	background-repeat: no-repeat;
-	background-size: 80px 60px;
-	width:80px;
-	height:60px;
-	float:right;
-	text-align:center;
-}
-</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>

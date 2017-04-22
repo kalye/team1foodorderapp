@@ -1,0 +1,28 @@
+table {
+	border-collapse: collapse;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+.button {
+	background-color: ForestGreen;
+	border-radius: 5px;
+	color: white;
+	text-decoration: none;
+}
+
+.logo {
+	height: 100px;
+}
+.mySlides {display:none;}
+.shopping-cart{
+	background-image: url(/team1foodorderapp/images/shopping-cart.jpg);
+	background-repeat: no-repeat;
+	background-size: 80px 60px;
+	width:80px;
+	height:60px;
+	float:right;
+	text-align:center;
+}
