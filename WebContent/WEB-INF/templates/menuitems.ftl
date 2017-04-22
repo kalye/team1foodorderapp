@@ -164,7 +164,7 @@ function hideOrShowById(id, show){
 	<#list menuitems as menuitem>
 	<ul>
 		<li>
-		<form method="post" id=${menuitem.id} action="/team1foodorderapp/orders?addtocart=true&&menuid=${menuitem.id}" enctype="multipart/form-data">
+		<form method="post" id=${menuitem.id} action="/team1foodorderapp/orders?addtocart=true&&menuid=${menuitem.id}">
 	 					<div style="width:200px; height: 90px; background-image: url(/team1foodorderapp/files/${menuitem.imageUrl}); background-repeat: no-repeat;">
 				     	 </div>
 				     	 <#list catagories as cat>
@@ -200,12 +200,18 @@ function hideOrShowById(id, show){
 					     	 	<div id="divCustomizableItem">
 					     	 	<h2>Customize item</h2>
 						     	  <#list menuitem.customizableItems as customizableitem>
-						     	  	<input type="checkbox" name="customizableitemsformenu"  value="${customizableitem.id}">${customizableitem.name}<br>
+						     	  	<input type="checkbox" name="customizableitemsformenu"  value="${customizableitem.id}">${customizableitem.name}<input type="checkbox" name="customizableitemsformenuextra"  value="${customizableitem.id}">Add Extra<br>
 						     	  </#list>
 						     	 </div>
 		  					 </#if>
 	  					 </#if>
 	  					  Price: <span>${menuitem.price?string.currency}</span><br>
+	  					  Number of order:<br>
+	  					   <select name="size">
+			  					  <#list 1..50 as index>
+						     		 <option value="${index}" ${(1 == index)?then('checked', '')}>${index}</option>
+						     	 </#list>
+						   </select>	 
 	  					  <button type="submit" class="button">Add To Cart</button>
 				     	 </form>
 	     	 	</li>

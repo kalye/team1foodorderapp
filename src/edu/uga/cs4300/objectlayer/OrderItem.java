@@ -1,6 +1,7 @@
 package edu.uga.cs4300.objectlayer;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -12,10 +13,10 @@ public class OrderItem {
 	private MenuItem menuItem;
 	private boolean itemCustomized;
 	private boolean hasExtraCustomizedItem;
-	private List<Topping> selectedToppings;
-	private List<Side> selectedSides;
-	private List<CustomizableItem> selectedCustomizableItem;
-	private List<CustomizableItem> selectedExtraCustomizableItem;
+	private List<Topping> selectedToppings = new ArrayList<>();
+	private List<Side> selectedSides = new ArrayList<>();
+	private List<CustomizableItem> selectedCustomizableItem = new ArrayList<>();
+	private List<CustomizableItem> selectedExtraCustomizableItem = new ArrayList<>();
 	
 	public int getSize() {
 		return size;

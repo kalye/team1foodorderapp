@@ -1,6 +1,7 @@
 package edu.uga.cs4300.objectlayer;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -9,7 +10,7 @@ public class Order {
 	
 	private int orderNumber;
 
-	private List<OrderItem> orderItems;
+	private List<OrderItem> orderItems = new ArrayList<>();
 	
 	public void addOrderItem(OrderItem orderItem){
 		orderItems.add(orderItem);

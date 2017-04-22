@@ -46,7 +46,10 @@ public class Cart {
 		return order.getSubTotalPrice();
 	}
 	public boolean isEmpty(){
-		return order != null && CollectionUtils.isNotEmpty(order.getOrderItems());
+		return order == null || CollectionUtils.isEmpty(order.getOrderItems());
+	}
+	public boolean getEmpty(){
+		return isEmpty();
 	}
 	
 }

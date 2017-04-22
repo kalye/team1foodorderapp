@@ -2,38 +2,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/team1foodorderapp/css/teamone.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand"
-				href="index.html">
-				Index</a>
-		</div>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="index.html">Home</a></li>
-		</ul>
-						<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="catagories?createOrUpdate=true">Create Category</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="menuitems?create=true">Create Menu Item</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="customizableitems?create=true">Customize Item</a></li>
-		</ul>
-	</div>
-</nav>
 </head>
 
 <meta charset="UTF-8">
@@ -97,6 +72,7 @@ table, th, td {
 			<li class="active"><a
 				href="customizableitems?create=true">Customize Item</a></li>
 		</ul>
+		<div class="shopping-cart">${cart.totalPrice?string.currency}</div>
 	</div>
 </nav>
 </head>
@@ -138,15 +114,16 @@ table, th, td {
 </#if>
 
 <#if !cart.empty>
-	<div style="background-image: url(/team1foodorderapp/images/teamone-2017-04-02_13-32-51.png); height: 150px;"></div>
 	<span style="background-image: url(/team1foodorderapp/images/shopping-cart.jpg); height: 80px;">${cart.totalPrice}</span>
 	<a href="/team1foodorderapp/orders?addmore=true" >Add More Item</a><a href="/team1foodorderapp/orders?checkout=true" >CheckOut</a>
 	<#list cart.order.orderItems as orderitem>
 			<div>${orderitem.itemDescription}</div><div>${orderitem.price}</div>
 			<a href="/team1foodorderapp/orders?edit=${orderitem.itemNumber}">Edit</a>
-			<#list 1..50 as index>
-	     		 <option value="${index}" ${(orderitem.size == index)?then('checked', '')}>${index}</option>
-	     	 </#list>
+			 <select name="size">
+				<#list 1..50 as index>
+		     		 <option value="${index}" ${(orderitem.size == index)?then('checked', '')}>${index}</option>
+		     	 </#list>
+		     </select>
 	     	 <a href="/team1foodorderapp/orders?remove=${orderitem.itemNumber}">Remove</a>
 	</#list>
 	<div style="float:right;">
