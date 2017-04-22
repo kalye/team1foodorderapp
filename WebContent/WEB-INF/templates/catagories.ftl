@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,7 +12,34 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Welcome to Team1 Restaurant</title>
+<link rel="icon" href="/team1foodorderapp/favicon.ico" />
+<style>
+table {
+	border-collapse: collapse;
+}
 
+table, th, td {
+	border: 1px solid black;
+}
+
+.button {
+	background-color: ForestGreen;
+	border-radius: 5px;
+	color: white;
+	text-decoration: none;
+}
+
+.logo {
+	height: 100px;
+}
+.mySlides {display:none;}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -40,36 +70,6 @@
 		</#if>
 	</div>
 </nav>
-</head>
-
-<meta charset="UTF-8">
-<title>Welcome to Team1 Restaurant</title>
-<link rel="icon" href="/team1foodorderapp/favicon.ico" />
-<style>
-table {
-	border-collapse: collapse;
-}
-
-table, th, td {
-	border: 1px solid black;
-}
-
-.button {
-	background-color: ForestGreen;
-	border-radius: 5px;
-	color: white;
-	text-decoration: none;
-}
-
-.logo {
-	height: 100px;
-}
-.mySlides {display:none;}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
-<body>
 <!--Display error message if error exists -->
 <#if error??>
  <div style="display:inline-block; float:left; color: red;">${message}</div><br>
@@ -134,13 +134,13 @@ table, th, td {
 			<h2>Create SubItem</h2>
 		
 				<ul style="list-style-type: none">
-					<li><a href="/team1foodorderapp/menuitems?create=true">Create
+					<li><a href="/team1foodorderapp/menuitems?create=true" class="reglink">Create
 							Menu Item</a></li>
-					<li><a href="/team1foodorderapp/toppings?create=true">Create
+					<li><a href="/team1foodorderapp/toppings?create=true" class="reglink">Create
 							Toppings</a></li>
-					<li><a href="/team1foodorderapp/sides?create=true">Create
+					<li><a href="/team1foodorderapp/sides?create=true" class="reglink">Create
 							Sides</a></li>
-					<li><a href="/team1foodorderapp/customizableitems?create=true">Create
+					<li><a href="/team1foodorderapp/customizableitems?create=true" class="reglink">Create
 							Customizable Item</a></li>
 				</ul>
 		</#if>

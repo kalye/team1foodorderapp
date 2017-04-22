@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,39 +13,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand"
-				href="index.html">
-				Index</a>
-		</div>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="index.html">Home</a></li>
-		</ul>
-						<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="catagories?createOrUpdate=true">Create Category</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="menuitems?create=true">Create Menu Item</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="customizableitems?create=true">Customize Item</a></li>
-		</ul>
-		<#if addmenuitemtocart??>
-			<div class="shopping-cart">${cart.totalPrice?string.currency}</div>
-		</#if>
-	</div>
-</nav>
-</head>
-
 <meta charset="UTF-8">
-<title>Welcome to Team1 Restaurant</title>
 <link rel="icon" href="/team1foodorderapp/favicon.ico" />
+<title>Welcome to Team1 Restaurant</title>
 <style>
 table {
 	border-collapse: collapse;
@@ -74,8 +47,7 @@ table, th, td {
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Menu Items</title>
 <script>
@@ -92,6 +64,34 @@ function hideOrShowById(id, show){
 </script>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand"
+				href="index.html">
+				Index</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="index.html">Home</a></li>
+		</ul>
+						<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="catagories?createOrUpdate=true">Create Category</a></li>
+		</ul>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="menuitems?create=true">Create Menu Item</a></li>
+		</ul>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="customizableitems?create=true">Customize Item</a></li>
+		</ul>
+		<#if addmenuitemtocart??>
+			<div class="shopping-cart">${cart.totalPrice?string.currency}</div>
+		</#if>
+	</div>
+</nav>
 <!--Display error message if error exists -->
 <#if error??>
  <div style="display:inline-block; float:left; color: red;">${message}</div><br>
@@ -280,11 +280,11 @@ function hideOrShowById(id, show){
 			     	 <#if createsubmenu??>
 						<h2>Create Menu Related Items</h2>
 							<ul style="list-style-type: none">
-								<li><a href="/team1foodorderapp/toppings?create=true">Create
+								<li><a href="/team1foodorderapp/toppings?create=true" class="reglink">Create
 										Toppings</a></li>
-								<li><a href="/team1foodorderapp/sides?create=true">Create
+								<li><a href="/team1foodorderapp/sides?create=true" class="reglink">Create
 										Sides</a></li>
-								<li><a href="/team1foodorderapp/customizableitems?create=true">Create
+								<li><a href="/team1foodorderapp/customizableitems?create=true" class="reglink">Create
 										Customizable Item</a></li>
 							</ul>
 					</#if>

@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -37,10 +40,6 @@ table, th, td {
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -48,34 +47,6 @@ table, th, td {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand"
-				href="index.html">
-				Index</a>
-		</div>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="index.html">Home</a></li>
-		</ul>
-						<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="catagories?createOrUpdate=true">Create Category</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="menuitems?create=true">Create Menu Item</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="customizableitems?create=true">Customize Item</a></li>
-		</ul>
-		<div class="shopping-cart">${cart.totalPrice?string.currency}</div>
-	</div>
-</nav>
-</head>
 
 <meta charset="UTF-8">
 <title>Welcome to Team1 Restaurant</title>
@@ -103,33 +74,59 @@ table, th, td {
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Shopping Cart</title>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand"
+				href="index.html">
+				Index</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="index.html">Home</a></li>
+		</ul>
+						<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="catagories?createOrUpdate=true">Create Category</a></li>
+		</ul>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="menuitems?create=true">Create Menu Item</a></li>
+		</ul>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="customizableitems?create=true">Customize Item</a></li>
+		</ul>
+		<div class="shopping-cart">${cart.totalPrice?string.currency}</div>
+	</div>
+</nav>
 <!--Display error message if error exists -->
 <#if error??>
  <div style="display:inline-block; float:left; color: red;">${message}</div><br>
 </#if>
 
 <#if !cart.empty>
-	<span style="background-image: url(/team1foodorderapp/images/shopping-cart.jpg); height: 80px;">${cart.totalPrice}</span>
-	<a href="/team1foodorderapp/orders?addmore=true" >Add More Item</a><a href="/team1foodorderapp/orders?checkout=true" >CheckOut</a>
+	<div style="height: 80px;">Total Price - ${cart.totalPrice?string.currency}</div>
+	<ul style="list-style: none;"><li><a href="/team1foodorderapp/orders?addmore=true" style="color:#337ab7;">Add More Item</a></li><li><a href="/team1foodorderapp/orders?checkout=true" style="color:#337ab7;">CheckOut</a></li></ul>
+	<hr>
 	<#list cart.order.orderItems as orderitem>
-			<div>${orderitem.itemDescription}</div><div>${orderitem.price}</div>
-			<a href="/team1foodorderapp/orders?edit=${orderitem.itemNumber}">Edit</a>
+			<div>${orderitem.itemDescription}</div><div>${orderitem.price?string.currency}</div>
 			 <select name="size">
 				<#list 1..50 as index>
-		     		 <option value="${index}" ${(orderitem.size == index)?then('checked', '')}>${index}</option>
+		     		 <option value="${index}" ${(orderitem.size == index)?then("selected='selected'", '')}>${index}</option>
 		     	 </#list>
 		     </select>
-	     	 <a href="/team1foodorderapp/orders?remove=${orderitem.itemNumber}">Remove</a>
+	     	<ul style="list-style: none;"><li><a href="/team1foodorderapp/orders?edit=${orderitem.itemNumber}" style="color:#337ab7;">Edit</a></li><li> <a href="/team1foodorderapp/orders?remove=${orderitem.itemNumber}" style="color:#337ab7;">Remove</a></li></ul>
+	     	<hr>
 	</#list>
 	<div style="float:right;">
-		<span>Subtotal:</span><span>${cart.subTotalPrice}</span><br>
-		<span>Tax:</span><span>${cart.tax}</span><br>
-		<span>Total:</span><span>${cart.totalPrice}</span><br>
+		<span>Subtotal:</span><span>${cart.subTotalPrice?string.currency}</span><br>
+		<span>Tax:</span><span>${cart.tax?string.currency}</span><br>
+		<span>Total:</span><span>${cart.totalPrice?string.currency}</span><br>
 	</div>
 <#else>
 	<div>No item in the cart</div>

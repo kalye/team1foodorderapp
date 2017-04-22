@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,34 +11,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand"
-				href="index.html">
-				Index</a>
-		</div>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="index.html">Home</a></li>
-		</ul>
-						<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="catagories?createOrUpdate=true">Create Category</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="menuitems?create=true">Create Menu Item</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="customizableitems?create=true">Customize Item</a></li>
-		</ul>
-	</div>
-</nav>
-</head>
-
 <meta charset="UTF-8">
 <title>Welcome to Team1 Restaurant</title>
 <link rel="icon" href="/team1foodorderapp/favicon.ico" />
@@ -62,11 +37,35 @@ table, th, td {
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Menu Toppings</title>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand"
+				href="index.html">
+				Index</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="index.html">Home</a></li>
+		</ul>
+						<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="catagories?createOrUpdate=true">Create Category</a></li>
+		</ul>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="menuitems?create=true">Create Menu Item</a></li>
+		</ul>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="customizableitems?create=true">Customize Item</a></li>
+		</ul>
+	</div>
+</nav>
 <!--Display error message if error exists -->
 <#if error??>
  <div style="display:inline-block; float:left; color: red;">${message}</div><br>

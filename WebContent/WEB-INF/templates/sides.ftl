@@ -3,9 +3,35 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" href="/team1foodorderapp/favicon.ico" />
 <title>Menu Sides</title>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand"
+				href="index.html">
+				Index</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="index.html">Home</a></li>
+		</ul>
+						<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="catagories?createOrUpdate=true">Create Category</a></li>
+		</ul>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="menuitems?create=true">Create Menu Item</a></li>
+		</ul>
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="customizableitems?create=true">Customize Item</a></li>
+		</ul>
+	</div>
+</nav>
 <!--Display error message if error exists -->
 <#if error??>
  <div style="display:inline-block; float:left; color: red;">${message}</div><br>
