@@ -118,7 +118,7 @@ table, th, td {
 	<div style="height: 80px;">Total Price - ${cart.totalPrice?string.currency}</div>
 	<ul style="list-style: none;">
 		<li><a href="/team1foodorderapp/orders?addmore=true" style="color:#337ab7;">Add More Item</a></li>&nbsp;&nbsp;
-		<li><a href="/team1foodorderapp/orders?checkout=true" style="color:#337ab7;">CheckOut</a></li>
+		<li><a href="/team1foodorderapp/orders?checkout=true" style="color:#337ab7;">Proceed to CheckOut</a></li>
 	</ul>
 	<hr>
 	<#list cart.order.orderItems as orderitem>
