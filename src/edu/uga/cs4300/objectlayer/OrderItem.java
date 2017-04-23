@@ -93,6 +93,7 @@ public class OrderItem {
 				price = price.add(customizableItem.getPrice());
 			}
 		}
+		price = price.multiply(BigDecimal.valueOf(size));
 		return price;
 	}
 	
