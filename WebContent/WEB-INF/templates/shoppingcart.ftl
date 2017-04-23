@@ -123,7 +123,10 @@ table, th, td {
 	<hr>
 	<#list cart.order.orderItems as orderitem>
 		<form method="post" id="sizechange${orderitem.itemNumber?string.computer}" action="/team1foodorderapp/orders?changesizeforitem=${orderitem.itemNumber?string.computer}">
-			<div>${orderitem.itemDescription}</div><div>${orderitem.price?string.currency}</div>
+			<div style="width:200px; height: 90px; background-image: url(/team1foodorderapp/files/${orderitem.menuItem.imageUrl}); background-repeat: no-repeat;">
+				     	 </div>
+			<div>${orderitem.itemDescription}</div>
+			<div>${orderitem.price?string.currency}</div>
 			 <select name="size" onchange="javascirpt: document.getElementById('sizechange${orderitem.itemNumber?string.computer}').submit();">
 				<#list 1..50 as index>
 		     		 <option value="${index}" ${(orderitem.size == index)?then("selected='selected'", '')}>${index}</option>
