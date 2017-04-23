@@ -143,10 +143,16 @@ public class OrderServlet extends BaseFoodOrderServlet {
 		if(StringUtils.isNotBlank(query)){
 			request.getSession().setAttribute("cart", cart);
 			root.put("cart", cart);
-			renderTemplate(request, response, "checkout.ftl", root);
+			renderTemplate(request, response, "shipping.ftl", root);
 			return;
 		}
-		
+		query = (String) request.getParameter("billing");
+		if(StringUtils.isNotBlank(query)){
+			request.getSession().setAttribute("cart", cart);
+			root.put("cart", cart);
+			renderTemplate(request, response, "shipping.ftl", root);
+			return;
+		}
 	}
 	private List<Integer> getSelectedExtraCustomizableItemsId(List<CustomizableItem> selectedExtraCustomizableItems) {
 		List<Integer> selectedExtras = new ArrayList<>();
@@ -229,7 +235,30 @@ public class OrderServlet extends BaseFoodOrderServlet {
 			renderTemplate(request, response, "shoppingcart.ftl", root);
 			return;
 		}
+		query = (String) request.getParameter("billing");
+		if(StringUtils.isNotBlank(query)){
+			request.getSession().setAttribute("cart", cart);
+			updateBillingShipping(cart, request, false);
+			root.put("cart", cart);
+			renderTemplate(request, response, "shipping.ftl", root);
+			return;
+		}
+		query = (String) request.getParameter("shipping");
+		if(StringUtils.isNotBlank(query)){
+			request.getSession().setAttribute("cart", cart);
+			updateBillingShipping(cart, request, true);
+			root.put("cart", cart);
+			renderTemplate(request, response, "confirmation.ftl", root);
+			return;
+		}
 		
+	}
+	private void updateBillingShipping(Cart cart, HttpServletRequest request, boolean shipping) {
+		if(shipping){
+			
+		} else {
+			
+		}
 	}
 	private void updateOrderItem(OrderItem orderItem, HttpServletRequest request) {
 		String size = (String) request.getParameter("size");

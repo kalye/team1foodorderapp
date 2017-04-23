@@ -12,6 +12,8 @@ public class Order {
 
 	private List<OrderItem> orderItems = new ArrayList<>();
 	
+	private Address shippingAddress = new Address();
+	
 	public void addOrderItem(OrderItem orderItem){
 		orderItems.add(orderItem);
 	}
@@ -88,6 +90,12 @@ public class Order {
 			}
 		}
 		return orderItemSearched;
+	}
+	public Address getShippingAddress() {
+		return shippingAddress;
+	}
+	public void setShippingAddress(Address shippingAddress) {
+		this.shippingAddress = shippingAddress;
 	}
 	
 }

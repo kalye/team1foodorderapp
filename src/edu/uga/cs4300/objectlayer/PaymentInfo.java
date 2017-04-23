@@ -8,6 +8,7 @@ public class PaymentInfo {
 	private String expireMonth;
 	private String expireYear;
 	private String code;
+	private Address billingAddress = new Address();
 	
 	public String getNameOnCard() {
 		return nameOnCard;
@@ -44,6 +45,12 @@ public class PaymentInfo {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public Address getBillingAddress() {
+		return billingAddress;
+	}
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
 	}
 	
 }
