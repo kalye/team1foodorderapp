@@ -66,7 +66,7 @@ table, th, td {
 		<#if createOrUpdate??>
 		
 		<#else>
-			<div class="shopping-cart">${cart.totalPrice?string.currency}</div>
+			<div class="shopping-cart" onclick="location.href=&quot;/team1foodorderapp/orders?cartitems=true&quot;"><a href="/team1foodorderapp/orders?cartitems=true">${cart.totalPrice?string.currency}</a></div>
 		</#if>
 	</div>
 </nav>

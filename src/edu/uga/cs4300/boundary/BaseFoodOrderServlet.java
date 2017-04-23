@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import edu.uga.cs4300.objectlayer.CustomizableItem;
+import edu.uga.cs4300.objectlayer.Side;
+import edu.uga.cs4300.objectlayer.Topping;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleHash;
 import freemarker.template.Template;
@@ -136,5 +141,41 @@ public class BaseFoodOrderServlet extends HttpServlet  {
 				}
 			}
 			return false;
+	}
+	public void updateSelectedSides(List<Side> sides, List<Side> sides2) {
+		if (CollectionUtils.isNotEmpty(sides) && CollectionUtils.isNotEmpty(sides2)) {
+			for (Side side : sides) {
+				for (Side side2 : sides2) {
+					if (side.getId() == side2.getId()) {
+						side.setSelected(true);
+					}
+				}
+			}
+		}
+	}
+
+	public void updateSelectedToppings(List<Topping> toppings, List<Topping> toppings2) {
+		if (CollectionUtils.isNotEmpty(toppings) && CollectionUtils.isNotEmpty(toppings2)) {
+			for (Topping topping : toppings) {
+				for (Topping topping2 : toppings2) {
+					if (topping.getId() == topping2.getId()) {
+						topping.setSelected(true);
+					}
+				}
+			}
+		}
+	}
+
+	public void updateSelectedCustomizableItems(List<CustomizableItem> customizableItems,
+			List<CustomizableItem> customizableItems2) {
+		if (CollectionUtils.isNotEmpty(customizableItems) && CollectionUtils.isNotEmpty(customizableItems2)) {
+			for (CustomizableItem customizableItem : customizableItems) {
+				for (CustomizableItem customizableItem2 : customizableItems2) {
+					if (customizableItem.getId() == customizableItem2.getId()) {
+						customizableItem.setSelected(true);
+					}
+				}
+			}
+		}
 	}
 }

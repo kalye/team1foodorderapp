@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -46,10 +47,11 @@ public class OrderServlet extends BaseFoodOrderServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String query = (String) request.getParameter("catagorylists");
+		String addmore = (String) request.getParameter("addmore");
 		boolean isCatagoryList = query != null && query.equals("true") ? true : false;
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
-		if(isCatagoryList){
+		if(isCatagoryList || StringUtils.isNotBlank(addmore)){
 			List<MenuCategory> catagories = createMenuItemController.getAllCatagories();
 			boolean hasCategory = (catagories == null || catagories.isEmpty()) ? false : true;
 			if(!hasCategory){
@@ -95,6 +97,58 @@ public class OrderServlet extends BaseFoodOrderServlet {
 			renderTemplate(request, response, "shoppingcart.ftl", root);
 			return;
 		}
+		query = (String) request.getParameter("edit");
+		if(StringUtils.isNumeric(query)){
+			int itemNumber = Integer.parseInt(query);
+			OrderItem orderItem = cart.getOrderItem(itemNumber);
+			if(orderItem != null){
+				root.put("itemNumber", itemNumber);
+				if(orderItem.getMenuItem().isHasSide()){
+					List<Side> sides = createMenuItemController.getAllSides();
+					updateSelectedSides(sides, orderItem.getSelectedSides());
+					root.put("sides", sides);
+				}
+				if(orderItem.getMenuItem().isHasToppings()){
+					List<Topping> toppings = createMenuItemController.getAllToppings();
+					updateSelectedToppings(toppings, orderItem.getSelectedToppings());
+					root.put("toppings", toppings);
+				}
+				if(orderItem.getMenuItem().isCustomizable()){
+					List<CustomizableItem> customizableItems = createMenuItemController.getAllCustomizableItems();
+					updateSelectedCustomizableItems(customizableItems, orderItem.getSelectedCustomizableItems());
+					root.put("customizableItems", customizableItems);
+					root.put("extracustomizableitems", getSelectedExtraCustomizableItemsId(orderItem.getSelectedExtraCustomizableItems()));
+				}
+				root.put("cart", cart);
+				renderTemplate(request, response, "cartedit.ftl", root);
+				return;
+			} else {
+				root.put("error", true);
+				root.put("message", "No item found in the cart with item number " + query + " .");
+				root.put("cart", cart);
+				request.getSession().setAttribute("cart", cart);
+				renderTemplate(request, response, "menuitems.ftl", root);
+				return;
+			}
+			
+		}
+		query = (String) request.getParameter("cartitems");
+		if(StringUtils.isNotBlank(query)){
+			request.getSession().setAttribute("cart", cart);
+			root.put("cart", cart);
+			renderTemplate(request, response, "shoppingcart.ftl", root);
+			return;
+		}
+		
+	}
+	private List<Integer> getSelectedExtraCustomizableItemsId(List<CustomizableItem> selectedExtraCustomizableItems) {
+		List<Integer> selectedExtras = new ArrayList<>();
+		if(CollectionUtils.isNotEmpty(selectedExtraCustomizableItems)){
+			selectedExtraCustomizableItems.stream().forEach(extraCustomizable ->{
+				selectedExtras.add(extraCustomizable.getId());
+			});
+		}
+		return selectedExtras;
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -150,6 +204,82 @@ public class OrderServlet extends BaseFoodOrderServlet {
 			renderTemplate(request, response, "shoppingcart.ftl", root);
 			return;
 		}
+		query = (String) request.getParameter("edit");
+		if(StringUtils.isNumeric(query)){
+			OrderItem orderItem = cart.getOrderItem(Integer.parseInt(query));
+			if(orderItem != null){
+				updateOrderItem(orderItem, request);
+			} else {
+				root.put("error", true);
+				root.put("message", "No item found in the cart with item number " + query + " .");
+				root.put("cart", cart);
+				request.getSession().setAttribute("cart", cart);
+				renderTemplate(request, response, "menuitems.ftl", root);
+				return;
+			}
+			request.getSession().setAttribute("cart", cart);
+			root.put("cart", cart);
+			renderTemplate(request, response, "shoppingcart.ftl", root);
+			return;
+		}
+		
+	}
+	private void updateOrderItem(OrderItem orderItem, HttpServletRequest request) {
+		String size = (String) request.getParameter("size");
+		if(StringUtils.isBlank(size) || !StringUtils.isNumeric(size)){
+			size = "1";
+		}
+		orderItem.setSize(Integer.parseInt(size));
+		//reset existing selected item
+		orderItem.setSelectedCustomizableItem(new ArrayList<>());
+		orderItem.setSelectedExtraCustomizableItem(new ArrayList<>());
+		orderItem.setSelectedSides(new ArrayList<>());
+		orderItem.setSelectedToppings(new ArrayList<>());
+		if(orderItem.getMenuItem().isCustomizable()){
+			String[] customizableItemsForMenus = request.getParameterValues("customizableitemsformenu");
+			String[] customizableItemsForMenuExtra = request.getParameterValues("customizableitemsformenuextra");
+			List<String> customizableItemsForMenuExtraArray = new ArrayList<>();
+			if(customizableItemsForMenuExtra != null){
+				customizableItemsForMenuExtraArray.addAll(Arrays.asList(customizableItemsForMenuExtra));
+			}
+			if(customizableItemsForMenus != null){
+				for(String custId: customizableItemsForMenus){
+					CustomizableItem custItem = createMenuItemController.getCustomizableItemById(Integer.parseInt(custId));
+					if(custItem != null){
+						orderItem.setItemCustomized(true);
+						orderItem.getSelectedCustomizableItems().add(custItem);
+					}
+					if(customizableItemsForMenuExtraArray.contains(custId) && custItem != null){
+						orderItem.setHasExtraCustomizedItem(true);
+						orderItem.getSelectedExtraCustomizableItems().add(custItem);
+					}
+				}
+			}
+		
+		}
+		
+		if(orderItem.getMenuItem().isHasToppings()){
+			String[] toppingsformenu = request.getParameterValues("toppingsformenu");
+			if(toppingsformenu != null){
+				for(String topId: toppingsformenu){
+					Topping topping = createMenuItemController.getToppingById(Integer.parseInt(topId));
+					if(topping != null){
+						orderItem.getSelectedToppings().add(topping);
+					}
+				}
+			}
+		}
+		if(orderItem.getMenuItem().isHasSide()){
+			String[] sidesformenu = request.getParameterValues("sidesformenu");
+			if(sidesformenu != null){
+				for(String sideId: sidesformenu){
+					Side side = createMenuItemController.getSideById(Integer.parseInt(sideId));
+					if(side != null){
+						orderItem.getSelectedSides().add(side);
+					}
+				}
+			}
+		}
 		
 	}
 	private OrderItem getOrderItem(MenuItem menuItem, HttpServletRequest request) {
@@ -170,21 +300,21 @@ public class OrderServlet extends BaseFoodOrderServlet {
 				customizableItemsForMenuExtraArray.addAll(Arrays.asList(customizableItemsForMenuExtra));
 			}
 			if(customizableItemsForMenus != null){
-				if(orderItem.getSelectedCustomizableItem() == null){
+				if(orderItem.getSelectedCustomizableItems() == null){
 					orderItem.setSelectedCustomizableItem(new ArrayList<>());
 				}
-				if(orderItem.getSelectedExtraCustomizableItem() == null){
+				if(orderItem.getSelectedExtraCustomizableItems() == null){
 					orderItem.setSelectedExtraCustomizableItem(new ArrayList<>());
 				}
 				for(String custId: customizableItemsForMenus){
 					CustomizableItem custItem = createMenuItemController.getCustomizableItemById(Integer.parseInt(custId));
 					if(custItem != null){
 						orderItem.setItemCustomized(true);
-						orderItem.getSelectedCustomizableItem().add(custItem);
+						orderItem.getSelectedCustomizableItems().add(custItem);
 					}
 					if(customizableItemsForMenuExtraArray.contains(custId) && custItem != null){
 						orderItem.setHasExtraCustomizedItem(true);
-						orderItem.getSelectedExtraCustomizableItem().add(custItem);
+						orderItem.getSelectedExtraCustomizableItems().add(custItem);
 					}
 				}
 			}

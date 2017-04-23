@@ -137,42 +137,7 @@ public class MenuItemServlet extends BaseFoodOrderServlet {
 
 	}
 
-	private void updateSelectedSides(List<Side> sides, List<Side> sides2) {
-		if (CollectionUtils.isNotEmpty(sides) && CollectionUtils.isNotEmpty(sides2)) {
-			for (Side side : sides) {
-				for (Side side2 : sides2) {
-					if (side.getId() == side2.getId()) {
-						side.setSelected(true);
-					}
-				}
-			}
-		}
-	}
 
-	private void updateSelectedToppings(List<Topping> toppings, List<Topping> toppings2) {
-		if (CollectionUtils.isNotEmpty(toppings) && CollectionUtils.isNotEmpty(toppings2)) {
-			for (Topping topping : toppings) {
-				for (Topping topping2 : toppings2) {
-					if (topping.getId() == topping2.getId()) {
-						topping.setSelected(true);
-					}
-				}
-			}
-		}
-	}
-
-	private void updateSelectedCustomizableItems(List<CustomizableItem> customizableItems,
-			List<CustomizableItem> customizableItems2) {
-		if (CollectionUtils.isNotEmpty(customizableItems) && CollectionUtils.isNotEmpty(customizableItems2)) {
-			for (CustomizableItem customizableItem : customizableItems) {
-				for (CustomizableItem customizableItem2 : customizableItems2) {
-					if (customizableItem.getId() == customizableItem2.getId()) {
-						customizableItem.setSelected(true);
-					}
-				}
-			}
-		}
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -182,7 +147,6 @@ public class MenuItemServlet extends BaseFoodOrderServlet {
 		}
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
-		long timestamp = System.currentTimeMillis();
 		root.put("nocache", 0);
 		String add = (String) request.getParameter("add");
 		boolean isAdd = "true".equals(add);

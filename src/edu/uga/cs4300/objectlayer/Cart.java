@@ -57,5 +57,8 @@ public class Cart {
 	public void removeItem(int itemNumber) {
 		order.removeOrderItem(itemNumber);
 	}
+	public OrderItem getOrderItem(int itemNumber) {
+		return order.getOrderItem(itemNumber);
+	}
 	
 }

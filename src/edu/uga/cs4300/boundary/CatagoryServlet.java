@@ -15,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import edu.uga.cs4300.logiclayer.CreateMenuItemController;
 import edu.uga.cs4300.objectlayer.MenuCategory;
-import edu.uga.cs4300.objectlayer.Topping;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;

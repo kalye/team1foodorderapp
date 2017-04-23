@@ -106,7 +106,7 @@ table, th, td {
 			<li class="active"><a
 				href="customizableitems?create=true">Customize Item</a></li>
 		</ul>
-		<div class="shopping-cart">${cart.totalPrice?string.currency}</div>
+		<div class="shopping-cart" onclick="location.href=&quot;/team1foodorderapp/orders?cartitems=true&quot;"><a href="/team1foodorderapp/orders?cartitems=true">${cart.totalPrice?string.currency}</a></div>
 	</div>
 </nav>
 <!--Display error message if error exists -->

@@ -74,16 +74,20 @@ public class Order {
 		}
 	}
 	public void removeOrderItem(int itemNumber) {
-		OrderItem orderItemTobeRemoved = null;
-		for(OrderItem orderItem: orderItems){
-			if(orderItem.getItemNumber() == itemNumber){
-				orderItemTobeRemoved = orderItem;
-				break;
-			}
-		}
+		OrderItem orderItemTobeRemoved = getOrderItem(itemNumber);
 		if(orderItemTobeRemoved != null){
 			orderItems.remove(orderItemTobeRemoved);
 		}
+	}
+	public OrderItem getOrderItem(int itemNumber) {
+		OrderItem orderItemSearched = null;
+		for(OrderItem orderItem: orderItems){
+			if(orderItem.getItemNumber() == itemNumber){
+				orderItemSearched = orderItem;
+				break;
+			}
+		}
+		return orderItemSearched;
 	}
 	
 }

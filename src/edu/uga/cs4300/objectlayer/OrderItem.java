@@ -15,8 +15,8 @@ public class OrderItem {
 	private boolean hasExtraCustomizedItem;
 	private List<Topping> selectedToppings = new ArrayList<>();
 	private List<Side> selectedSides = new ArrayList<>();
-	private List<CustomizableItem> selectedCustomizableItem = new ArrayList<>();
-	private List<CustomizableItem> selectedExtraCustomizableItem = new ArrayList<>();
+	private List<CustomizableItem> selectedCustomizableItems = new ArrayList<>();
+	private List<CustomizableItem> selectedExtraCustomizableItems = new ArrayList<>();
 	
 	public int getSize() {
 		return size;
@@ -60,17 +60,17 @@ public class OrderItem {
 	public void setSelectedSides(List<Side> selectedSides) {
 		this.selectedSides = selectedSides;
 	}
-	public List<CustomizableItem> getSelectedCustomizableItem() {
-		return selectedCustomizableItem;
+	public List<CustomizableItem> getSelectedCustomizableItems() {
+		return selectedCustomizableItems;
 	}
-	public void setSelectedCustomizableItem(List<CustomizableItem> selectedCustomizableItem) {
-		this.selectedCustomizableItem = selectedCustomizableItem;
+	public void setSelectedCustomizableItem(List<CustomizableItem> selectedCustomizableItems) {
+		this.selectedCustomizableItems = selectedCustomizableItems;
 	}
-	public List<CustomizableItem> getSelectedExtraCustomizableItem() {
-		return selectedExtraCustomizableItem;
+	public List<CustomizableItem> getSelectedExtraCustomizableItems() {
+		return selectedExtraCustomizableItems;
 	}
-	public void setSelectedExtraCustomizableItem(List<CustomizableItem> selectedExtraCustomizableItem) {
-		this.selectedExtraCustomizableItem = selectedExtraCustomizableItem;
+	public void setSelectedExtraCustomizableItem(List<CustomizableItem> selectedExtraCustomizableItems) {
+		this.selectedExtraCustomizableItems = selectedExtraCustomizableItems;
 	}
 	
 	public BigDecimal getPrice() {
@@ -88,8 +88,8 @@ public class OrderItem {
 				price = price.add(side.getPrice());
 			}
 		}
-		if(CollectionUtils.isNotEmpty(selectedExtraCustomizableItem)){
-			for(CustomizableItem customizableItem: selectedExtraCustomizableItem){
+		if(CollectionUtils.isNotEmpty(selectedExtraCustomizableItems)){
+			for(CustomizableItem customizableItem: selectedExtraCustomizableItems){
 				price = price.add(customizableItem.getPrice());
 			}
 		}
@@ -102,15 +102,15 @@ public class OrderItem {
 		if(menuItem != null){
 			builder.append(menuItem.getName());
 		}
-		if(CollectionUtils.isNotEmpty(selectedCustomizableItem)){
+		if(CollectionUtils.isNotEmpty(selectedCustomizableItems)){
 			builder.append("\nCustomized items: ");
-			for(CustomizableItem customizableItem: selectedCustomizableItem){
+			for(CustomizableItem customizableItem: selectedCustomizableItems){
 				builder.append("\n").append(customizableItem.getName());
 			}
 		}
-		if(CollectionUtils.isNotEmpty(selectedExtraCustomizableItem)){
+		if(CollectionUtils.isNotEmpty(selectedExtraCustomizableItems)){
 			builder.append("\nExtras items: ");
-			for(CustomizableItem extraCustomizableItem: selectedExtraCustomizableItem){
+			for(CustomizableItem extraCustomizableItem: selectedExtraCustomizableItems){
 				builder.append("\n").append(extraCustomizableItem.getName());
 			}
 		}
