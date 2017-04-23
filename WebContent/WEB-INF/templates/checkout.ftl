@@ -15,7 +15,7 @@
 </head>
 
 <meta charset="UTF-8">
-<title>Shopping Cart</title>
+<title>Checkout-Summary</title>
 <link rel="icon" href="/team1foodorderapp/favicon.ico" />
 <style>
 table {
@@ -81,19 +81,6 @@ table, th, td {
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Shopping Cart</title>
-<script>
-function updateExternal(id, show){
-	var element = document.getElementById(id);
-	if(element){
-		if(show){
-			element.style.display = "";
-		} else {
-			element.style.display = "none";
-			element.checked = false;
-		}
-	}
-}
-</script>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -129,27 +116,14 @@ function updateExternal(id, show){
 
 <#if !cart.empty>
 	<div style="height: 80px;">Total Price - ${cart.totalPrice?string.currency}</div>
-	<ul style="list-style: none;">
-		<li><a href="/team1foodorderapp/orders?addmore=true" style="color:#337ab7;">Add More Item</a></li>&nbsp;&nbsp;
-		<li><a href="/team1foodorderapp/orders?checkout=true" style="color:#337ab7;">Proceed to CheckOut</a></li>
-	</ul>
 	<hr>
+	<h2>Purchase summary:</h2>
 	<#list cart.order.orderItems as orderitem>
-		<form method="post" id="sizechange${orderitem.itemNumber?string.computer}" action="/team1foodorderapp/orders?changesizeforitem=${orderitem.itemNumber?string.computer}">
 			<div style="width:200px; height: 90px; background-image: url(/team1foodorderapp/files/${orderitem.menuItem.imageUrl}); background-repeat: no-repeat;">
 				     	 </div>
 			<div>${orderitem.itemDescription}</div>
 			<div>${orderitem.price?string.currency}</div>
-			 <select name="size" onchange="javascirpt: document.getElementById('sizechange${orderitem.itemNumber?string.computer}').submit();">
-				<#list 1..50 as index>
-		     		 <option value="${index}" ${(orderitem.size == index)?then("selected='selected'", '')}>${index}</option>
-		     	 </#list>
-		     </select>
-		 </form>
-	     	<ul style="list-style: none;">
-		     	<li><a href="/team1foodorderapp/orders?edit=${orderitem.itemNumber?string.computer}" style="color:#337ab7;">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		     	</li><li> <a href="/team1foodorderapp/orders?remove=${orderitem.itemNumber?string.computer}" style="color:#337ab7;">Remove</a></li>
-	     	</ul>
+		    <div>Numbers:${orderitem.size}</div>
 	     	<hr>
 	</#list>
 	<div style="float:right;">
@@ -157,6 +131,9 @@ function updateExternal(id, show){
 		<span>Tax:</span><span class="right">${cart.tax?string.currency}</span><br>
 		<span>Total:</span><span class="right">${cart.totalPrice?string.currency}</span><br>
 	</div>
+	<ul style="list-style: none;">
+		<li><a href="/team1foodorderapp/orders?payment=true" style="color:#337ab7;">Proceed to Payment</a></li>
+	</ul>
 <#else>
 	<div>No item in the cart</div>
 </#if>

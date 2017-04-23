@@ -139,6 +139,13 @@ public class OrderServlet extends BaseFoodOrderServlet {
 			renderTemplate(request, response, "shoppingcart.ftl", root);
 			return;
 		}
+		query = (String) request.getParameter("checkout");
+		if(StringUtils.isNotBlank(query)){
+			request.getSession().setAttribute("cart", cart);
+			root.put("cart", cart);
+			renderTemplate(request, response, "checkout.ftl", root);
+			return;
+		}
 		
 	}
 	private List<Integer> getSelectedExtraCustomizableItemsId(List<CustomizableItem> selectedExtraCustomizableItems) {

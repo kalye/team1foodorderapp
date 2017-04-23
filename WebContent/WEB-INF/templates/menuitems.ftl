@@ -61,6 +61,17 @@ function hideOrShowById(id, show){
 		}
 	}
 }
+function updateExternal(id, show){
+	var element = document.getElementById(id);
+	if(element){
+		if(show){
+			element.parentElement.style.display = "";
+		} else {
+			element.parentElement.style.display = "none";
+			element.checked = false;
+		}
+	}
+}
 </script>
 </head>
 <body>
@@ -200,7 +211,8 @@ function hideOrShowById(id, show){
 					     	 	<div id="divCustomizableItem">
 					     	 	<h2>Customize item</h2>
 						     	  <#list menuitem.customizableItems as customizableitem>
-						     	  	<input type="checkbox" name="customizableitemsformenu"  value="${customizableitem.id}">${customizableitem.name}<input type="checkbox" name="customizableitemsformenuextra"  value="${customizableitem.id}">Add Extra<br>
+						     	  	<label><input type="checkbox" name="customizableitemsformenu" onchange="javascript:updateExternal('customizableitemsformenuextra${customizableitem.id}', this.checked);" value="${customizableitem.id}">${customizableitem.name}</label>
+						     	  	<label><input type="checkbox" name="customizableitemsformenuextra" id="customizableitemsformenuextra${customizableitem.id}"  value="${customizableitem.id}">Add Extra</label><br>
 						     	  </#list>
 						     	 </div>
 		  					 </#if>

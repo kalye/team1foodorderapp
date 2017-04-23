@@ -8,6 +8,19 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="icon" href="/team1foodorderapp/favicon.ico" />
 <title>Edit Cart Item</title>
+<script>
+function updateExternal(id, show){
+	var element = document.getElementById(id);
+	if(element){
+		if(show){
+			element.parentElement.style.display = '';
+		} else {
+			element.parentElement.style.display = "none";
+			element.checked = false;
+		}
+	}
+}
+</script>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -75,7 +88,8 @@
 			     	 	<div id="divCustomizableItem">
 			     	 	<h2>Customize item</h2>
 				     	  <#list customizableItems as customizableitem>
-				     	  	<input type="checkbox" name="customizableitemsformenu" ${(customizableitem.selected)?then('checked', '')} value="${customizableitem.id}">${customizableitem.name}<input type="checkbox" name="customizableitemsformenuextra" ${(extracustomizableitems?seq_contains(customizableitem.id))?string("checked", "")} value="${customizableitem.id}">Add Extra<br>
+				     	  	<label><input type="checkbox" name="customizableitemsformenu" onchange="javascript:updateExternal('customizableitemsformenuextra${customizableitem.id}', this.checked);" ${(customizableitem.selected)?then('checked', '')} value="${customizableitem.id}">${customizableitem.name}</label>
+				     	  	<label><input type="checkbox" style="${(customizableitem.selected)?then('', 'display:none')}" id="customizableitemsformenuextra${customizableitem.id}" name="customizableitemsformenuextra" ${(extracustomizableitems?seq_contains(customizableitem.id))?string("checked", "")} value="${customizableitem.id}">Add Extra<br></label>
 				     	  </#list>
 				     	 </div>
   					 </#if>
