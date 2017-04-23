@@ -73,5 +73,17 @@ public class Order {
 			}
 		}
 	}
+	public void removeOrderItem(int itemNumber) {
+		OrderItem orderItemTobeRemoved = null;
+		for(OrderItem orderItem: orderItems){
+			if(orderItem.getItemNumber() == itemNumber){
+				orderItemTobeRemoved = orderItem;
+				break;
+			}
+		}
+		if(orderItemTobeRemoved != null){
+			orderItems.remove(orderItemTobeRemoved);
+		}
+	}
 	
 }

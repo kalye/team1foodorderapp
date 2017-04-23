@@ -54,5 +54,8 @@ public class Cart {
 	public void changeSize(int itemNumber, int size) {
 		order.changeSize(itemNumber, size);
 	}
+	public void removeItem(int itemNumber) {
+		order.removeOrderItem(itemNumber);
+	}
 	
 }

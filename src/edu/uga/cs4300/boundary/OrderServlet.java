@@ -83,6 +83,18 @@ public class OrderServlet extends BaseFoodOrderServlet {
 			renderTemplate(request, response, "menuitems.ftl", root);
 			return;
 		}
+		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		if(cart == null){
+			cart = new Cart();
+		}
+		query = (String) request.getParameter("remove");
+		if(StringUtils.isNumeric(query)){
+			cart.removeItem(Integer.parseInt(query));
+			request.getSession().setAttribute("cart", cart);
+			root.put("cart", cart);
+			renderTemplate(request, response, "shoppingcart.ftl", root);
+			return;
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
