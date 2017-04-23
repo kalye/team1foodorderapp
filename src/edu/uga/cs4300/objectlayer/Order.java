@@ -65,5 +65,13 @@ public class Order {
 		}
 		return builder.toString();
 	}
+	public void changeSize(int itemNumber, int size) {
+		for(OrderItem orderItem: orderItems){
+			if(orderItem.getItemNumber() == itemNumber){
+				orderItem.setSize(size);
+				return;
+			}
+		}
+	}
 	
 }

@@ -119,6 +119,26 @@ public class OrderServlet extends BaseFoodOrderServlet {
 				return;
 			}
 		}
+		String changesizeforitem = request.getParameter("changesizeforitem");
+		if(StringUtils.isNumeric(changesizeforitem)){
+			int itemNumber = Integer.parseInt(changesizeforitem);
+			String size = request.getParameter("size");
+			if(StringUtils.isNumeric(size)){
+				cart.changeSize(itemNumber, Integer.parseInt(size));
+			} else {
+				root.put("error", true);
+				root.put("message", "Size is not valid number.");
+				root.put("cart", cart);
+				request.getSession().setAttribute("cart", cart);
+				renderTemplate(request, response, "menuitems.ftl", root);
+				return;
+			}
+			request.getSession().setAttribute("cart", cart);
+			root.put("cart", cart);
+			renderTemplate(request, response, "shoppingcart.ftl", root);
+			return;
+		}
+		
 	}
 	private OrderItem getOrderItem(MenuItem menuItem, HttpServletRequest request) {
 		OrderItem orderItem = new OrderItem();

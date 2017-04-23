@@ -122,12 +122,14 @@ table, th, td {
 	</ul>
 	<hr>
 	<#list cart.order.orderItems as orderitem>
+		<form method="post" id="sizechange${orderitem.itemNumber?string.computer}" action="/team1foodorderapp/orders?changesizeforitem=${orderitem.itemNumber?string.computer}">
 			<div>${orderitem.itemDescription}</div><div>${orderitem.price?string.currency}</div>
-			 <select name="size">
+			 <select name="size" onchange="javascirpt: document.getElementById('sizechange${orderitem.itemNumber?string.computer}').submit();">
 				<#list 1..50 as index>
 		     		 <option value="${index}" ${(orderitem.size == index)?then("selected='selected'", '')}>${index}</option>
 		     	 </#list>
 		     </select>
+		 </form>
 	     	<ul style="list-style: none;">
 		     	<li><a href="/team1foodorderapp/orders?edit=${orderitem.itemNumber?string.computer}" style="color:#337ab7;">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
 		     	</li><li> <a href="/team1foodorderapp/orders?remove=${orderitem.itemNumber?string.computer}" style="color:#337ab7;">Remove</a></li>

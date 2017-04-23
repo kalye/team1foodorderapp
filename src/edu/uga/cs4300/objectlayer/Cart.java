@@ -51,5 +51,8 @@ public class Cart {
 	public boolean getEmpty(){
 		return isEmpty();
 	}
+	public void changeSize(int itemNumber, int size) {
+		order.changeSize(itemNumber, size);
+	}
 	
 }
