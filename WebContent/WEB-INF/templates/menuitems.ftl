@@ -98,7 +98,7 @@ function hideOrShowById(id, show){
 </#if>
 
 <#if updateMenuItem??>
-			<form method="post" action="/team1foodorderapp/menuitems?update=true&&id=${menuitem.id}" enctype="multipart/form-data">
+			<form method="post" action="/team1foodorderapp/menuitems?update=true&&id=${menuitem.id?string.computer}" enctype="multipart/form-data">
  					<div class="w3-content w3-section" style="max-width:500px">
 			    		<img class="mySlides" src="/team1foodorderapp/files/${menuitem.imageUrl}" style="width:100%">
 			     	 </div>
@@ -164,7 +164,7 @@ function hideOrShowById(id, show){
 	<#list menuitems as menuitem>
 	<ul>
 		<li>
-		<form method="post" id=${menuitem.id} action="/team1foodorderapp/orders?addtocart=true&&menuid=${menuitem.id}">
+		<form method="post" id=${menuitem.id} action="/team1foodorderapp/orders?addtocart=true&&menuid=${menuitem.id?string.computer}">
 	 					<div style="width:200px; height: 90px; background-image: url(/team1foodorderapp/files/${menuitem.imageUrl}); background-repeat: no-repeat;">
 				     	 </div>
 				     	 <#list catagories as cat>

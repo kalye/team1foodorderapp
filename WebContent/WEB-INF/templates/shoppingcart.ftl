@@ -129,8 +129,8 @@ table, th, td {
 		     	 </#list>
 		     </select>
 	     	<ul style="list-style: none;">
-		     	<li><a href="/team1foodorderapp/orders?edit=${orderitem.itemNumber}" style="color:#337ab7;">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		     	</li><li> <a href="/team1foodorderapp/orders?remove=${orderitem.itemNumber}" style="color:#337ab7;">Remove</a></li>
+		     	<li><a href="/team1foodorderapp/orders?edit=${orderitem.itemNumber?string.computer}" style="color:#337ab7;">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		     	</li><li> <a href="/team1foodorderapp/orders?remove=${orderitem.itemNumber?string.computer}" style="color:#337ab7;">Remove</a></li>
 	     	</ul>
 	     	<hr>
 	</#list>
