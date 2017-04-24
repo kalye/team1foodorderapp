@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import edu.uga.cs4300.logiclayer.CreateMenuItemController;
 import edu.uga.cs4300.logiclayer.OrderController;
+import edu.uga.cs4300.objectlayer.Address;
 import edu.uga.cs4300.objectlayer.Cart;
 import edu.uga.cs4300.objectlayer.CustomizableItem;
 import edu.uga.cs4300.objectlayer.MenuCategory;
@@ -153,6 +154,10 @@ public class OrderServlet extends BaseFoodOrderServlet {
 			renderTemplate(request, response, "shipping.ftl", root);
 			return;
 		}
+		query = (String) request.getParameter("confirm");
+		if(StringUtils.isNotBlank(query)){
+			
+		}
 	}
 	private List<Integer> getSelectedExtraCustomizableItemsId(List<CustomizableItem> selectedExtraCustomizableItems) {
 		List<Integer> selectedExtras = new ArrayList<>();
@@ -238,27 +243,114 @@ public class OrderServlet extends BaseFoodOrderServlet {
 		query = (String) request.getParameter("billing");
 		if(StringUtils.isNotBlank(query)){
 			request.getSession().setAttribute("cart", cart);
-			updateBillingShipping(cart, request, false);
+			boolean isValid = updateBillingShipping(cart, request, false, root);
+			if(!isValid){
+				root.put("cart", cart);
+				renderTemplate(request, response, "billing.ftl", root);
+				return;
+			}
 			root.put("cart", cart);
-			renderTemplate(request, response, "shipping.ftl", root);
+			renderTemplate(request, response, "confirmation.ftl", root);
 			return;
 		}
 		query = (String) request.getParameter("shipping");
 		if(StringUtils.isNotBlank(query)){
 			request.getSession().setAttribute("cart", cart);
-			updateBillingShipping(cart, request, true);
+			boolean isValid = updateBillingShipping(cart, request, true, root);
+			if(!isValid){
+				root.put("cart", cart);
+				renderTemplate(request, response, "shipping.ftl", root);
+				return;
+			}
 			root.put("cart", cart);
-			renderTemplate(request, response, "confirmation.ftl", root);
+			renderTemplate(request, response, "billing.ftl", root);
 			return;
 		}
 		
 	}
-	private void updateBillingShipping(Cart cart, HttpServletRequest request, boolean shipping) {
+	private boolean updateBillingShipping(Cart cart, HttpServletRequest request, boolean shipping, SimpleHash root) {
+		Address address = new Address();
 		if(shipping){
-			
+			populateAddress(address, request);
+			cart.getOrder().setShippingAddress(address);
+			return validateAddress(address, root);
 		} else {
-			
+			String billingAddressSameAsShipping = request.getParameter("populateinfo");
+			if("true".equals(billingAddressSameAsShipping)){
+				cart.getPaymentInfo().setBillingAddress(cart.getOrder().getShippingAddress());
+				return true;
+			} else {
+				populateAddress(address, request);
+				cart.getOrder().setShippingAddress(address);
+				return validateAddress(address, root);
+			}
 		}
+	}
+	private boolean validateAddress(Address address, SimpleHash root) {
+		if (StringUtils.isBlank(address.getFirstName())) {
+			root.put("error", "First Name is Required.");
+			return false;
+		}
+		if (StringUtils.isBlank(address.getLastName())) {
+			root.put("error", "Last name is required.");
+			return false;
+		}
+		if (StringUtils.isBlank(address.getAddress())) {
+			root.put("error", "Street address is required.");
+			return false;
+		}
+		if (StringUtils.isBlank(address.getCity())) {
+			root.put("error", "City is required.");
+			return false;
+		}
+		if (StringUtils.isBlank(address.getState())) {
+			root.put("error", "State is required.");
+			return false;
+		}
+		if (StringUtils.isBlank(address.getZipcode())) {
+			root.put("error", "");
+			return false;
+		}
+		if (StringUtils.isBlank(address.getCountry())) {
+			root.put("error", "Country is required.");
+			return false;
+		}
+		if (StringUtils.isBlank(address.getPhone())) {
+			root.put("error", "Phone number is required.");
+			return false;
+		}
+		if (StringUtils.isBlank(address.getEmail())) {
+			root.put("error", "Email is Required.");
+			return false;
+		}
+		
+		if(!address.getEmail().equals(address.getConfirmemail())){
+			root.put("error", "Emails provided don't match");
+			return false;
+		}
+		return true;
+	}
+	private void populateAddress(Address address, HttpServletRequest request) {
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String address1 = request.getParameter("address");
+		String city = request.getParameter("city");
+		String state = request.getParameter("state");
+		String zipcode = request.getParameter("zipcode");
+		String country = request.getParameter("country");
+		String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
+		String confirmemail = request.getParameter("confirmemail");
+		address.setFirstName(firstName);
+		address.setLastName(lastName);
+		address.setAddress(address1);
+		address.setCity(city);
+		address.setState(state);
+		address.setZipcode(zipcode);
+		address.setCountry(country);
+		address.setPhone(phone);
+		address.setEmail(email);
+		address.setConfirmemail(confirmemail);
 	}
 	private void updateOrderItem(OrderItem orderItem, HttpServletRequest request) {
 		String size = (String) request.getParameter("size");

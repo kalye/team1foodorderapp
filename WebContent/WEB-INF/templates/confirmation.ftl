@@ -2,59 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/team1foodorderapp/css/teamone.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-
-<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Checkout-Summary</title>
 <link rel="icon" href="/team1foodorderapp/favicon.ico" />
-<style>
-table {
-	border-collapse: collapse;
-}
-
-table, th, td {
-	border: 1px solid black;
-}
-
-.button {
-	background-color: ForestGreen;
-	border-radius: 5px;
-	color: white;
-	text-decoration: none;
-}
-
-.logo {
-	height: 100px;
-}
-.mySlides {
-	display:none;
-}
-li {
-    display: inline;
-}
-</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<meta charset="UTF-8">
-<title>Welcome to Team1 Restaurant</title>
 <link rel="icon" href="/team1foodorderapp/favicon.ico" />
 <style>
 table {
@@ -76,11 +30,15 @@ table, th, td {
 	height: 100px;
 }
 .mySlides {display:none;}
+#checkoutsteps {list-style: none; margin: 0; padding: 0;}
+#checkoutsteps li {font-size: small; display: inline; color: #aaa; padding: 0 10px; border-right: 1px solid #999;}
+#checkoutsteps li.currentstep {color: #000;}
+#checkoutsteps li.last {border-right: none;}
+table.form-tbl {width: 100%;}
+table.form-tbl td, table.form-tbl th {padding: 4px 2px;}
+table.form-tbl th {width: 160px;}
+table.form-tbl input[type="text"], table.form-tbl textarea {width: 75%;}
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Shopping Cart</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -114,6 +72,14 @@ table, th, td {
  <div style="display:inline-block; float:left; color: red;">${message}</div><br>
 </#if>
 
+<ul id="checkoutsteps">
+  <li><a href="/team1foodorderapp/orders?cartitems=true">Shopping Cart</a></li>
+  <li><a href="/team1foodorderapp/orders?checkout=true">Shipping Address</a></li>
+  <li><a href="/team1foodorderapp/orders?checkout=true">Billing &amp; Payment</a></li>
+  <li class="currentstep">Confirmation</li>
+  <li class="last">Receipt</li>
+</ul>
+
 <#if !cart.empty>
 	<div style="height: 80px;">Total Price - ${cart.totalPrice?string.currency}</div>
 	<hr>
@@ -131,9 +97,50 @@ table, th, td {
 		<span>Tax:</span><span class="right">${cart.tax?string.currency}</span><br>
 		<span>Total:</span><span class="right">${cart.totalPrice?string.currency}</span><br>
 	</div>
-	<ul style="list-style: none;">
-		<li><a href="/team1foodorderapp/orders?payment=true" style="color:#337ab7;">Proceed to Payment</a></li>
-	</ul>
+	<h2>Shipping address</h2>
+	<table class="form-tbl" cellspacing="0">
+    <tbody>
+      <tr>
+        <th><label>First Name </label></th>
+          <td><div>${cart.order.shippingAddress.firstName}</div></td>
+      </tr>
+      <tr>
+        <th><label>Last Name </label></th>
+          <td><div>${cart.order.shippingAddress.lastName}</div></td>
+      </tr>
+      <tr>
+        <th><label>Address </label></th>
+        <td><div>${cart.order.shippingAddress.address}</div></td>
+      </tr>
+      <tr>
+        <th><label>City </label></th>
+        <td><div>"${cart.order.shippingAddress.city}"</div></td>
+      </tr>
+      <tr>
+        <th><label>State/Region/Province</label></th>
+        <td><div>${cart.order.shippingAddress.state}</div></td>
+      </tr>
+      <tr>
+        <th><label>Zip/Postal Code</label></th>
+        <td><div>"${cart.order.shippingAddress.zipcode}</div></td>
+      </tr>
+      <tr>
+        <th><label>Country</label></th>
+        <td><div>${cart.order.shippingAddress.country}</div></td>
+      </tr>
+      <tr>
+        <th><label>Phone </label></th>
+        <td><div>${cart.order.shippingAddress.phone}" </div></td>
+      </tr>
+      <tr>
+        <th><label>Email</label></th>
+        <td><div>${cart.order.shippingAddress.email}</div></td>
+      </tr>
+    </tbody>
+  </table>
+  <form method="get" action="/team1foodorderapp/orders?confirm=true">
+  <input type="submit" name="submit" class="button" value="Confirm &raquo" />
+  </form>
 <#else>
 	<div>No item in the cart</div>
 </#if>

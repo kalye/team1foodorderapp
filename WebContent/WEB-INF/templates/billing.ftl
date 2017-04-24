@@ -24,6 +24,9 @@
 </head>
     
 <body>
+<#if error??>
+ <div style="display:inline-block; float:left; color: red;">${message}</div><br>
+</#if>
 <h1>Checkout-Team One Food ordering Shipping</h1> 
 <p><em>*</em> = required field </p>
 
@@ -47,43 +50,43 @@
       </tr>
       <tr>
         <th><label>First Name <em>*</em></label></th>
-          <td><input type ="text" value="${cart.order.shippingAddress.firstName}" /></td>
+          <td><input type ="text" name="firstName" value="${cart.order.shippingAddress.firstName}" /></td>
       </tr>
       <tr>
         <th><label>Last Name <em>*</em></label></th>
-          <td><input type ="text" value="${cart.order.shippingAddress.lastName}" /></td>
+          <td><input type ="text" name="lastName" value="${cart.order.shippingAddress.lastName}" /></td>
       </tr>
       <tr>
         <th><label>Address <em>*</em></label></th>
-        <td><input type ="text" value="${cart.order.shippingAddress.address}" /></td>
+        <td><input type ="text" name="address" value="${cart.order.shippingAddress.address}" /></td>
       </tr>
       <tr>
         <th><label>City <em>*</em></label></th>
-        <td><input type ="text" value="${cart.order.shippingAddress.city}" /></td>
+        <td><input type ="text" name="city" value="${cart.order.shippingAddress.city}" /></td>
       </tr>
       <tr>
         <th><label>State/Region/Province<em>*</em></label></th>
-        <td><input type ="text" value="${cart.order.shippingAddress.state}" /></td>
+        <td><input type ="text" name="state" value="${cart.order.shippingAddress.state}" /></td>
       </tr>
       <tr>
         <th><label>Zip/Postal Code<em>*</em></label></th>
-        <td><input type ="text" value="${cart.order.shippingAddress.zipcode}" /></td>
+        <td><input type ="text" name="zipcode" value="${cart.order.shippingAddress.zipcode}" /></td>
       </tr>
       <tr>
         <th><label>Country <em>*</em></label></th>
-        <td><input type ="text" value="${cart.order.shippingAddress.country}" /></td>
+        <td><input type ="text" name="country" value="${cart.order.shippingAddress.country}" /></td>
       </tr>
       <tr>
         <th><label>Phone <em>*</em></label></th>
-        <td><input type ="text" value="${cart.order.shippingAddress.phone}" /></td>
+        <td><input type ="text" name="phone" value="${cart.order.shippingAddress.phone}" /></td>
       </tr>
       <tr>
         <th><label>Email <em>*</em></label></th>
-        <td><input type ="text" value="${cart.order.shippingAddress.email}" /></td>
+        <td><input type ="text" name="email" value="${cart.order.shippingAddress.email}" /></td>
       </tr>
       <tr>
         <th><label>Confirm Email <em>*</em></th>
-        <td><input id="email2" type="text" name="email2"  value="${cart.order.shippingAddress.confirmemail}" /></td>
+        <td><input id="email2" type="text" name="confirmemail"  value="${cart.order.shippingAddress.confirmemail}" /></td>
       </tr>
     </tbody>
   </table>
