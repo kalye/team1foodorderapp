@@ -159,6 +159,7 @@ public class OrderServlet extends BaseFoodOrderServlet {
 		query = (String) request.getParameter("confirm");
 		if(StringUtils.isNotBlank(query)){
 			if(cart != null){
+				sendEmailWithNewPassword(cart);
 				request.getSession().setAttribute("cart", null);
 				renderTemplate(request, response, "thankyou.ftl", root);
 				return;

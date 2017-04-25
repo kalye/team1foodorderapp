@@ -7,12 +7,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +31,7 @@ import javax.servlet.http.Part;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import edu.uga.cs4300.objectlayer.Cart;
 import edu.uga.cs4300.objectlayer.CustomizableItem;
 import edu.uga.cs4300.objectlayer.Side;
 import edu.uga.cs4300.objectlayer.Topping;
@@ -176,6 +186,49 @@ public class BaseFoodOrderServlet extends HttpServlet  {
 					}
 				}
 			}
+		}
+	}
+	protected void sendEmailWithNewPassword(Cart cart) throws IOException {
+
+		String from = "UGAClassof2017Team4@gmail.com";
+		String password = "team42017";
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(from, password);
+			}
+		});
+		try{
+			// Create a default MimeMessage object.
+			MimeMessage message = new MimeMessage(session);
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(from));
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO,
+					new InternetAddress(cart.getOrder().getShippingAddress().getEmail()));
+			// Set Subject: header field
+			message.setSubject("Password Change Notification!");
+			String msgString ="Hi " + cart.getOrder().getShippingAddress().getFirstName() + ",\n\n\n"
+					+ "Thank you for your recent order : \n"
+					+ "order number: " + cart.getOrder().getOrderNumber() + "\n"
+				    + "You placed order with us for the following items \n\n"
+					+ cart.getOrder().getItemDescription() + "\n\n"
+					+ "Sub Total: " + cart.getSubTotalPrice() + "\n"
+					+ "Tax        " + cart.getTax().setScale(2, RoundingMode.CEILING).doubleValue() + "\n"
+					+ "Total	  " + cart.getTotalPrice().setScale(2, RoundingMode.CEILING).doubleValue() + "\n\n\n"
+				    + "Thanks, "
+				    + "\n\n\n\n\n"
+				    + "Teamonefoodorder\n";
+			message.setText(msgString);
+			// Send message
+			Transport.send(message);
+		}catch (MessagingException mex) {
+			mex.printStackTrace();
 		}
 	}
 }

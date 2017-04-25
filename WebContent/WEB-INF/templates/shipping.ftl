@@ -13,6 +13,7 @@
         table.form-tbl th {width: 160px;}
         table.form-tbl input[type="text"], table.form-tbl textarea {width: 75%;}
     </style>
+    <link rel="icon" href="/team1foodorderapp/favicon.ico" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
