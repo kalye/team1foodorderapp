@@ -187,7 +187,7 @@ function updateExternal(id, show){
 				     	 		<div>${cat.name}</div>
 				     	 	</#if>
 				     	 </#list>
-				     	 <br><br>
+				     	 <br>
 				     	 <div>Name: 	   ${menuitem.name}</div><br>
 				     	 <div>Description: ${menuitem.description}</div><br>
 				     	 <#if menuitem.hasSide>
@@ -229,7 +229,9 @@ function updateExternal(id, show){
 						     	 </#list>
 						   </select>	 
 	  					  <button type="submit" class="button">Add To Cart</button>
-				     	 </form>
+				     	 </form><br>
+				     	 <p>________________________________________</p>
+				     	 <br>
 	     	 	</li>
 	     	 </ul>
 	    </#list><br>

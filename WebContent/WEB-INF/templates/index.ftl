@@ -41,6 +41,7 @@
 	
 </nav>
 	</div>
+	<center><h2>Click Below to start ordering!</h2></center>
 	<div class="w3-content w3-section" style="max-width:500px">
 	  <img class="mySlides" onclick="location.href=&quot;/team1foodorderapp/orders?catagorylists=true&quot;" src="/team1foodorderapp/images/teamonemain.png" style="width:100%">
 	  <img class="mySlides" onclick="location.href=&quot;/team1foodorderapp/orders?catagorylists=true&quot;" src="/team1foodorderapp/images/teamone46239.png" style="width:100%">
