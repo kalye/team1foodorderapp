@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +46,7 @@ public class OrderServlet extends BaseFoodOrderServlet {
 	public void init() {
 		super.init();
 	}
+	@SuppressWarnings("unused")
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String query = (String) request.getParameter("catagorylists");
@@ -156,6 +158,15 @@ public class OrderServlet extends BaseFoodOrderServlet {
 		}
 		query = (String) request.getParameter("confirm");
 		if(StringUtils.isNotBlank(query)){
+			if(cart != null){
+				request.getSession().setAttribute("cart", null);
+				renderTemplate(request, response, "thankyou.ftl", root);
+				return;
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher("index.html");
+				rd.forward(request, response);
+				return;
+			}
 			
 		}
 	}

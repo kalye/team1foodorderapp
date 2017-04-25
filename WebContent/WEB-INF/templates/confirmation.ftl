@@ -139,6 +139,7 @@ table.form-tbl input[type="text"], table.form-tbl textarea {width: 75%;}
     </tbody>
   </table>
   <form method="get" action="/team1foodorderapp/orders?confirm=true">
+  <input type="hidden" name="confirm" value="true"/>
   <input type="submit" name="submit" class="button" value="Confirm &raquo" />
   </form>
 <#else>
