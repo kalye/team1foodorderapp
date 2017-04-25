@@ -212,7 +212,7 @@ public class BaseFoodOrderServlet extends HttpServlet  {
 			message.addRecipient(Message.RecipientType.TO,
 					new InternetAddress(cart.getOrder().getShippingAddress().getEmail()));
 			// Set Subject: header field
-			message.setSubject("Password Change Notification!");
+			message.setSubject("Order Details");
 			String msgString ="Hi " + cart.getOrder().getShippingAddress().getFirstName() + ",\n\n\n"
 					+ "Thank you for your recent order : \n"
 					+ "order number: " + cart.getOrder().getOrderNumber() + "\n"
