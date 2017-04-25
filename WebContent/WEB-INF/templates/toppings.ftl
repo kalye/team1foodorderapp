@@ -40,7 +40,7 @@ table, th, td {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Menu Toppings</title>
 </head>
-<body>
+<body><center>
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -141,6 +141,6 @@ table, th, td {
 <form method="get">
 <!--Display back button for user to go back to index.html page -->
   <button type="submit" formaction="/team1foodorderapp/index.html" name="home">Home</button>
-</form>
+</form></center>
 </body>
 </html>

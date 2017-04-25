@@ -40,6 +40,7 @@ table, th, td {
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
+<center>
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -53,15 +54,7 @@ table, th, td {
 		</ul>
 						<ul class="nav navbar-nav">
 			<li class="active"><a
-				href="catagories?createOrUpdate=true">Create Category</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="menuitems?create=true">Create Menu Item</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="customizableitems?create=true">Customize Item</a></li>
+				href="admin.html">Admin Login</a></li>
 		</ul>
 		<#if createOrUpdate??>
 		
@@ -78,11 +71,12 @@ table, th, td {
 <#if createOrUpdate??>
 		 <h1>Create Catagory</h1><br>
 		  <form method="post" action="/team1foodorderapp/catagories?add=true" enctype="multipart/form-data">
-		  	Catagory Name:         <input type="text" value="" name="catagoryName" id="catagoryName" /><br>
+		  	Catagory Name:         <input type="text" value="" name="catagoryName" id="catagoryName" /><br><br>
 		  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
-		  	Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br>
+		  	Image Url/Save as: <br><input type="text" value="" name="url" id="url" /><br><br>
 		  	<button type="submit" class="button">Add Catagory</button>
 		  </form>
+		  <br>
 		  <#if update??>
 		  	<form method="post" action="/team1foodorderapp/catagories?update=true&&id=${category.id}&&nocache=${nocache?string.computer}" enctype="multipart/form-data">
 			  	Catagory Name:         <input type="text" value="${category.name}" name="catagoryName" id="catagoryName" /><br>
@@ -152,5 +146,6 @@ table, th, td {
 <!--Display back button for user to go back to index.html page -->
   <button type="submit" formaction="/team1foodorderapp/index.html" name="home">Home</button>
 </form>
+</center>
 </body>
 </html>

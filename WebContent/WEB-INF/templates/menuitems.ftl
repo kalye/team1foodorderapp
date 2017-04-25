@@ -75,6 +75,7 @@ function updateExternal(id, show){
 </script>
 </head>
 <body>
+<center>
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -88,15 +89,7 @@ function updateExternal(id, show){
 		</ul>
 						<ul class="nav navbar-nav">
 			<li class="active"><a
-				href="catagories?createOrUpdate=true">Create Category</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="menuitems?create=true">Create Menu Item</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="customizableitems?create=true">Customize Item</a></li>
+				href="admin.html">Admin Login</a></li>
 		</ul>
 		<#if addmenuitemtocart??>
 			<div class="shopping-cart" onclick="location.href=&quot;/team1foodorderapp/orders?cartitems=true&quot;"><a href="/team1foodorderapp/orders?cartitems=true">${cart.totalPrice?string.currency}</a></div>
@@ -107,7 +100,18 @@ function updateExternal(id, show){
 <#if error??>
  <div style="display:inline-block; float:left; color: red;">${message}</div><br>
 </#if>
-
+			     	 <#if createsubmenu??>
+						<h2>Create Menu Related Items</h2>
+							<ul style="list-style-type: none">
+								<li><a href="/team1foodorderapp/toppings?create=true" class="reglink">Create
+										Toppings</a></li>
+								<li><a href="/team1foodorderapp/sides?create=true" class="reglink">Create
+										Sides</a></li>
+								<li><a href="/team1foodorderapp/customizableitems?create=true" class="reglink">Create
+										Customizable Item</a></li>
+							</ul>
+					</#if>
+					<br>
 <#if updateMenuItem??>
 			<form method="post" action="/team1foodorderapp/menuitems?update=true&&id=${menuitem.id?string.computer}" enctype="multipart/form-data">
  					<div class="w3-content w3-section" style="max-width:500px">
@@ -228,7 +232,7 @@ function updateExternal(id, show){
 				     	 </form>
 	     	 	</li>
 	     	 </ul>
-	    </#list>
+	    </#list><br>
 <#elseif addmenuitem??>
 	<form method="post" action="/team1foodorderapp/menuitems?add=true" enctype="multipart/form-data">
 					 Name:         <input type="text" value="" name="name" /><br>
@@ -240,7 +244,7 @@ function updateExternal(id, show){
 			     	 </#list>
 			     	 </select>
 			     	 <br><br>
-			     	 Description: <input type="text" value="" name="description" /><br>
+			     	 Description: <input type="text" value="" name="description" /><br><br>
 			     	 <#if atleastoneside>
 			     	 <input type="radio" name="hasside" onclick="javascript:hideOrShowById('divSide', true);" value="yes" >Has Sides <br>
 	  			     <input type="radio" onclick="javascript:hideOrShowById('divSide', false);" name="hasside" value="no" checked> No Side<br>
@@ -268,9 +272,9 @@ function updateExternal(id, show){
 				     	  </#list>
 				     	 </div>
   					 </#if>
-  					  Price:         <input type="text" value="" name="price" /><br>
+  					  Price:         <input type="text" value="" name="price" /><br><br>
   					  <button type="submit" class="button">Add Menu Item</button>
-			     	 </form>
+			     	 </form><br>
 			     	 <#if hasOneMoreMenuItem??>
 				     	 <table>
 						 <tr><td>Name<td><td></td> <td></td></tr>
@@ -289,17 +293,7 @@ function updateExternal(id, show){
 			     	 	 </table>
 		 				 </form>
 			     	 </#if>
-			     	 <#if createsubmenu??>
-						<h2>Create Menu Related Items</h2>
-							<ul style="list-style-type: none">
-								<li><a href="/team1foodorderapp/toppings?create=true" class="reglink">Create
-										Toppings</a></li>
-								<li><a href="/team1foodorderapp/sides?create=true" class="reglink">Create
-										Sides</a></li>
-								<li><a href="/team1foodorderapp/customizableitems?create=true" class="reglink">Create
-										Customizable Item</a></li>
-							</ul>
-					</#if>
+
 
 
 </#if>
@@ -309,5 +303,6 @@ function updateExternal(id, show){
 <!--Display back button for user to go back to index.html page -->
   <button type="submit" formaction="/team1foodorderapp/index.html" name="home">Home</button>
 </form>
+</center>
 </body>
 </html>

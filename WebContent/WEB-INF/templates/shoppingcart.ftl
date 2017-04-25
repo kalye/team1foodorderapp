@@ -109,18 +109,11 @@ function updateExternal(id, show){
 		</ul>
 						<ul class="nav navbar-nav">
 			<li class="active"><a
-				href="catagories?createOrUpdate=true">Create Category</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="menuitems?create=true">Create Menu Item</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="customizableitems?create=true">Customize Item</a></li>
+				href="admin.html">Admin Login</a></li>
 		</ul>
 		<div class="shopping-cart" onclick="location.href=&quot;/team1foodorderapp/orders?cartitems=true&quot;"><a href="/team1foodorderapp/orders?cartitems=true">${cart.totalPrice?string.currency}</a></div>
 	</div>
+	
 </nav>
 <!--Display error message if error exists -->
 <#if error??>
