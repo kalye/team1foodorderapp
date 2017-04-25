@@ -42,13 +42,17 @@ table, th, td {
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
+			<a class="navbar-brand"
+				href="index.html">
+				Index</a>
+		</div>
 		<ul class="nav navbar-nav">
 			<li class="active"><a
 				href="index.html">Home</a></li>
 		</ul>
 						<ul class="nav navbar-nav">
 			<li class="active"><a
-				href="admin.html">Admin Login</a></li>
+				href="admin.html">Admin</a></li>
 		</ul>
 	</div>
 </nav>

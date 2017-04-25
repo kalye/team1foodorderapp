@@ -21,17 +21,9 @@
 			<li class="active"><a
 				href="index.html">Home</a></li>
 		</ul>
-						<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav">
 			<li class="active"><a
-				href="catagories?createOrUpdate=true">Create Category</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="menuitems?create=true">Create Menu Item</a></li>
-		</ul>
-		<ul class="nav navbar-nav">
-			<li class="active"><a
-				href="customizableitems?create=true">Customize Item</a></li>
+				href="admin.html">Admin</a></li>
 		</ul>
 	</div>
 </nav>

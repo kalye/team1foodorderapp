@@ -10,6 +10,7 @@
 <title>Thank you</title>
 </head>
 <body><center>
+<br>
 <!--Display error message if error exists -->
 <#if error??>
  <div style="display:inline-block; float:left; color: red;">${message}</div><br>

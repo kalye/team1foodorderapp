@@ -54,7 +54,7 @@ table, th, td {
 		</ul>
 						<ul class="nav navbar-nav">
 			<li class="active"><a
-				href="admin.html">Admin Login</a></li>
+				href="admin.html">Admin</a></li>
 		</ul>
 		<#if createOrUpdate??>
 		
@@ -69,7 +69,7 @@ table, th, td {
 </#if>
 
 <#if createOrUpdate??>
-		 <h1>Create Catagory</h1><br>
+		 <h1>Create Category</h1><br>
 		  <form method="post" action="/team1foodorderapp/catagories?add=true" enctype="multipart/form-data">
 		  	Catagory Name:         <input type="text" value="" name="catagoryName" id="catagoryName" /><br><br>
 		  	Catagory Image:        <input type="file" name="file" id="file" /> <br/>
@@ -112,7 +112,7 @@ table, th, td {
 			 <#list catagories as cat>
 			    <tr>
 			    <td>
-			   		 <div class="w3-content w3-section" onclick="javascript:location.href='/team1foodorderapp/orders?catagoryid=${cat.id?string.computer}';" style="width:600px; height: 200px; background-image: url(/team1foodorderapp/files/${cat.imageUrl}); background-repeat: no-repeat;">
+			   		 <div class="w3-content w3-section" onclick="javascript:location.href='/team1foodorderapp/orders?catagoryid=${cat.id?string.computer}';" style="width:600px; height: 200px; background-image: url(/team1foodorderapp/files/${cat.imageUrl}); background-repeat: no-repeat; background-size: contain; background-position: center; ">
 			    		${cat.name}
 			     	 </div>
 			      

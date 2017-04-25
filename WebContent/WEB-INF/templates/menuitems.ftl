@@ -89,7 +89,7 @@ function updateExternal(id, show){
 		</ul>
 						<ul class="nav navbar-nav">
 			<li class="active"><a
-				href="admin.html">Admin Login</a></li>
+				href="admin.html">Admin</a></li>
 		</ul>
 		<#if addmenuitemtocart??>
 			<div class="shopping-cart" onclick="location.href=&quot;/team1foodorderapp/orders?cartitems=true&quot;"><a href="/team1foodorderapp/orders?cartitems=true">${cart.totalPrice?string.currency}</a></div>
@@ -180,7 +180,7 @@ function updateExternal(id, show){
 	<ul>
 		<li>
 		<form method="post" id=${menuitem.id} action="/team1foodorderapp/orders?addtocart=true&&menuid=${menuitem.id?string.computer}">
-	 					<div style="width:200px; height: 120px; background-image: url(/team1foodorderapp/files/${menuitem.imageUrl}); background-repeat: no-repeat;">
+	 					<div style="width:300px; height: 200px; background-image: url(/team1foodorderapp/files/${menuitem.imageUrl}); background-repeat: no-repeat; background-size: contain; ">
 				     	 </div>
 				     	 <#list catagories as cat>
 				     	 	<#if cat.id==menuitem.categoryId >

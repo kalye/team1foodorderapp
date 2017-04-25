@@ -29,6 +29,10 @@
 			<li class="active"><a
 				href="index.html">Home</a></li>
 		</ul>
+				<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="admin.html">Admin</a></li>
+		</ul>
 		
 	</div>
 	
@@ -36,11 +40,13 @@
 	</div>
 	<center>
 <h1>Thanks for Logging in Admin</h1>
+<br><br>
+<h3>Navigation</h3>
 <br>
-<a href="catagories?createOrUpdate=true">Create Category</a><br>
-<a href="menuitems?create=true">Create Menu Item</a<br>
+<a href="catagories?createOrUpdate=true">Create/Update Category</a><br>
+<a href="menuitems?create=true">Create/Update Menu Item</a<br>
 <br>
-<a href="customizableitems?create=true">Create Custom Item</a><br>
+<a href="customizableitems?create=true">Create/Update Custom Item</a><br>
 
 <br><br>
 <form action="LogoutServlet" method="post">
