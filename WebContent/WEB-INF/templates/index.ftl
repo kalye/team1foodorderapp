@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/team1foodorderapp/css/teamone.css">
+
 <!DOCTYPE html>
 <html>
 <head>

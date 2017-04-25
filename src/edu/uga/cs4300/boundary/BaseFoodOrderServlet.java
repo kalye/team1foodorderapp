@@ -190,8 +190,8 @@ public class BaseFoodOrderServlet extends HttpServlet  {
 	}
 	protected void sendEmailWithNewPassword(Cart cart) throws IOException {
 
-		String from = "UGAClassof2017Team4@gmail.com";
-		String password = "team42017";
+		String from = "team1foodordersystem@gmail.com";
+		String password = "team12017";
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");

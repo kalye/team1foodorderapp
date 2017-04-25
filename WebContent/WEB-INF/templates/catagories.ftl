@@ -112,7 +112,7 @@ table, th, td {
 			 <#list catagories as cat>
 			    <tr>
 			    <td>
-			   		 <div class="w3-content w3-section" onclick="javascript:location.href='/team1foodorderapp/orders?catagoryid=${cat.id?string.computer}';" style="width:200px; height: 90px; background-image: url(/team1foodorderapp/files/${cat.imageUrl}); background-repeat: no-repeat;">
+			   		 <div class="w3-content w3-section" onclick="javascript:location.href='/team1foodorderapp/orders?catagoryid=${cat.id?string.computer}';" style="width:400px; height: 120px; background-image: url(/team1foodorderapp/files/${cat.imageUrl}); background-repeat: no-repeat;">
 			    		${cat.name}
 			     	 </div>
 			      

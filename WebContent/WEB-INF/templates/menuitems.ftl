@@ -180,7 +180,7 @@ function updateExternal(id, show){
 	<ul>
 		<li>
 		<form method="post" id=${menuitem.id} action="/team1foodorderapp/orders?addtocart=true&&menuid=${menuitem.id?string.computer}">
-	 					<div style="width:200px; height: 90px; background-image: url(/team1foodorderapp/files/${menuitem.imageUrl}); background-repeat: no-repeat;">
+	 					<div style="width:200px; height: 120px; background-image: url(/team1foodorderapp/files/${menuitem.imageUrl}); background-repeat: no-repeat;">
 				     	 </div>
 				     	 <#list catagories as cat>
 				     	 	<#if cat.id==menuitem.categoryId >
